@@ -40,8 +40,8 @@ export default async function featuredProductsHandler(
       )
     ).json();
 
-    res.status(StatusCodes.OK).json(result.data.productCollection.items);
+    return res.status(StatusCodes.OK).json(result.data.productCollection.items);
   } catch (e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(e as Error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(e as Error);
   }
 }
