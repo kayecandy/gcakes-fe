@@ -1,13 +1,12 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import {
+  VercelRequest,
+  VercelResponse,
+} from '@vercel/node';
 
 type Data = {
-  name: string
-}
+  name: string;
+};
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  return res.status(200).json({ name: "John Doe" });
 }
