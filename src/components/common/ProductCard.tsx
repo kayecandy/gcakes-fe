@@ -4,7 +4,21 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 import { COLOR_PALLETE } from "../page/ThemeProvider";
 
-const ProductCard: FC = () => {
+/**
+ * Add enum for types
+ */
+
+type ProductCardProps = {
+  imageSrc: string;
+  text: string;
+  price: number;
+  // type: enum for prodct type
+};
+
+/**
+ * TODO: Add ProductCard props
+ */
+const ProductCard: FC<ProductCardProps> = ({ imageSrc, text, price }) => {
   return (
     <Card
       sx={{

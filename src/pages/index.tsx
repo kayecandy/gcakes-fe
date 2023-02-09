@@ -12,6 +12,7 @@ import { Box } from "@mui/system";
 export default function IndexPage() {
   return (
     <>
+      {/* TODO: Need to separate into different section components */}
       <Box
         sx={{
           ...SX_MASKS[1],
@@ -73,6 +74,8 @@ export default function IndexPage() {
         </div>
       </Box>
 
+      {/* TODO: Need to separate into different section components */}
+
       <Box
         sx={{
           ...SX_MASKS[1],
@@ -94,6 +97,7 @@ export default function IndexPage() {
           >
             <Grid container>
               <Grid item xs={4}>
+                {/* TODO: This needs to be its own component */}
                 <LocalShippingOutlined
                   sx={{
                     fontSize: 100,
@@ -150,6 +154,7 @@ export default function IndexPage() {
               }}
               textAlign="center"
             >
+              {/* TODO: Add enum for types */}
               <Button
                 sx={{
                   mx: 1,
