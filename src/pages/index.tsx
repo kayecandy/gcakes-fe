@@ -114,21 +114,21 @@ export default function IndexPage() {
 
             <Grid container>
               <Grid item xs={3}>
-                <ProductCard imageSrc="/cake.PNG"></ProductCard>
+                <ProductCard imageSrc="/cake.PNG" price={299}></ProductCard>
               </Grid>
               <Grid item xs={3}>
-                <ProductCard imageSrc="/cake2.jpeg"></ProductCard>
+                <ProductCard imageSrc="/cake2.jpeg" price={199}></ProductCard>
               </Grid>
               <Grid item xs={3}>
-                <ProductCard imageSrc="/Cake3.png"></ProductCard>
+                <ProductCard imageSrc="/Cake3.png" price={599}></ProductCard>
               </Grid>
               <Grid item xs={3}>
-                <ProductCard imageSrc="/cake4.avif"></ProductCard>
+                <ProductCard imageSrc="/cake4.avif" price={399}></ProductCard>
               </Grid>
             </Grid>
           </Box>
         </Container>
-      </Box>
+      </Box >
     </>
   );
 }
