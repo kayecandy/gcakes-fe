@@ -1,11 +1,16 @@
 import { FC } from 'react';
 
-import { CakeOutlined } from '@mui/icons-material';
+import {
+  CakeOutlined,
+  CloseSharp,
+} from '@mui/icons-material';
 //@ts-ignore
 import {
+  Box,
   Card,
   CardContent,
   CardMedia,
+  Skeleton,
   Typography,
 } from '@mui/material';
 
@@ -25,7 +30,11 @@ type ProductCardProps = {
 /**
  * TODO: Add ProductCard props
  */
-const ProductCard: FC<ProductCardProps> = ({ imageSrc, text, price }) => {
+export const ProductCard: FC<ProductCardProps> = ({
+  imageSrc,
+  text,
+  price,
+}) => {
   return (
     <Card
       sx={{
@@ -54,4 +63,36 @@ const ProductCard: FC<ProductCardProps> = ({ imageSrc, text, price }) => {
   );
 };
 
-export default ProductCard;
+export const ProductCardSkeleton = () => {
+  return (
+    <Box
+      sx={{
+        px: 2,
+      }}
+    >
+      <Skeleton height={250}></Skeleton>
+      <Skeleton></Skeleton>
+      <Skeleton></Skeleton>
+    </Box>
+  );
+};
+
+export const ProductCardError = () => {
+  return (
+    <Box
+      sx={{
+        px: 2,
+        textAlign: "center",
+      }}
+    >
+      <CloseSharp
+        sx={{
+          fontSize: 250,
+          color: COLOR_PALLETE[3],
+        }}
+      ></CloseSharp>
+      <Skeleton></Skeleton>
+      <Skeleton></Skeleton>
+    </Box>
+  );
+};

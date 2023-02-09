@@ -1,11 +1,14 @@
 import { FC } from 'react';
 
 import { SX_MASKS } from '@/components/common/masks';
-import ProductCard from '@/components/common/ProductCard';
+import {
+  ProductCard,
+  ProductCardError,
+  ProductCardSkeleton,
+} from '@/components/common/ProductCard';
 import {
   Box,
   Button,
-  CircularProgress,
   Container,
   Grid,
   Typography,
@@ -17,8 +20,6 @@ import IconCard from './IconCard';
 
 const FeaturedSection: FC = () => {
   const featuredProducts = useFeaturedProducts();
-
-  console.log(featuredProducts);
 
   return (
     <Box
@@ -125,11 +126,21 @@ const FeaturedSection: FC = () => {
             </Button>
           </Box>
 
-          <Grid container>
-            {!featuredProducts ? (
-              <CircularProgress></CircularProgress>
-            ) : (
-              featuredProducts.map((product) => (
+          {featuredProducts.loading ? (
+            <Grid container>
+              <Grid item xs={4}>
+                <ProductCardSkeleton></ProductCardSkeleton>
+              </Grid>
+              <Grid item xs={4}>
+                <ProductCardSkeleton></ProductCardSkeleton>
+              </Grid>
+              <Grid item xs={4}>
+                <ProductCardSkeleton></ProductCardSkeleton>
+              </Grid>
+            </Grid>
+          ) : featuredProducts.value ? (
+            <Grid container>
+              {featuredProducts.value.map((product) => (
                 <Grid key={product.sys.id} item xs={4}>
                   <ProductCard
                     imageSrc={product.image?.url}
@@ -137,9 +148,21 @@ const FeaturedSection: FC = () => {
                     text={product.name}
                   ></ProductCard>
                 </Grid>
-              ))
-            )}
-          </Grid>
+              ))}
+            </Grid>
+          ) : (
+            <Grid container>
+              <Grid item xs={4}>
+                <ProductCardError></ProductCardError>
+              </Grid>
+              <Grid item xs={4}>
+                <ProductCardError></ProductCardError>
+              </Grid>
+              <Grid item xs={4}>
+                <ProductCardError></ProductCardError>
+              </Grid>
+            </Grid>
+          )}
         </Box>
       </Container>
     </Box>
