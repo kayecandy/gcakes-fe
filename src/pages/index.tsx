@@ -1,7 +1,7 @@
 import { SX_MASKS } from "@/components/common/masks";
 import ProductCard from "@/components/common/ProductCard";
 import HeaderSection from "@/components/page/homepage/HeaderSection";
-import { IconCard1, IconCard2, IconCard3, IconCard4 } from "@/components/page/homepage/IconCards";
+import IconCard from "@/components/page/homepage/IconCard";
 import { COLOR_PALLETE } from "@/components/page/ThemeProvider";
 import {
   AddCircleOutline,
@@ -40,20 +40,21 @@ export default function IndexPage() {
             textAlign="center"
           >
             <Grid container>
+
               <Grid item xs={4}>
-                <IconCard1></IconCard1>
+                <IconCard text={"Some shipping text here"} type={"LocalShippingOutlined"}></IconCard>
               </Grid>
 
               <Grid item xs={4}>
-                <IconCard2></IconCard2>
+                <IconCard text={"Some shipping text here"} type={"AddCircleOutline"}></IconCard>
               </Grid>
 
               <Grid item xs={4}>
-                <IconCard3></IconCard3>
+                <IconCard text={"Some shipping text here"} type={"PaymentOutlined"}></IconCard>
               </Grid>
 
               <Grid item xs={4}>
-                <IconCard4></IconCard4>
+                <IconCard text={"Some shipping text here"} type={"CakeOutlined"}></IconCard>
               </Grid>
             </Grid>
           </Box>
