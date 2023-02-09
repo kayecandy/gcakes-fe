@@ -1,5 +1,5 @@
 import { FC } from "react";
-
+//@ts-ignore
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 import { COLOR_PALLETE } from "../page/ThemeProvider";
@@ -10,8 +10,8 @@ import { COLOR_PALLETE } from "../page/ThemeProvider";
 
 type ProductCardProps = {
   imageSrc: string;
-  text: string;
-  price: number;
+  text?: string;
+  price?: number;
   // type: enum for prodct type
 };
 
@@ -26,8 +26,8 @@ const ProductCard: FC<ProductCardProps> = ({ imageSrc, text, price }) => {
       }}
       elevation={0}
     >
-      <CardMedia component="img" image="/Cake3.png"></CardMedia>
-      <CardContent>
+      <CardMedia component="img" image={imageSrc}></CardMedia>
+      <CardContent >
         <Typography variant="body1">Some cake name</Typography>
         <Typography variant="body1" fontWeight={700} color={COLOR_PALLETE[1]}>
           100 Php

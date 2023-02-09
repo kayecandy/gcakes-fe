@@ -1,11 +1,15 @@
 import { SX_MASKS } from "@/components/common/masks";
 import ProductCard from "@/components/common/ProductCard";
+import HeaderSection from "@/components/page/homepage/HeaderSection";
+import { IconCard1, IconCard2, IconCard3, IconCard4 } from "@/components/page/homepage/IconCards";
 import { COLOR_PALLETE } from "@/components/page/ThemeProvider";
 import {
+  AddCircleOutline,
   CakeOutlined,
   LocalShippingOutlined,
   PaymentOutlined,
 } from "@mui/icons-material";
+//@ts-ignore
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
@@ -13,69 +17,9 @@ export default function IndexPage() {
   return (
     <>
       {/* TODO: Need to separate into different section components */}
-      <Box
-        sx={{
-          ...SX_MASKS[1],
-          position: "relative",
-          overflow: "hidden",
-          backgroundImage: "url(cupcake.jpg)",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPositionX: "right",
-          backgroundPositionY: "90%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: 0,
-          height: "80vh",
-          zIndex: 1,
-        }}
-      >
-        <div
-          style={{
-            // flexGrow: 1,
-            backgroundColor: `${COLOR_PALLETE[0]}C0`,
-            // paddingBottom: "3vw",
-            borderRadius: "2rem",
-            borderWidth: "5px",
-            borderColor: COLOR_PALLETE[4],
-            borderStyle: "solid",
-          }}
-        >
-          <Container
-            sx={{
-              textAlign: "center",
-              pb: 10,
-            }}
-            maxWidth="sm"
-          >
-            <Typography
-              sx={{ mt: 3, fontWeight: "700" }}
-              variant="h1"
-              color={COLOR_PALLETE[1]}
-            >
-              Lorem Ipsum
-            </Typography>
-
-            <Box sx={{ py: 2 }}></Box>
-
-            <Typography
-              variant="body1"
-              sx={{
-                lineHeight: "150%",
-                letterSpacing: "1px",
-              }}
-            >
-              Aenean ultrices dui massa, nec convallis neque elementum ac.
-              Pellentesque id molestie ante, tincidunt elementum eros. Mauris
-              eros libero, dignissim at vehicula ac, aliquam sed mi.
-            </Typography>
-          </Container>
-        </div>
-      </Box>
+      <HeaderSection></HeaderSection>
 
       {/* TODO: Need to separate into different section components */}
-
       <Box
         sx={{
           ...SX_MASKS[1],
@@ -97,43 +41,19 @@ export default function IndexPage() {
           >
             <Grid container>
               <Grid item xs={4}>
-                {/* TODO: This needs to be its own component */}
-                <LocalShippingOutlined
-                  sx={{
-                    fontSize: 100,
-                  }}
-                  color="primary"
-                ></LocalShippingOutlined>
-                <Typography variant="h5" color="secondary">
-                  Shipping
-                </Typography>
-                <Typography variant="body1">Some shipping text here</Typography>
+                <IconCard1></IconCard1>
               </Grid>
 
               <Grid item xs={4}>
-                <PaymentOutlined
-                  sx={{
-                    fontSize: 100,
-                  }}
-                  color="primary"
-                ></PaymentOutlined>
-                <Typography variant="h5" color="secondary">
-                  Shipping
-                </Typography>
-                <Typography variant="body1">Some shipping text here</Typography>
+                <IconCard2></IconCard2>
               </Grid>
 
               <Grid item xs={4}>
-                <CakeOutlined
-                  sx={{
-                    fontSize: 100,
-                  }}
-                  color="primary"
-                ></CakeOutlined>
-                <Typography variant="h5" color="secondary">
-                  Cake(?)
-                </Typography>
-                <Typography variant="body1">Some shipping text here</Typography>
+                <IconCard3></IconCard3>
+              </Grid>
+
+              <Grid item xs={4}>
+                <IconCard4></IconCard4>
               </Grid>
             </Grid>
           </Box>
@@ -163,7 +83,7 @@ export default function IndexPage() {
                 variant="contained"
                 disableElevation
                 size="large"
-                // color={}
+              // color={}
               >
                 Cakes
               </Button>
@@ -194,16 +114,16 @@ export default function IndexPage() {
 
             <Grid container>
               <Grid item xs={3}>
-                <ProductCard></ProductCard>
+                <ProductCard imageSrc="/cake.PNG"></ProductCard>
               </Grid>
               <Grid item xs={3}>
-                <ProductCard></ProductCard>
+                <ProductCard imageSrc="/cake2.jpeg"></ProductCard>
               </Grid>
               <Grid item xs={3}>
-                <ProductCard></ProductCard>
+                <ProductCard imageSrc="/Cake3.png"></ProductCard>
               </Grid>
               <Grid item xs={3}>
-                <ProductCard></ProductCard>
+                <ProductCard imageSrc="/cake4.avif"></ProductCard>
               </Grid>
             </Grid>
           </Box>
