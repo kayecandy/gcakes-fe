@@ -1,27 +1,16 @@
-import {
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { FC, useCallback, useEffect, useState } from "react";
 
-import { SX_MASKS } from '@/components/common/masks';
+import { SX_MASKS } from "@/components/common/masks";
 import {
   ProductCard,
   ProductCardError,
   ProductCardSkeleton,
-} from '@/components/common/ProductCard';
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-} from '@mui/material';
+} from "@/components/common/ProductCard";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
-import { COLOR_PALLETE } from '../ThemeProvider';
-import { useFeaturedProducts } from './hooks/useFeaturedProducts';
-import IconCard from './IconCard';
+import { COLOR_PALLETE } from "../ThemeProvider";
+import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
+import IconCard from "./IconCard";
 
 const FeaturedSection: FC = () => {
   const featuredProducts = useFeaturedProducts();
@@ -29,7 +18,11 @@ const FeaturedSection: FC = () => {
   const [activeProductType, setActiveProductType] = useState("cakes");
 
   useEffect(() => {
-    window.setActiveProductType = setActiveProductType;
+    (
+      window as typeof window & {
+        setActiveProductType: typeof setActiveProductType;
+      }
+    ).setActiveProductType = setActiveProductType;
   }, [setActiveProductType]);
 
   const getSelectedProductType = useCallback(
