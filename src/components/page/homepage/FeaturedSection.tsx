@@ -1,4 +1,9 @@
-import { FC } from 'react';
+import {
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 
 import { SX_MASKS } from '@/components/common/masks';
 import {
@@ -20,6 +25,30 @@ import IconCard from './IconCard';
 
 const FeaturedSection: FC = () => {
   const featuredProducts = useFeaturedProducts();
+
+  const [activeProductType, setActiveProductType] = useState("cakes");
+
+  useEffect(() => {
+    window.setActiveProductType = setActiveProductType;
+  }, [setActiveProductType]);
+
+  const getSelectedProductType = useCallback(
+    (key: string) => {
+      if (activeProductType === key) {
+        return "contained";
+      }
+      return "outlined";
+    },
+    [activeProductType]
+  );
+
+  useEffect(() => {
+    console.log("Featured products changed", featuredProducts);
+  }, [featuredProducts]);
+
+  useEffect(() => {
+    console.log("here is active product type", activeProductType);
+  }, [activeProductType]);
 
   return (
     <Box
@@ -88,13 +117,13 @@ const FeaturedSection: FC = () => {
             }}
             textAlign="center"
           >
-            {/* TODO: Add enum for types */}
+            {/* TODO: Add onClick event to set activeProductTypeState*/}
             <Button
               sx={{
                 mx: 1,
-                backgroundColor: COLOR_PALLETE[3],
+                // backgroundColor: COLOR_PALLETE[3],
               }}
-              variant="contained"
+              variant={getSelectedProductType("cakes")}
               disableElevation
               size="large"
               // color={}
@@ -107,7 +136,7 @@ const FeaturedSection: FC = () => {
                 mx: 1,
                 // backgroundColor: COLOR_PALLETE[3],
               }}
-              variant="outlined"
+              variant={getSelectedProductType("cupcakes")}
               disableElevation
               size="large"
             >
@@ -118,7 +147,7 @@ const FeaturedSection: FC = () => {
                 mx: 1,
                 // backgroundColor: COLOR_PALLETE[3],
               }}
-              variant="outlined"
+              variant={getSelectedProductType("decorated_cookies")}
               disableElevation
               size="large"
             >
@@ -126,6 +155,18 @@ const FeaturedSection: FC = () => {
             </Button>
           </Box>
 
+          <Button
+            onClick={() => {
+              setActiveProductType(`sample product type ${Math.random()}`);
+            }}
+          >
+            Sample button
+          </Button>
+
+          {/* Shorthand if statement */}
+          {true ? <>value if true</> : <>value if false</>}
+
+          {/* This is how it looks like when loading */}
           {featuredProducts.loading ? (
             <Grid container>
               <Grid item xs={4}>
@@ -138,7 +179,8 @@ const FeaturedSection: FC = () => {
                 <ProductCardSkeleton></ProductCardSkeleton>
               </Grid>
             </Grid>
-          ) : featuredProducts.value ? (
+          ) : // How it looks like when there's a value
+          featuredProducts.value ? (
             <Grid container>
               {featuredProducts.value.map((product) => (
                 <Grid key={product.sys.id} item xs={4}>
@@ -151,6 +193,7 @@ const FeaturedSection: FC = () => {
               ))}
             </Grid>
           ) : (
+            // This is what it looks like when it errored
             <Grid container>
               <Grid item xs={4}>
                 <ProductCardError></ProductCardError>

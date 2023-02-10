@@ -40,6 +40,8 @@ export default async function featuredProductsHandler(
       )
     ).json();
 
+    console.log("I am server side!");
+
     return res.status(StatusCodes.OK).json(result.data.productCollection.items);
   } catch (e) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(e as Error);

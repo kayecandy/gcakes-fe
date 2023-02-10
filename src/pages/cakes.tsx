@@ -1,5 +1,9 @@
-import LoremIpsum from "@/components/common/LoremIpsum";
-import { Container, Typography } from "@mui/material";
+import LoremIpsum from '@/components/common/LoremIpsum';
+import { CakesSection } from '@/components/page/cakes/CakesSection';
+import {
+  Container,
+  Typography,
+} from '@mui/material';
 
 export default function CakePage() {
   return (
@@ -7,6 +11,16 @@ export default function CakePage() {
       <Typography sx={{ mb: 3 }} variant="h2">
         Cake page!
       </Typography>
+
+      <CakesSection></CakesSection>
+
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
 
       <LoremIpsum></LoremIpsum>
     </Container>
