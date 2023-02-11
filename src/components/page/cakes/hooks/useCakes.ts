@@ -20,7 +20,6 @@ export const useCakes = () => {
   useEffect(() => {
     const t = fetch("/api/products/cakes")
       .then(async (res) => {
-        console.log("res is " + res)
 
         if (!res.ok) {
           throw await res.json();
