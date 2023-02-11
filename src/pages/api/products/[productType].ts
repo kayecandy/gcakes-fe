@@ -1,3 +1,5 @@
+import { fetchGQL } from '@/components/api/contentful';
+import { Product } from '@/types/product';
 import { StatusCodes } from 'http-status-codes';
 import {
   NextApiRequest,
@@ -11,13 +13,38 @@ import {
  * */
 export default async function featuredProductsHandler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<Product | Error>
 ) {
   try {
-    return res.status(StatusCodes.OK).json({
-      message: "Hello world!",
-      productType: req.query.productType ?? "",
-    });
+    const result = await (
+      await fetchGQL(
+        JSON.stringify({
+          query: `
+            query ($productType: String) {
+              productCollection(where: { productType: $productType }) {
+                items {
+                  sys {
+                    id
+                  }
+                  name
+                  price
+                  description
+                  image {
+                    url
+                  }
+                  productType
+                }
+              }
+            }
+          `,
+          variables: {
+            productType: "cakes", // Still need to change this one
+          },
+        })
+      )
+    ).json()
+
+    return res.status(StatusCodes.OK).json(result.data.productCollection.items);
   } catch (e) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(e as Error);
   }
