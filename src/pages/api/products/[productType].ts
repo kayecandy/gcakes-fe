@@ -11,11 +11,17 @@ import {
  *
  * Reference is pages/api/products/featured/[productType].ts
  * */
-export default async function featuredProductsHandler(
+export default async function productsHandler(
   req: NextApiRequest,
   res: NextApiResponse<Product | Error>
 ) {
   try {
+    /* Grabs the productType at the end of the url */
+    var url = req.url
+    var type = url?.split("/")[3]
+    //console.log("req url is " + url)
+    //console.log(type)
+
     const result = await (
       await fetchGQL(
         JSON.stringify({
@@ -38,7 +44,7 @@ export default async function featuredProductsHandler(
             }
           `,
           variables: {
-            productType: "cakes", // Still need to change this one
+            productType: type,
           },
         })
       )

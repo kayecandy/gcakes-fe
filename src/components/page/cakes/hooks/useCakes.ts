@@ -17,11 +17,11 @@ export const useCakes = () => {
     loading: true,
   });
 
-  console.log("Use Cakes! " + setCakes);
-
   useEffect(() => {
     const t = fetch("/api/products/cakes")
       .then(async (res) => {
+        console.log("res is " + res)
+
         if (!res.ok) {
           throw await res.json();
         }
