@@ -1,11 +1,8 @@
-import { StatusCodes } from 'http-status-codes';
-import {
-  NextApiRequest,
-  NextApiResponse,
-} from 'next';
+import { StatusCodes } from "http-status-codes";
+import { NextApiRequest, NextApiResponse } from "next";
 
-import { fetchGQL } from '@/components/api/contentful';
-import { Product } from '@/types/product';
+import { fetchGQL } from "@/components/api/contentful";
+import { Product } from "@/types/product";
 
 export default async function featuredProductsHandler(
   req: NextApiRequest,
@@ -34,6 +31,11 @@ export default async function featuredProductsHandler(
 }
 `,
           variables: {
+            /**
+             * TODO: Need variable productType
+             *
+             * Use /pages/api/products/[productType].ts as reference
+             */
             productType: "cakes",
           },
         })
