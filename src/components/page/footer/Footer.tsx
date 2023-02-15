@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { SX_MASKS } from "@/components/common/masks";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
@@ -30,6 +31,7 @@ export default function Footer() {
         px: 2,
         backgroundColor: COLOR_PALLETE[4],
         flexShrink: 0,
+        ...SX_MASKS[1]("top"),
       }}
     >
       <Container maxWidth="sm">
