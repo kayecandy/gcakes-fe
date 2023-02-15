@@ -11,7 +11,7 @@ open "https://drive.google.com/u/2/uc?id=1agXtg0K-1PXcH26_tB8Na-Yue0fk1u85&expor
 For windows users
 
 ```bash
-start open "https://drive.google.com/u/2/uc?id=1agXtg0K-1PXcH26_tB8Na-Yue0fk1u85&export=download"
+start "https://drive.google.com/u/2/uc?id=1agXtg0K-1PXcH26_tB8Na-Yue0fk1u85&export=download"
 ```
 
 > File is uploaded in the shared Google Drive
