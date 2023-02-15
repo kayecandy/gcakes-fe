@@ -36,7 +36,7 @@ export default async function featuredProductsHandler(
              *
              * Use /pages/api/products/[productType].ts as reference
              */
-            productType: "cakes",
+            productType: req.query.productType,
           },
         })
       )
