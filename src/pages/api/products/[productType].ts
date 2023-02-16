@@ -1,10 +1,8 @@
-import { fetchGQL } from '@/components/api/contentful';
-import { Product } from '@/types/product';
-import { StatusCodes } from 'http-status-codes';
-import {
-  NextApiRequest,
-  NextApiResponse,
-} from 'next';
+import { StatusCodes } from "http-status-codes";
+import { NextApiRequest, NextApiResponse } from "next";
+
+import { fetchGQL } from "@/components/api/contentful";
+import { Product } from "@/types/product";
 
 /**
  * TASK: /api/products/[productType]
@@ -17,10 +15,15 @@ export default async function productsHandler(
 ) {
   try {
     /* Grabs the productType at the end of the url */
-    var url = req.url
-    var type = url?.split("/")[3]
+    var url = req.url;
+    var type = url?.split("/")[3];
     //console.log("req url is " + url)
     //console.log(type)
+
+    /**
+     * Gets productType in url
+     */
+    console.log(req.query.productType);
 
     const result = await (
       await fetchGQL(
@@ -48,7 +51,7 @@ export default async function productsHandler(
           },
         })
       )
-    ).json()
+    ).json();
 
     return res.status(StatusCodes.OK).json(result.data.productCollection.items);
   } catch (e) {
