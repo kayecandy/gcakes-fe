@@ -22,7 +22,7 @@ export const CakesSection: FC = () => {
 
       {/* Add cakes component here */}
 
-      {cakes.loading ? (
+      {/* {cakes.loading ? (
         <>Add cakes loading view here</>
       ) : cakes.value ? (
         <Grid container spacing={2} columns={{ md: 12 }} sx={{
