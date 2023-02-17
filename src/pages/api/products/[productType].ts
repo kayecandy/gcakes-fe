@@ -14,17 +14,6 @@ export default async function productsHandler(
   res: NextApiResponse<Product | Error>
 ) {
   try {
-    /* Grabs the productType at the end of the url */
-    var url = req.url;
-    var type = url?.split("/")[3];
-    //console.log("req url is " + url)
-    //console.log(type)
-
-    /**
-     * Gets productType in url
-     */
-    console.log(req.query.productType);
-
     const result = await (
       await fetchGQL(
         JSON.stringify({
@@ -47,7 +36,7 @@ export default async function productsHandler(
             }
           `,
           variables: {
-            productType: type,
+            productType: req.query.productType,
           },
         })
       )
