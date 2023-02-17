@@ -1,15 +1,26 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import {
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 
 import {
   ProductCard,
   ProductCardError,
   ProductCardSkeleton,
-} from "@/components/common/ProductCard";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+} from '@/components/common/ProductCard';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+} from '@mui/material';
 
-import { COLOR_PALLETE } from "../ThemeProvider";
-import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
-import IconCard from "./IconCard";
+import { COLOR_PALLETE } from '../ThemeProvider';
+import { useFeaturedProducts } from './hooks/useFeaturedProducts';
+import IconCard from './IconCard';
 
 const FeaturedSection: FC = () => {
   const featuredProducts = useFeaturedProducts();
@@ -45,6 +56,7 @@ const FeaturedSection: FC = () => {
   return (
     <Box
       sx={{
+        
         backgroundColor: "white",
       }}
     >
@@ -108,7 +120,7 @@ const FeaturedSection: FC = () => {
             }}
             textAlign="center"
           >
-            {/* TODO: Add onClick event to set activeProductTypeState*/}
+            /*{ TODO: Add onClick event to set activeProductTypeState}*/
             <Button
               sx={{
                 mx: 1,
@@ -117,6 +129,7 @@ const FeaturedSection: FC = () => {
               variant={getSelectedProductType("cakes")}
               disableElevation
               size="large"
+			  onClick = {() => {setActiveProductType(this.variant)}}
               // color={}
             >
               Cakes
@@ -130,6 +143,7 @@ const FeaturedSection: FC = () => {
               variant={getSelectedProductType("cupcakes")}
               disableElevation
               size="large"
+			  onClick = {() => {setActiveProductType(this.variant)}}
             >
               Cupcakes
             </Button>
@@ -141,6 +155,7 @@ const FeaturedSection: FC = () => {
               variant={getSelectedProductType("decorated_cookies")}
               disableElevation
               size="large"
+			  onClick = {() => {setActiveProductType(this.variant)}}
             >
               Decorated Cookies
             </Button>
