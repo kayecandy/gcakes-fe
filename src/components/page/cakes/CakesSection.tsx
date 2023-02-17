@@ -33,7 +33,7 @@ export const CakesSection: FC = () => {
 
       {/* Add cakes component here */}
 
-      {cakes.loading ? (
+      {/* {cakes.loading ? (
         <>Add cakes loading view here</>
 
 
