@@ -4,9 +4,9 @@ export type User = {
     };
     userid: string;
     password: string;
-    firstname: string;
-    lastname: string;
-    email: string;
-    address: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    address?: string;
     admin: boolean;
 };

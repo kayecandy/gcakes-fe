@@ -1,7 +1,3 @@
-/*
-https://fusionauth.io/docs/v1/tech/apis/registrations#retrieve-a-user-registration
-*/
-
 import { fetchGQL } from '@/components/api/contentful';
 import { User } from '@/types/user';
 import { StatusCodes } from 'http-status-codes';
@@ -19,27 +15,24 @@ export default async function usersHandler(
             await fetchGQL(
                 JSON.stringify({
                     query: `
-                        query ($userId: String) {
-                            userCollection(where: { admin: false }) {
+                        query {
+                            userCollection {
                                 items {
                                     userid
                                     password
-                                    firstname
-                                    lastname
+                                    firstName
+                                    lastName
                                     email
                                     address
                                 }
                             }
                         }
                     `,
-                    variables: {
-                        userId: req.query.userId,
-                    },
                 })
             )
         ).json()
 
-        return res.status(StatusCodes.OK).json(result.data.userCollection);
+        return res.status(StatusCodes.OK).json(result.data.userCollection.items);
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(e as Error);
     }
