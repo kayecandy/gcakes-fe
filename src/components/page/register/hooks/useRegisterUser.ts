@@ -1,13 +1,15 @@
 import {
     useState,
     useEffect,
+    SetStateAction,
+    Dispatch,
 } from "react";
 
 import { ApiResponse } from "@/types/api-response";
 import { User } from "@/types/user";
 
 
-export const useRegisterUser = () => {
+export const useRegisterUser = (): [User, Dispatch<SetStateAction<User>>] => {
     const [registerUser, setRegisterUser] = useState<
         ApiResponse<User[]>
     >({
@@ -15,9 +17,14 @@ export const useRegisterUser = () => {
     });
 
     useEffect(() => {
-        const t = fetch("/api/users/register/???") //
+        const t = fetch("/api/users/register/user")
 
     }, []);
 
-    return registerUser;
+    /*
+    useEffect(() => {
+
+    }, [registerUser])*/
+
+    return [registerUser, setRegisterUser];
 }
