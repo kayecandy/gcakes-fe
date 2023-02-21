@@ -1,6 +1,5 @@
 import { FC, useCallback, useEffect, useState } from "react";
 
-import { SX_MASKS } from "@/components/common/masks";
 import {
   ProductCard,
   ProductCardError,
@@ -46,7 +45,6 @@ const FeaturedSection: FC = () => {
   return (
     <Box
       sx={{
-        ...SX_MASKS[1],
         backgroundColor: "white",
       }}
     >

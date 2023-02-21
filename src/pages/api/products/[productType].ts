@@ -1,10 +1,8 @@
-import { fetchGQL } from '@/components/api/contentful';
-import { Product } from '@/types/product';
-import { StatusCodes } from 'http-status-codes';
-import {
-  NextApiRequest,
-  NextApiResponse,
-} from 'next';
+import { StatusCodes } from "http-status-codes";
+import { NextApiRequest, NextApiResponse } from "next";
+
+import { fetchGQL } from "@/components/api/contentful";
+import { Product } from "@/types/product";
 
 /**
  * TASK: /api/products/[productType]
@@ -42,7 +40,7 @@ export default async function productsHandler(
           },
         })
       )
-    ).json()
+    ).json();
 
     return res.status(StatusCodes.OK).json(result.data.productCollection.items);
   } catch (e) {

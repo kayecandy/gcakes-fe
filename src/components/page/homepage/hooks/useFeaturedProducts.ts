@@ -3,6 +3,7 @@ import {
   useState,
 } from 'react';
 
+import { GET_FEATURED_PRODUCTS_URL } from '@/components/common/urls';
 import { ApiResponse } from '@/types/api-response';
 import { Product } from '@/types/product';
 
@@ -19,7 +20,7 @@ export const useFeaturedProducts = () => {
   console.log("I am client side");
 
   useEffect(() => {
-    const t = fetch("/api/products/featured/cakes")
+    const t = fetch(GET_FEATURED_PRODUCTS_URL("cakes"))
       .then(async (res) => {
         if (!res.ok) {
           throw await res.json();

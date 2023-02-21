@@ -1,10 +1,8 @@
-import {
-  useState,
-  useEffect,
-} from 'react';
+import { useEffect, useState } from "react";
 
-import { ApiResponse } from '@/types/api-response';
-import { Product } from '@/types/product';
+import { GET_CAKES_URL } from "@/components/common/urls";
+import { ApiResponse } from "@/types/api-response";
+import { Product } from "@/types/product";
 
 /**
  * Use useFeaturedProducts as sample
@@ -12,15 +10,13 @@ import { Product } from '@/types/product';
  *
  */
 export const useCakes = () => {
-  const [cakes, setCakes] = useState<ApiResponse<Product>
-  >({
+  const [cakes, setCakes] = useState<ApiResponse<Product>>({
     loading: true,
   });
 
   useEffect(() => {
-    const t = fetch("/api/products/cakes")
+    const t = fetch(GET_CAKES_URL)
       .then(async (res) => {
-
         if (!res.ok) {
           throw await res.json();
         }

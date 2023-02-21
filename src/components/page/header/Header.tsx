@@ -30,7 +30,7 @@ export default function Header(props: HeaderProps) {
         // background: "white",
         position: "relative",
         zIndex: 10000,
-        ...SX_MASKS[0],
+        ...SX_MASKS[0]("bottom"),
       }}
     >
       <Container
@@ -45,7 +45,7 @@ export default function Header(props: HeaderProps) {
           }}
         >
           <Link href="/">
-            <img src="logo.png" alt="GCakes"></img>
+            <img src="/logo.png" alt="GCakes"></img>
           </Link>
 
           <Menu></Menu>

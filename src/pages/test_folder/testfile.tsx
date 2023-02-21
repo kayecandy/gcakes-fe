@@ -1,13 +1,8 @@
-import LoremIpsum from '@/components/common/LoremIpsum';
-import { useSample } from '@/components/page/homepage/hooks/useSample';
-import { AccessTimeFilled } from '@mui/icons-material';
-import {
-  Button,
-  Grid,
-  Skeleton,
-  Typography,
-} from '@mui/material';
-import { Container } from '@mui/system';
+import LoremIpsum from "@/components/common/LoremIpsum";
+import { useSample } from "@/components/page/homepage/hooks/useSample";
+import { AccessTimeFilled } from "@mui/icons-material";
+import { Button, Grid, Skeleton, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 
 export default function TestFilePage() {
   const [value, setValue] = useSample();
@@ -18,6 +13,7 @@ export default function TestFilePage() {
         maxWidth="sm"
         sx={{
           pt: 10,
+          pb: 10,
         }}
       >
         <Grid container>
