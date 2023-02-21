@@ -11,8 +11,8 @@ export default function RegisterPage() {
                 }}
                 maxWidth="lg"
             >
-                <Typography sx={{ mb: 3 }} variant="h2">
-                    Testing Register Page!
+                <Typography sx={{ mb: 3 }} variant="h3">
+                    Test Page for Register API
                 </Typography>
                 <RegisterSection></RegisterSection>
             </Container>
