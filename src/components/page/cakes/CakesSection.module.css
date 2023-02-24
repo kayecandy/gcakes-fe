@@ -2,7 +2,6 @@
     display: flex;
     flex-wrap: wrap;
     background-color: rgb(255, 218, 224);
-    padding: 10px 10px 10px 10px;
 }
 
 .item {
@@ -12,22 +11,17 @@
 
 .itemImg {
     width: 100%;
-    height: 250px;
+    height: 100%;
 }
 
 .btn {
-    width: 100%;
-    height: 15%;
-    padding: 10px 10px 10px 10px;
-    font-size: large;
-    text-align: left;
+    width: 100px;
+    height: 100px;
 }
 
 .btnImg {
     object-fit: contain;
-    width: 1em;
-    height: 1em;
-    float: right;
-    width: 200px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
+    margin-left: 10px;
 }
