@@ -9,3 +9,5 @@ export type Product = {
     url: string;
   } | null;
 };
+
+export type ProductTypes = "cakes" | "cupcakes" | "decorated_cookies";

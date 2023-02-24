@@ -1,31 +1,22 @@
-import {
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { FC, useCallback, useEffect, useState } from "react";
 
 import {
   ProductCard,
   ProductCardError,
   ProductCardSkeleton,
-} from '@/components/common/ProductCard';
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-} from '@mui/material';
+} from "@/components/common/ProductCard";
+import { ProductTypes } from "@/types/product";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
-import { COLOR_PALLETE } from '../ThemeProvider';
-import { useFeaturedProducts } from './hooks/useFeaturedProducts';
-import IconCard from './IconCard';
+import { COLOR_PALLETE } from "../ThemeProvider";
+import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
+import IconCard from "./IconCard";
 
 const FeaturedSection: FC = () => {
   const featuredProducts = useFeaturedProducts();
 
-  const [activeProductType, setActiveProductType] = useState("cakes");
+  const [activeProductType, setActiveProductType] =
+    useState<ProductTypes>("cakes");
 
   useEffect(() => {
     (
@@ -36,7 +27,7 @@ const FeaturedSection: FC = () => {
   }, [setActiveProductType]);
 
   const getSelectedProductType = useCallback(
-    (key: string) => {
+    (key: ProductTypes) => {
       if (activeProductType === key) {
         return "contained";
       }
@@ -56,7 +47,6 @@ const FeaturedSection: FC = () => {
   return (
     <Box
       sx={{
-        
         backgroundColor: "white",
       }}
     >
@@ -120,7 +110,6 @@ const FeaturedSection: FC = () => {
             }}
             textAlign="center"
           >
-            /*{ TODO: Add onClick event to set activeProductTypeState}*/
             <Button
               sx={{
                 mx: 1,
@@ -129,7 +118,9 @@ const FeaturedSection: FC = () => {
               variant={getSelectedProductType("cakes")}
               disableElevation
               size="large"
-			  onClick = {() => {setActiveProductType(this.variant)}}
+              onClick={() => {
+                setActiveProductType("cakes");
+              }}
               // color={}
             >
               Cakes
@@ -143,7 +134,9 @@ const FeaturedSection: FC = () => {
               variant={getSelectedProductType("cupcakes")}
               disableElevation
               size="large"
-			  onClick = {() => {setActiveProductType(this.variant)}}
+              onClick={() => {
+                setActiveProductType("cupcakes");
+              }}
             >
               Cupcakes
             </Button>
@@ -155,19 +148,13 @@ const FeaturedSection: FC = () => {
               variant={getSelectedProductType("decorated_cookies")}
               disableElevation
               size="large"
-			  onClick = {() => {setActiveProductType(this.variant)}}
+              onClick={() => {
+                setActiveProductType("decorated_cookies");
+              }}
             >
               Decorated Cookies
             </Button>
           </Box>
-
-          <Button
-            onClick={() => {
-              setActiveProductType(`sample product type ${Math.random()}`);
-            }}
-          >
-            Sample button
-          </Button>
 
           {/* Shorthand if statement */}
           {true ? <>value if true</> : <>value if false</>}
