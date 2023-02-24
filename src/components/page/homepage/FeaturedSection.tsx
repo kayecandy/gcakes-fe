@@ -13,10 +13,10 @@ import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
 import IconCard from "./IconCard";
 
 const FeaturedSection: FC = () => {
-  const featuredProducts = useFeaturedProducts();
-
   const [activeProductType, setActiveProductType] =
     useState<ProductTypes>("cakes");
+
+  const featuredProducts = useFeaturedProducts(activeProductType);
 
   useEffect(() => {
     (
@@ -53,13 +53,13 @@ const FeaturedSection: FC = () => {
       <Container
         sx={{
           pt: 13,
-          pb: 5,
+          pb: 13,
         }}
         maxWidth="lg"
       >
         <Box
           sx={{
-            mb: 8,
+            mb: 13,
           }}
           textAlign="center"
         >
@@ -84,13 +84,6 @@ const FeaturedSection: FC = () => {
                 type={"PaymentOutlined"}
               ></IconCard>
             </Grid>
-
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"CakeOutlined"}
-              ></IconCard>
-            </Grid>
           </Grid>
         </Box>
         <Box>
@@ -106,7 +99,7 @@ const FeaturedSection: FC = () => {
           <Box
             sx={{
               mt: 2,
-              mb: 4,
+              mb: 10,
             }}
             textAlign="center"
           >
@@ -156,9 +149,6 @@ const FeaturedSection: FC = () => {
             </Button>
           </Box>
 
-          {/* Shorthand if statement */}
-          {true ? <>value if true</> : <>value if false</>}
-
           {/* This is how it looks like when loading */}
           {featuredProducts.loading ? (
             <Grid container>
@@ -175,7 +165,7 @@ const FeaturedSection: FC = () => {
           ) : // How it looks like when there's a value
           featuredProducts.value ? (
             <Grid container>
-              {featuredProducts.value.map((product) => (
+              {featuredProducts.value.slice(0, 3).map((product) => (
                 <Grid key={product.sys.id} item xs={4}>
                   <ProductCard
                     imageSrc={product.image?.url}

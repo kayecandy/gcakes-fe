@@ -1,26 +1,25 @@
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from "react";
 
-import { GET_FEATURED_PRODUCTS_URL } from '@/components/common/urls';
-import { ApiResponse } from '@/types/api-response';
-import { Product } from '@/types/product';
+import { GET_FEATURED_PRODUCTS_URL } from "@/components/common/urls";
+import { ApiResponse } from "@/types/api-response";
+import { Product, ProductTypes } from "@/types/product";
 
 /**
  * Use this as template for api integration
  */
-export const useFeaturedProducts = () => {
+export const useFeaturedProducts = (productType: ProductTypes) => {
   const [featuredProducts, setFeaturedProducts] = useState<
     ApiResponse<Product[]>
   >({
     loading: true,
   });
 
-  console.log("I am client side");
-
   useEffect(() => {
-    const t = fetch(GET_FEATURED_PRODUCTS_URL("cakes"))
+    setFeaturedProducts({
+      loading: true,
+    });
+
+    fetch(GET_FEATURED_PRODUCTS_URL(productType))
       .then(async (res) => {
         if (!res.ok) {
           throw await res.json();
@@ -43,7 +42,7 @@ export const useFeaturedProducts = () => {
           error,
         });
       });
-  }, []);
+  }, [productType]);
 
   return featuredProducts;
 };
