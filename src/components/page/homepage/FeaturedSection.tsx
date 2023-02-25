@@ -9,7 +9,6 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
 import { COLOR_PALLETE } from "../ThemeProvider";
 import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
-import IconCard from "./IconCard";
 
 const FeaturedSection: FC = () => {
   const featuredProducts = useFeaturedProducts();
@@ -50,47 +49,10 @@ const FeaturedSection: FC = () => {
     >
       <Container
         sx={{
-          pt: 13,
           pb: 5,
         }}
         maxWidth="lg"
       >
-        <Box
-          sx={{
-            mb: 8,
-          }}
-          textAlign="center"
-        >
-          <Grid container>
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"LocalShippingOutlined"}
-              ></IconCard>
-            </Grid>
-
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"AddCircleOutline"}
-              ></IconCard>
-            </Grid>
-
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"PaymentOutlined"}
-              ></IconCard>
-            </Grid>
-
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"CakeOutlined"}
-              ></IconCard>
-            </Grid>
-          </Grid>
-        </Box>
         <Box>
           <Typography
             variant="h3"
