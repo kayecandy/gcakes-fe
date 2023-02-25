@@ -51,11 +51,41 @@ export const CakesSection: FC = () => {
         </div>
         <div className={style.item}>
           <img className={style.itemImg} src="Cake3.png" alt="item 2" />
-          <button>Button 2</button>
+          <button className={style.btn}>
+            Item 2
+            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
+          </button>
         </div>
         <div className={style.item}>
           <img className={style.itemImg} src="Cake3.png" alt="item 3" />
-          <button>Button 3</button>
+          <button className={style.btn}>
+            Item 3
+            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
+          </button>
+        </div>
+      </div>
+
+      <div className={style.container}>
+        <div className={style.item}>
+          <img className={style.itemImg} src="Cake3.png" alt="item 1" />
+          <button className={style.btn}>
+            Item 1
+            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
+          </button>
+        </div>
+        <div className={style.item}>
+          <img className={style.itemImg} src="Cake3.png" alt="item 2" />
+          <button className={style.btn}>
+            Item 2
+            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
+          </button>
+        </div>
+        <div className={style.item}>
+          <img className={style.itemImg} src="Cake3.png" alt="item 3" />
+          <button className={style.btn}>
+            Item 3
+            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
+          </button>
         </div>
       </div>
 
