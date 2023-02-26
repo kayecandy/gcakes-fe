@@ -1,9 +1,12 @@
 import { FC } from 'react';
 
 import { Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 import { Container } from '@mui/system';
 
-import style from './CakesSection.module.css';
+import CakesComponent from './CakesComponent';
 import { useCakes } from './hooks/useCakes';
 
 /**
@@ -12,7 +15,44 @@ import { useCakes } from './hooks/useCakes';
 export const CakesSection: FC = () => {
   const cakes = useCakes();
 
-  console.log(cakes);
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  }));
+
+  const testCakeData = [
+    {
+      cakeName: "Test Cake 1",
+      imageName: "Test Image 1",
+    },
+    {
+      cakeName: "Test Cake 2",
+      imageName: "Test Image 2",
+    },
+    {
+      cakeName: "Test Cake 3",
+      imageName: "Test Image 3",
+    },
+    {
+      cakeName: "Test Cake 4",
+      imageName: "Test Image 4",
+    },
+    {
+      cakeName: "Test Cake 5",
+      imageName: "Test Image 5",
+    },
+    {
+      cakeName: "Test Cake 6",
+      imageName: "Test Image 6",
+    },
+    {
+      cakeName: "Test Cake 7",
+      imageName: "Test Image 7",
+    },
+  ];
 
   return (
     <Container maxWidth="xl">
@@ -37,7 +77,39 @@ export const CakesSection: FC = () => {
         <>Add cakes error component here</>
       )} */}
 
-      <div className={style.container}>
+      <Grid
+        container
+        spacing={2}
+        columns={{ md: 12 }}
+        sx={{
+          bgcolor: "#f9e4e4",
+        }}
+      >
+        {testCakeData.map((item) => (
+          <CakesComponent
+            key={item.cakeName}
+            cakeName={item.cakeName}
+            imageName={item.imageName}
+          />
+        ))}
+      </Grid>
+
+      {/* <Grid container spacing={2} columns={{ md: 12 }}>
+        <Grid item md={4}>
+          <Item>md=4</Item>
+        </Grid>
+        <Grid item md={4}>
+          <Item>md=4</Item>
+        </Grid>
+        <Grid item md={4}>
+          <Item>md=4</Item>
+        </Grid>
+        <Grid item md={12}>
+          <Item>md=12</Item>
+        </Grid>
+      </Grid> */}
+
+      {/* <div className={style.container}>
         <div className={style.item}>
           <img className={style.itemImg} src="Cake3.png" alt="item 1" />
           <button className={style.btn}>
@@ -83,7 +155,7 @@ export const CakesSection: FC = () => {
             <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
           </button>
         </div>
-      </div>
+      </div> */}
     </Container>
   );
 };
