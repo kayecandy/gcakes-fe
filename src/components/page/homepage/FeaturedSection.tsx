@@ -63,7 +63,8 @@ const FeaturedSection: FC = () => {
           }}
           textAlign="center"
         >
-          <Grid container>
+          {/* Errored */}
+          {/* <Grid container>
             <Grid item xs={4}>
               <IconCard
                 text={"Some shipping text here"}
@@ -84,7 +85,7 @@ const FeaturedSection: FC = () => {
                 type={"PaymentOutlined"}
               ></IconCard>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Box>
         <Box>
           <Typography
@@ -114,7 +115,7 @@ const FeaturedSection: FC = () => {
               onClick={() => {
                 setActiveProductType("cakes");
               }}
-              // color={}
+            // color={}
             >
               Cakes
             </Button>
@@ -163,32 +164,32 @@ const FeaturedSection: FC = () => {
               </Grid>
             </Grid>
           ) : // How it looks like when there's a value
-          featuredProducts.value ? (
-            <Grid container>
-              {featuredProducts.value.slice(0, 3).map((product) => (
-                <Grid key={product.sys.id} item xs={4}>
-                  <ProductCard
-                    imageSrc={product.image?.url}
-                    price={product.price}
-                    text={product.name}
-                  ></ProductCard>
+            featuredProducts.value ? (
+              <Grid container>
+                {featuredProducts.value.slice(0, 3).map((product) => (
+                  <Grid key={product.sys.id} item xs={4}>
+                    <ProductCard
+                      imageSrc={product.image?.url}
+                      price={product.price}
+                      text={product.name}
+                    ></ProductCard>
+                  </Grid>
+                ))}
+              </Grid>
+            ) : (
+              // This is what it looks like when it errored
+              <Grid container>
+                <Grid item xs={4}>
+                  <ProductCardError></ProductCardError>
                 </Grid>
-              ))}
-            </Grid>
-          ) : (
-            // This is what it looks like when it errored
-            <Grid container>
-              <Grid item xs={4}>
-                <ProductCardError></ProductCardError>
+                <Grid item xs={4}>
+                  <ProductCardError></ProductCardError>
+                </Grid>
+                <Grid item xs={4}>
+                  <ProductCardError></ProductCardError>
+                </Grid>
               </Grid>
-              <Grid item xs={4}>
-                <ProductCardError></ProductCardError>
-              </Grid>
-              <Grid item xs={4}>
-                <ProductCardError></ProductCardError>
-              </Grid>
-            </Grid>
-          )}
+            )}
         </Box>
       </Container>
     </Box>
