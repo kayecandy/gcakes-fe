@@ -5,15 +5,18 @@ import {
   ProductCardError,
   ProductCardSkeleton,
 } from "@/components/common/ProductCard";
+import { ProductTypes } from "@/types/product";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
 import { COLOR_PALLETE } from "../ThemeProvider";
 import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
+import IconCard from "./IconCard";
 
 const FeaturedSection: FC = () => {
-  const featuredProducts = useFeaturedProducts();
+  const [activeProductType, setActiveProductType] =
+    useState<ProductTypes>("cakes");
 
-  const [activeProductType, setActiveProductType] = useState("cakes");
+  const featuredProducts = useFeaturedProducts(activeProductType);
 
   useEffect(() => {
     (
@@ -24,7 +27,7 @@ const FeaturedSection: FC = () => {
   }, [setActiveProductType]);
 
   const getSelectedProductType = useCallback(
-    (key: string) => {
+    (key: ProductTypes) => {
       if (activeProductType === key) {
         return "contained";
       }
@@ -49,10 +52,41 @@ const FeaturedSection: FC = () => {
     >
       <Container
         sx={{
-          pb: 5,
+          pt: 13,
+          pb: 13,
         }}
         maxWidth="lg"
       >
+        <Box
+          sx={{
+            mb: 13,
+          }}
+          textAlign="center"
+        >
+          {/* Errored */}
+          {/* <Grid container>
+            <Grid item xs={4}>
+              <IconCard
+                text={"Some shipping text here"}
+                type={"LocalShippingOutlined"}
+              ></IconCard>
+            </Grid>
+
+            <Grid item xs={4}>
+              <IconCard
+                text={"Some shipping text here"}
+                type={"AddCircleOutline"}
+              ></IconCard>
+            </Grid>
+
+            <Grid item xs={4}>
+              <IconCard
+                text={"Some shipping text here"}
+                type={"PaymentOutlined"}
+              ></IconCard>
+            </Grid>
+          </Grid> */}
+        </Box>
         <Box>
           <Typography
             variant="h3"
@@ -66,11 +100,10 @@ const FeaturedSection: FC = () => {
           <Box
             sx={{
               mt: 2,
-              mb: 4,
+              mb: 10,
             }}
             textAlign="center"
           >
-            {/* TODO: Add onClick event to set activeProductTypeState*/}
             <Button
               sx={{
                 mx: 1,
@@ -79,7 +112,10 @@ const FeaturedSection: FC = () => {
               variant={getSelectedProductType("cakes")}
               disableElevation
               size="large"
-              // color={}
+              onClick={() => {
+                setActiveProductType("cakes");
+              }}
+            // color={}
             >
               Cakes
             </Button>
@@ -92,6 +128,9 @@ const FeaturedSection: FC = () => {
               variant={getSelectedProductType("cupcakes")}
               disableElevation
               size="large"
+              onClick={() => {
+                setActiveProductType("cupcakes");
+              }}
             >
               Cupcakes
             </Button>
@@ -103,21 +142,13 @@ const FeaturedSection: FC = () => {
               variant={getSelectedProductType("decorated_cookies")}
               disableElevation
               size="large"
+              onClick={() => {
+                setActiveProductType("decorated_cookies");
+              }}
             >
               Decorated Cookies
             </Button>
           </Box>
-
-          <Button
-            onClick={() => {
-              setActiveProductType(`sample product type ${Math.random()}`);
-            }}
-          >
-            Sample button
-          </Button>
-
-          {/* Shorthand if statement */}
-          {true ? <>value if true</> : <>value if false</>}
 
           {/* This is how it looks like when loading */}
           {featuredProducts.loading ? (
@@ -133,32 +164,32 @@ const FeaturedSection: FC = () => {
               </Grid>
             </Grid>
           ) : // How it looks like when there's a value
-          featuredProducts.value ? (
-            <Grid container>
-              {featuredProducts.value.map((product) => (
-                <Grid key={product.sys.id} item xs={4}>
-                  <ProductCard
-                    imageSrc={product.image?.url}
-                    price={product.price}
-                    text={product.name}
-                  ></ProductCard>
+            featuredProducts.value ? (
+              <Grid container>
+                {featuredProducts.value.slice(0, 3).map((product) => (
+                  <Grid key={product.sys.id} item xs={4}>
+                    <ProductCard
+                      imageSrc={product.image?.url}
+                      price={product.price}
+                      text={product.name}
+                    ></ProductCard>
+                  </Grid>
+                ))}
+              </Grid>
+            ) : (
+              // This is what it looks like when it errored
+              <Grid container>
+                <Grid item xs={4}>
+                  <ProductCardError></ProductCardError>
                 </Grid>
-              ))}
-            </Grid>
-          ) : (
-            // This is what it looks like when it errored
-            <Grid container>
-              <Grid item xs={4}>
-                <ProductCardError></ProductCardError>
+                <Grid item xs={4}>
+                  <ProductCardError></ProductCardError>
+                </Grid>
+                <Grid item xs={4}>
+                  <ProductCardError></ProductCardError>
+                </Grid>
               </Grid>
-              <Grid item xs={4}>
-                <ProductCardError></ProductCardError>
-              </Grid>
-              <Grid item xs={4}>
-                <ProductCardError></ProductCardError>
-              </Grid>
-            </Grid>
-          )}
+            )}
         </Box>
       </Container>
     </Box>
