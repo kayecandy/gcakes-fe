@@ -8,3 +8,5 @@ export const GET_FEATURED_PRODUCTS_URL = (productType: string) =>
   `${BACKEND_URL}/products/featured/${productType}`;
 
 export const GET_CAKES_URL = `${BACKEND_URL}/api/products/cakes`;
+
+export const REGISTER_URL = `${BACKEND_URL}/api/users/register/user`;

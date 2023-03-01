@@ -1,9 +1,62 @@
 import { SX_MASKS } from "@/components/common/masks";
+import { REGISTER_URL } from "@/components/common/urls";
 import { Box, Button, Container, Grid, Snackbar, TextField, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { COLOR_PALLETE } from "../ThemeProvider";
 
 const RegisterForm: FC = () => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
+    const [userid, setUserId] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    function handleSubmit(e: any) {
+        e.preventDefault();
+        if (password == confirmPassword) {
+            console.log("Registering...");
+            // send to backend
+            fetch("${BACKEND_URL}/api/users/register/user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify({
+                    "userid": userid,
+                    "password": password,
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    //"address": address,
+                    "admin": false,
+                })
+            })
+                .then(async (res) => {
+                    if (!res.ok) {
+                        throw await res.json();
+                    }
+
+                    return res.json().then((result) => {
+                        console.log(result);
+
+                    })
+                })
+                .catch((error) => {
+                    console.log("error occured ", error);
+                })
+
+        } else {
+            console.log("Passwords do not match!");
+        }
+    }
+
+    /** NOTICE:
+     *  Ignore error messages on the TextFields
+     */
+
     return (
         <Box    // Background
             sx={{
@@ -49,67 +102,74 @@ const RegisterForm: FC = () => {
                         Registeration
                     </Typography>
 
-                    <Grid container spacing={5} sx={{
-                        marginTop: "0%",
-                    }}>
-                        <Grid item xs={6}>
-                            <TextField
-                                required
-                                label="First Name"
-                            />
+                    <form className="registerForm" onSubmit={handleSubmit}>
+                        <Grid container spacing={5} sx={{
+                            marginTop: "0%",
+                        }}>
+                            <Grid item xs={6}>
+                                <TextField
+                                    required
+                                    label="First Name"
+                                    onInput={e => setFirstName(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    required
+                                    label="Last Name"
+                                    onInput={e => setLastName(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    label="Email"
+                                    onInput={e => setEmail(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    error
+                                    label="Birthday"
+                                    helperText="Disabled"
+                                    onInput={e => setBirthday(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    required
+                                    label="Username"
+                                    onInput={e => setUserId(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    required
+                                    label="Password"
+                                    type="password"
+                                    onInput={e => setPassword(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    required
+                                    label="Confirm Password"
+                                    type="password"
+                                    onInput={e => setConfirmPassword(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button
+                                    variant="contained"
+                                    type="submit"
+                                >
+                                    Register!
+                                </Button>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                required
-                                label="Last Name"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                label="Email"
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                error
-                                label="Birthday"
-                                helperText="Disabled"
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                required
-                                label="Username"
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                required
-                                label="Password"
-                                type="password"
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                required
-                                label="Confirm Password"
-                                type="password"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button>Register!</Button>
-                        </Grid>
-                    </Grid>
+                    </form>
 
-                    <Typography
-                        variant="body1"
-                        sx={{
-                            lineHeight: "150%",
-                            letterSpacing: "1px",
-                        }}
-                    >
-                    </Typography>
+
                 </Container>
             </div>
         </Box>
