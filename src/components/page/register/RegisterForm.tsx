@@ -1,11 +1,11 @@
 import { SX_MASKS } from "@/components/common/masks";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Snackbar, TextField, Typography } from "@mui/material";
 import { FC } from "react";
 import { COLOR_PALLETE } from "../ThemeProvider";
 
 const RegisterForm: FC = () => {
     return (
-        <Box
+        <Box    // Background
             sx={{
                 ...SX_MASKS[1]("bottom"),
                 position: "relative",
@@ -18,14 +18,14 @@ const RegisterForm: FC = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                padding: 0,
-                height: "80vh",
+                padding: "25%",
+                height: "120vh",
                 zIndex: 0,
             }}
         >
-            <div
+            <div    // Form Contents
                 style={{
-                    // flexGrow: 1,
+                    flexGrow: 1,
                     backgroundColor: `${COLOR_PALLETE[0]}C0`,
                     // paddingBottom: "3vw",
                     borderRadius: "2rem",
@@ -49,7 +49,58 @@ const RegisterForm: FC = () => {
                         Registeration
                     </Typography>
 
-                    <Box sx={{ py: 2 }}></Box>
+                    <Grid container spacing={5} sx={{
+                        marginTop: "0%",
+                    }}>
+                        <Grid item xs={6}>
+                            <TextField
+                                required
+                                label="First Name"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                required
+                                label="Last Name"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                label="Email"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                error
+                                label="Birthday"
+                                helperText="Disabled"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                required
+                                label="Username"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                required
+                                label="Password"
+                                type="password"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                required
+                                label="Confirm Password"
+                                type="password"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button>Register!</Button>
+                        </Grid>
+                    </Grid>
 
                     <Typography
                         variant="body1"
@@ -58,7 +109,6 @@ const RegisterForm: FC = () => {
                             letterSpacing: "1px",
                         }}
                     >
-                        Hello World!
                     </Typography>
                 </Container>
             </div>
