@@ -31,6 +31,7 @@ const RegisterForm: FC = () => {
                     "lastName": lastName,
                     "email": email,
                     //"address": address,
+                    //"birthday": birthday,
                     "admin": false,
                 })
             })
@@ -63,7 +64,7 @@ const RegisterForm: FC = () => {
                 ...SX_MASKS[1]("bottom"),
                 position: "relative",
                 overflow: "hidden",
-                backgroundColor: "white",
+                backgroundColor: `${COLOR_PALLETE[0]}C0`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPositionX: "right",
@@ -79,7 +80,7 @@ const RegisterForm: FC = () => {
             <div    // Form Contents
                 style={{
                     flexGrow: 1,
-                    backgroundColor: `${COLOR_PALLETE[0]}C0`,
+                    backgroundColor: `white`,
                     // paddingBottom: "3vw",
                     borderRadius: "2rem",
                     borderWidth: "5px",
@@ -168,8 +169,6 @@ const RegisterForm: FC = () => {
                             </Grid>
                         </Grid>
                     </form>
-
-
                 </Container>
             </div>
         </Box>
