@@ -10,7 +10,8 @@ import { Product } from "@/types/product";
  *
  */
 export const useCakes = () => {
-  const [cakes, setCakes] = useState<ApiResponse<Product>>({
+  const [cakes, setCakes] = useState<ApiResponse<Product[]>
+  >({
     loading: true,
   });
 
