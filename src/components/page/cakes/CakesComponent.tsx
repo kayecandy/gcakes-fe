@@ -27,11 +27,10 @@ function getImage(imageName: string) {
 
 type CakesCardProps = {
     cakeName: string;
-    imageName: string;
+    imageUrl?: string;
 }
 
-const CakesCard: FC<CakesCardProps> = ({ imageName, cakeName }) => {
-    var cakeImagePath = getImage(imageName);
+const CakesCard: FC<CakesCardProps> = ({ imageUrl, cakeName }) => {
 
     return (
         <>
@@ -39,7 +38,7 @@ const CakesCard: FC<CakesCardProps> = ({ imageName, cakeName }) => {
                 <Box sx={{
                     bgcolor: '#d8cdcd',
                 }}>
-                    <img className={style.itemImg} src="Cake3.png" alt="item 1" />
+                    <img className={style.itemImg} src={imageUrl} alt={cakeName} />
                     <Button style={{
                         width: '100%',
                         justifyContent: 'space-between',
