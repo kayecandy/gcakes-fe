@@ -22,15 +22,13 @@ import { grey } from '@mui/material/colors';
 export const CakesSection: FC = () => {
   const cakes = useCakes();
 
-  console.log(cakes)
-
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="lg">
       <Typography variant="h1">This is cakes section</Typography>
 
       {/* Add cakes component here */}
 
-      {cakes.loading ? (
+      {/* {cakes.loading ? (
         <>Add cakes loading view here</>
 
 

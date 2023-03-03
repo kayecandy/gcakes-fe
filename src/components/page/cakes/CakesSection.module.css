@@ -29,3 +29,10 @@
     height: 1em;
     float: right;
 }
+
+.btnImg {
+    object-fit: contain;
+    width: 1em;
+    height: 1em;
+    float: right;
+}
