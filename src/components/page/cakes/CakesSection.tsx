@@ -22,38 +22,7 @@ import { grey } from '@mui/material/colors';
 export const CakesSection: FC = () => {
   const cakes = useCakes();
 
-
-
-  const testCakeData = [
-    {
-      cakeName: "Test Cake 1",
-      imageName: "Test Image 1",
-    },
-    {
-      cakeName: "Test Cake 2",
-      imageName: "Test Image 2",
-    },
-    {
-      cakeName: "Test Cake 3",
-      imageName: "Test Image 3",
-    },
-    {
-      cakeName: "Test Cake 4",
-      imageName: "Test Image 4",
-    },
-    {
-      cakeName: "Test Cake 5",
-      imageName: "Test Image 5",
-    },
-    {
-      cakeName: "Test Cake 6",
-      imageName: "Test Image 6",
-    },
-    {
-      cakeName: "Test Cake 7",
-      imageName: "Test Image 7",
-    },
-  ];
+  console.log(cakes)
 
   return (
     <Container maxWidth="xl">
@@ -61,21 +30,30 @@ export const CakesSection: FC = () => {
 
       {/* Add cakes component here */}
 
-      {/* {cakes.loading ? (
+      {cakes.loading ? (
         <>Add cakes loading view here</>
+
+
+
       ) : cakes.value ? (
-        <>Add cakes component here</>
+        <Grid container spacing={2} columns={{ md: 12 }} sx={{
+          bgcolor: '#f9e4e4',
+        }}>
+          {cakes.value.map((item) => (
+            <CakesComponent cakeName={item.name} imageUrl={item.image?.url} />
+          ))}
+        </Grid>
       ) : (
         <>Add cakes error component here</>
-      )} */}
+      )}
 
-      <Grid container spacing={2} columns={{ md: 12 }} sx={{
+      {/* <Grid container spacing={2} columns={{ md: 12 }} sx={{
         bgcolor: '#f9e4e4',
       }}>
         {testCakeData.map((item) => (
           <CakesComponent cakeName={item.cakeName} imageName={item.imageName} />
         ))}
-      </Grid>
+      </Grid> */}
 
 
       {/* <Grid container spacing={2} columns={{ md: 12 }}>
