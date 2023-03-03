@@ -50,22 +50,24 @@ export const CakesSection: FC = () => {
 
       {/* Add cakes component here */}
 
-      {/* {cakes.loading ? (
+      {cakes.loading ? (
         <>Add cakes loading view here</>
-
-
-
       ) : cakes.value ? (
-        <Grid container spacing={2} columns={{ md: 12 }} sx={{
-          bgcolor: '#f9e4e4',
-        }}>
+        <Grid
+          container
+          spacing={2}
+          columns={{ md: 12 }}
+          sx={{
+            bgcolor: "#f9e4e4",
+          }}
+        >
           {cakes.value.map((item) => (
             <CakesComponent cakeName={item.name} imageUrl={item.image?.url} />
           ))}
         </Grid>
       ) : (
         <>Add cakes error component here</>
-      )} */}
+      )}
 
       <Grid
         container
