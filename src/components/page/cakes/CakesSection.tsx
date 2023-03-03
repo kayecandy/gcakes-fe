@@ -64,7 +64,7 @@ export const CakesSection: FC = () => {
 
       {/* Add cakes component here */}
 
-      {/* {cakes.loading ? (
+      {cakes.loading ? (
         <>Add cakes loading view here</>
 
 
@@ -90,7 +90,7 @@ export const CakesSection: FC = () => {
         {testCakeData.map((item) => (
           <CakesComponent cakeName={item.cakeName} imageName={item.imageName} />
         ))}
-      </Grid> */}
+      </Grid>
 
 
       {/* <Grid container spacing={2} columns={{ md: 12 }}>
