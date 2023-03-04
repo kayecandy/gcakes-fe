@@ -18,7 +18,7 @@ const RegisterForm: FC = () => {
         if (password == confirmPassword) {
             console.log("Registering...");
             // send to backend
-            fetch("${BACKEND_URL}/api/users/register/user", {
+            fetch(`${REGISTER_URL}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -111,21 +111,21 @@ const RegisterForm: FC = () => {
                                 <TextField
                                     required
                                     label="First Name"
-                                    onInput={e => setFirstName(e.target.value)}
+                                    onChange={e => setFirstName(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField
                                     required
                                     label="Last Name"
-                                    onInput={e => setLastName(e.target.value)}
+                                    onChange={e => setLastName(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
                                     label="Email"
-                                    onInput={e => setEmail(e.target.value)}
+                                    onChange={e => setEmail(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -133,14 +133,14 @@ const RegisterForm: FC = () => {
                                     error
                                     label="Birthday"
                                     helperText="Disabled"
-                                    onInput={e => setBirthday(e.target.value)}
+                                    onChange={e => setBirthday(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField
                                     required
                                     label="Username"
-                                    onInput={e => setUserId(e.target.value)}
+                                    onChange={e => setUserId(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -148,7 +148,7 @@ const RegisterForm: FC = () => {
                                     required
                                     label="Password"
                                     type="password"
-                                    onInput={e => setPassword(e.target.value)}
+                                    onChange={e => setPassword(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -156,7 +156,7 @@ const RegisterForm: FC = () => {
                                     required
                                     label="Confirm Password"
                                     type="password"
-                                    onInput={e => setConfirmPassword(e.target.value)}
+                                    onChange={e => setConfirmPassword(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>

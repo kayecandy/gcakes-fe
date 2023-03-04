@@ -9,4 +9,4 @@ export const GET_FEATURED_PRODUCTS_URL = (productType: string) =>
 
 export const GET_CAKES_URL = `${BACKEND_URL}/api/products/cakes`;
 
-export const REGISTER_URL = `${BACKEND_URL}/api/users/register/user`;
+export const REGISTER_URL = `${BACKEND_URL}/users/register/user`;
