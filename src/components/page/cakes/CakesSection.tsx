@@ -81,104 +81,12 @@ export const CakesSection: FC = () => {
           ))}
         </Grid>
       ) : (
-        <>Add cakes error component here</>
+        <Grid container>
+          <Typography variant="subtitle1">error</Typography>
+        </Grid>
       )}
 
-      {/* <Grid container spacing={2} columns={{ md: 12 }} sx={{
-        bgcolor: '#f9e4e4',
-      }}>
-        {testCakeData.map((item) => (
-          <CakesComponent cakeName={item.cakeName} imageName={item.imageName} />
-        ))}
-      </Grid>
-
-
-      {/* <Grid container spacing={2} columns={{ md: 12 }}>
-        <Grid item md={4}>
-          <Item>md=4</Item>
-        </Grid>
-        <Grid item md={4}>
-          <Item>md=4</Item>
-        </Grid>
-        <Grid item md={4}>
-          <Item>md=4</Item>
-        </Grid>
-        <Grid item md={12}>
-          <Item>md=12</Item>
-        </Grid>
-      </Grid> */}
-
-      <Grid container spacing={2} columns={{ md: 12 }} sx={{
-        bgcolor: '#f9e4e4',
-      }}>
-        {testCakeData.map((item) => (
-          <CakesComponent cakeName={item.cakeName} imageName={item.imageName} />
-        ))}
-      </Grid>
-
-
-      {/* <Grid container spacing={2} columns={{ md: 12 }}>
-        <Grid item md={4}>
-          <Item>md=4</Item>
-        </Grid>
-        <Grid item md={4}>
-          <Item>md=4</Item>
-        </Grid>
-        <Grid item md={4}>
-          <Item>md=4</Item>
-        </Grid>
-        <Grid item md={12}>
-          <Item>md=12</Item>
-        </Grid>
-      </Grid> */}
-
-      {/* <div className={style.container}>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 1" />
-          <button className={style.btn}>
-            Item 1
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 2" />
-          <button className={style.btn}>
-            Item 2
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 3" />
-          <button className={style.btn}>
-            Item 3
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-      </div>
-
-      <div className={style.container}>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 1" />
-          <button className={style.btn}>
-            Item 1
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 2" />
-          <button className={style.btn}>
-            Item 2
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 3" />
-          <button className={style.btn}>
-            Item 3
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-      </div> */}
+    
 
 
 
