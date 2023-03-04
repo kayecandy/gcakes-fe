@@ -11,18 +11,6 @@ import { Box } from '@mui/system';
 
 import style from './CakesSection.module.css';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
-function getImage(imageName: string) {
-  return imageName;
-}
-
 type CakesCardProps = {
   cakeName: string;
   imageName: string;

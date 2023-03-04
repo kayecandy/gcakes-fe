@@ -20,7 +20,7 @@ const IconSection: FC = () => {
     >
       <Container
         sx={{
-          mb: 8,
+          // mb: 8,
           textAlign: "center",
         }}
       >

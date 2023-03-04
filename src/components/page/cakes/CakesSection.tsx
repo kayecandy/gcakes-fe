@@ -4,8 +4,12 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/system';
 
-import CakesComponent from './CakesComponent';
+
+
 import { useCakes } from './hooks/useCakes';
+import { ProductCard } from '@/components/common/product/ProductCard';
+
+
 
 /**
  * Use FeaturedSection as basis
@@ -13,60 +17,22 @@ import { useCakes } from './hooks/useCakes';
 export const CakesSection: FC = () => {
   const cakes = useCakes();
 
-  const testCakeData = [
-    {
-      cakeName: "Test Cake 1",
-      imageName: "Test Image 1",
-    },
-    {
-      cakeName: "Test Cake 2",
-      imageName: "Test Image 2",
-    },
-    {
-      cakeName: "Test Cake 3",
-      imageName: "Test Image 3",
-    },
-    {
-      cakeName: "Test Cake 4",
-      imageName: "Test Image 4",
-    },
-    {
-      cakeName: "Test Cake 5",
-      imageName: "Test Image 5",
-    },
-    {
-      cakeName: "Test Cake 6",
-      imageName: "Test Image 6",
-    },
-    {
-      cakeName: "Test Cake 7",
-      imageName: "Test Image 7",
-    },
-  ];
-
   return (
-    <Container maxWidth="xl">
-      <Typography variant="h1">This is cakes section</Typography>
+    <Container maxWidth="lg">
 
       {/* Add cakes component here */}
 
       {cakes.loading ? (
         <>Add cakes loading view here</>
       ) : cakes.value ? (
-        <Grid
-          container
-          spacing={2}
-          columns={{ md: 12 }}
-          sx={{
-            bgcolor: "#f9e4e4",
-          }}
-        >
-          {cakes.value.map((item) => (
-            <CakesComponent
-              key={item.sys.id}
-              cakeName={item.name}
-              imageUrl={item.image?.url}
-            />
+        <Grid container spacing={2} columns={{ md: 12 }} sx={{
+          bgcolor: '#f9e4e4',
+        }}>
+            {cakes.value.map((item) => (
+              <Grid key={item.sys.id} xs={4} item>
+
+                <ProductCard product={item}></ProductCard>
+              </Grid>
           ))}
         </Grid>
       ) : (
@@ -75,81 +41,6 @@ export const CakesSection: FC = () => {
         </Grid>
       )}
 
-      {/*<Grid container spacing={2} columns={{ md: 12 }} sx={{
-        bgcolor: '#f9e4e4',
-      }}>
-        {testCakeData.map((item) => (
-          <CakesComponent
-            key={item.cakeName}
-            cakeName={item.cakeName}
-            imageName={item.imageName}
-          />
-        ))}
-      </Grid>
-
-
-      <Grid container spacing={2} columns={{ md: 12 }}>
-        <Grid item md={4}>
-          <Item>md=4</Item>
-        </Grid>
-        <Grid item md={4}>
-          <Item>md=4</Item>
-        </Grid>
-        <Grid item md={4}>
-          <Item>md=4</Item>
-        </Grid>
-        <Grid item md={12}>
-          <Item>md=12</Item>
-        </Grid>
-      </Grid>*/}
-
-      {/* <div className={style.container}>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 1" />
-          <button className={style.btn}>
-            Item 1
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 2" />
-          <button className={style.btn}>
-            Item 2
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 3" />
-          <button className={style.btn}>
-            Item 3
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-      </div>
-
-      <div className={style.container}>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 1" />
-          <button className={style.btn}>
-            Item 1
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 2" />
-          <button className={style.btn}>
-            Item 2
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-        <div className={style.item}>
-          <img className={style.itemImg} src="Cake3.png" alt="item 3" />
-          <button className={style.btn}>
-            Item 3
-            <img className={style.btnImg} src="Cake3.png" alt="Item 1 btnImg" />
-          </button>
-        </div>
-      </div> */}
     </Container>
   );
 };
