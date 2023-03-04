@@ -135,6 +135,9 @@ const RegisterForm: FC = () => {
                                     type="date"
                                     label="Birthday"
                                     onChange={e => setBirthday(e.target.value)}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
                                 />
 
                             </Grid>
