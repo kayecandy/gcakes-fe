@@ -38,14 +38,16 @@ export const CakesSection: FC = () => {
           bgcolor: '#f9e4e4',
         }}>
           {cakes.value.map((item) => (
-            <CakesComponent cakeName={item.name} imageUrl={item.image?.url} />
+            <CakesComponent key={item.sys.id} cakeName={item.name} imageUrl={item.image?.url} />
           ))}
         </Grid>
       ) : (
-        <>Add cakes error component here</>
+        <Grid container>
+          <Typography variant="subtitle1">error</Typography>
+        </Grid>
       )}
 
-      {/* <Grid container spacing={2} columns={{ md: 12 }} sx={{
+      {/*<Grid container spacing={2} columns={{ md: 12 }} sx={{
         bgcolor: '#f9e4e4',
       }}>
         {testCakeData.map((item) => (
@@ -54,7 +56,7 @@ export const CakesSection: FC = () => {
       </Grid>
 
 
-      {/* <Grid container spacing={2} columns={{ md: 12 }}>
+      <Grid container spacing={2} columns={{ md: 12 }}>
         <Grid item md={4}>
           <Item>md=4</Item>
         </Grid>
@@ -67,7 +69,7 @@ export const CakesSection: FC = () => {
         <Grid item md={12}>
           <Item>md=12</Item>
         </Grid>
-      </Grid> */}
+      </Grid>*/}
 
       {/* <div className={style.container}>
         <div className={style.item}>
