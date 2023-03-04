@@ -100,7 +100,7 @@ const RegisterForm: FC = () => {
                         variant="h2"
                         color={COLOR_PALLETE[1]}
                     >
-                        Registeration
+                        Registration
                     </Typography>
 
                     <form className="registerForm" onSubmit={handleSubmit}>
