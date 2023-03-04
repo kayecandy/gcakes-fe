@@ -63,29 +63,6 @@ const FeaturedSection: FC = () => {
           }}
           textAlign="center"
         >
-          {/* Errored */}
-          {/* <Grid container>
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"LocalShippingOutlined"}
-              ></IconCard>
-            </Grid>
-
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"AddCircleOutline"}
-              ></IconCard>
-            </Grid>
-
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"PaymentOutlined"}
-              ></IconCard>
-            </Grid>
-          </Grid> */}
         </Box>
         <Box>
           <Typography
