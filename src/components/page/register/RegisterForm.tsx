@@ -4,6 +4,8 @@ import { Box, Button, Container, Grid, Snackbar, TextField, Typography } from "@
 import { FC, useState } from "react";
 import { COLOR_PALLETE } from "../ThemeProvider";
 
+
+
 const RegisterForm: FC = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -130,11 +132,11 @@ const RegisterForm: FC = () => {
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField
-                                    error
+                                    type="date"
                                     label="Birthday"
-                                    helperText="Disabled"
                                     onChange={e => setBirthday(e.target.value)}
                                 />
+
                             </Grid>
                             <Grid item xs={6}>
                                 <TextField
