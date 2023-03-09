@@ -16,7 +16,7 @@ export default function TestFilePage() {
           pt: 10,
           pb: 10,
         }}
-      ><Typography>Hello</Typography>
+      >
         <Grid container>
           <Grid item xs={8}>
             <Skeleton
