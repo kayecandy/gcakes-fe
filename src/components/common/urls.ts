@@ -1,4 +1,4 @@
-import getConfig from "next/config";
+import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -10,3 +10,4 @@ export const GET_FEATURED_PRODUCTS_URL = (productType: string) =>
 export const GET_CAKES_URL = `${BACKEND_URL}/api/products/cakes`;
 
 export const REGISTER_URL = `${BACKEND_URL}/users/register/user`;
+export const LOGIN_URL = `${BACKEND_URL}/users/login`;
