@@ -4,7 +4,7 @@ import {
   ProductCard,
   ProductCardError,
   ProductCardSkeleton,
-} from "@/components/common/ProductCard";
+} from "@/components/common/product/ProductCard";
 import { ProductTypes } from "@/types/product";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
@@ -52,7 +52,7 @@ const FeaturedSection: FC = () => {
     >
       <Container
         sx={{
-          pt: 13,
+          // pt: 13,
           pb: 13,
         }}
         maxWidth="lg"
@@ -63,29 +63,6 @@ const FeaturedSection: FC = () => {
           }}
           textAlign="center"
         >
-          {/* Errored */}
-          {/* <Grid container>
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"LocalShippingOutlined"}
-              ></IconCard>
-            </Grid>
-
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"AddCircleOutline"}
-              ></IconCard>
-            </Grid>
-
-            <Grid item xs={4}>
-              <IconCard
-                text={"Some shipping text here"}
-                type={"PaymentOutlined"}
-              ></IconCard>
-            </Grid>
-          </Grid> */}
         </Box>
         <Box>
           <Typography
@@ -169,9 +146,7 @@ const FeaturedSection: FC = () => {
                 {featuredProducts.value.slice(0, 3).map((product) => (
                   <Grid key={product.sys.id} item xs={4}>
                     <ProductCard
-                      imageSrc={product.image?.url}
-                      price={product.price}
-                      text={product.name}
+                      product={product}
                     ></ProductCard>
                   </Grid>
                 ))}

@@ -14,36 +14,30 @@ import {
   Typography,
 } from '@mui/material';
 
-import { COLOR_PALLETE } from '../page/ThemeProvider';
+import { COLOR_PALLETE } from '../../page/ThemeProvider';
+import { Product } from '@/types/product';
 
-/**
- * Add enum for types
- */
 
 type ProductCardProps = {
-  imageSrc?: string;
-  text: string;
-  price: number;
-  // type enum for ProductTypes
+  product: Product;
 };
 
-/**
- * TODO: Add ProductCard props
- */
+
 export const ProductCard: FC<ProductCardProps> = ({
-  imageSrc,
-  text,
-  price,
+  product
 }) => {
   return (
     <Card
       sx={{
-        maxWidth: 300,
+        // maxWidth: 400,
         textAlign: "center",
+        mx: 2,
+        p: 4,
+        borderRadius: 5
       }}
       elevation={0}
     >
-      {imageSrc ? (
+      {/* {imageSrc ? (
         <CardMedia height={250} component="img" image={imageSrc}></CardMedia>
       ) : (
         <CakeOutlined
@@ -52,11 +46,24 @@ export const ProductCard: FC<ProductCardProps> = ({
             color: COLOR_PALLETE[4],
           }}
         ></CakeOutlined>
-      )}
+      )} */}
       <CardContent>
-        <Typography variant="body1">{text}</Typography>
+
+        <Typography variant="h5" sx={{
+        fontFamily: "sans-serif"
+      }}>{product.name}</Typography>
+
+
+        <Box sx={{
+          height: "400px"
+        }}>
+          <img style={{
+            maxWidth: "100%"
+          }} src={product.image?.url ?? ""}></img>
+        </Box>
+
         <Typography variant="body1" fontWeight={700} color={COLOR_PALLETE[1]}>
-          Php {price}
+          Php {product.price}
         </Typography>
       </CardContent>
     </Card>
