@@ -1,4 +1,5 @@
-import { CardMedia, Grid, Typography } from "@mui/material";
+import { Facebook, Instagram } from "@mui/icons-material";
+import { CardMedia, Grid, Link, Typography } from "@mui/material";
 import { Container } from "@mui/system"
 import { FC } from "react";
 import { COLOR_PALLETE } from "../ThemeProvider";
@@ -7,6 +8,10 @@ export const AboutHead: FC = () => {
     return (
         <Container
             maxWidth="lg"
+            sx={{
+                mt: 5,
+                mb: 5,
+            }}
         >
             <Grid container
                 spacing={3}
@@ -35,16 +40,68 @@ export const AboutHead: FC = () => {
 
 export const AboutBody: FC = () => {
     return (
-        <>
-            body
-        </>
+        <Container
+            maxWidth="lg"
+            sx={{
+                mt: 5,
+                mb: 5,
+            }}
+        >
+            SUCCESSFUL SCHOOL BAZAAR FEBRUARY 2020 WITH ALL ITEMS SOLD OUT DAILY
+            <Grid container>
+                <Grid item xs={4}>
+                    <CardMedia
+                        component="img"
+                        image="/aboutpage_1.jpg"
+                        alt="bazaar1"
+                    //height="194"
+                    />
+                </Grid>
+                <Grid item xs={4}>
+                    <CardMedia
+                        component="img"
+                        image="/aboutpage_2.jpg"
+                        alt="bazaar2"
+                    //height="194"
+                    />
+                </Grid>
+                <Grid item xs={4}>
+                    <CardMedia
+                        component="img"
+                        image="/aboutpage_3.jpg"
+                        alt="bazaar3s"
+                    //height="194"
+                    />
+                </Grid>
+            </Grid>
+        </Container>
     )
 }
 
 export const AboutFoot: FC = () => {
     return (
-        <>
-            foot
-        </>
+        <Container
+            maxWidth="lg"
+            sx={{
+                mt: 5,
+                mb: 5,
+                justifyContent: "center",
+                alignContent: "center",
+                alignItems: "center",
+            }}
+        >
+            <Typography fontSize={"70%"}>
+                LAS PIÑAS, METRO MANILA
+            </Typography>
+            <Typography fontSize={"70%"}>
+                MOBILE/VIBER 0945 211 2668
+            </Typography>
+            <Link href="https://www.facebook.com/" target="_blank">
+                <Facebook fontSize="large" />
+            </Link>
+            <Link href="https://www.instagram.com/" target="_blank">
+                <Instagram fontSize="large" />
+            </Link>
+        </Container>
     )
 }

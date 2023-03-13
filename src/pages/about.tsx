@@ -36,13 +36,14 @@ export default function AboutPage() {
                         backgroundColor: `white`,
                         borderRadius: "2rem",
                         borderWidth: "5px",
-                        borderColor: `${COLOR_PALLETE[1]}`,
+                        borderColor: `${COLOR_PALLETE[2]}`,
                         borderStyle: "solid",
                     }}
                 >
                     <AboutHead />
+                    <hr />
                     <AboutBody />
-                    <br></br>
+                    <hr />
                     <AboutFoot />
                 </div>
             </Container>
