@@ -8,10 +8,10 @@ export default function AboutPage() {
             sx={{
                 position: "relative",
                 mt: 15,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                alignContent: "center",
+                //display: "flex",
+                // justifyContent: "center",
+                // alignItems: "center",
+                // alignContent: "center",
                 backgroundColor: `${COLOR_PALLETE[0]}C0`,
             }}
         >
@@ -29,6 +29,7 @@ export default function AboutPage() {
                 >
                     About Gina
                 </Typography>
+
                 <div    // inner contents
                     style={{
                         flexGrow: 1,
@@ -46,7 +47,9 @@ export default function AboutPage() {
                     <hr />
                     <AboutFoot />
                 </div>
+
             </Container>
+
         </Box>
     )
 }

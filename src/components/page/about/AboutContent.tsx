@@ -1,5 +1,5 @@
 import { Facebook, Instagram } from "@mui/icons-material";
-import { CardMedia, Grid, Link, Typography } from "@mui/material";
+import { CardMedia, Grid, ImageList, ImageListItem, Link, Typography } from "@mui/material";
 import { Container } from "@mui/system"
 import { FC } from "react";
 import { COLOR_PALLETE } from "../ThemeProvider";
@@ -24,12 +24,10 @@ export const AboutHead: FC = () => {
                     //height="194"
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
                     <Typography variant="subtitle1">
                         I'm Gina, creator of G-cakes, started as a home business in 2007 in Jeddah, Saudi Arabia where my husband was working as an OFW. Time has come to go back home for good. And so here I am to share my passion in art of decorating baked goodies.
-                    </Typography>
-                    <br />
-                    <Typography variant="subtitle1">
+                        <br /><br />
                         G-cakes is a legitimate cake business with sales receipts and official receipts.
                     </Typography>
                 </Grid>
@@ -45,35 +43,61 @@ export const AboutBody: FC = () => {
             sx={{
                 mt: 5,
                 mb: 5,
+                //display: "flex",
             }}
         >
-            SUCCESSFUL SCHOOL BAZAAR FEBRUARY 2020 WITH ALL ITEMS SOLD OUT DAILY
-            <Grid container>
-                <Grid item xs={4}>
-                    <CardMedia
-                        component="img"
-                        image="/aboutpage_1.jpg"
-                        alt="bazaar1"
-                    //height="194"
+            <div
+                style={{
+                    //display: "flex",
+                    //alignContent: "center",
+                    //alignItems: "center",
+                    textAlign: "center"
+                }}
+            >
+                <Typography variant="subtitle2">
+                    SUCCESSFUL SCHOOL BAZAAR FEBRUARY 2020 WITH ALL ITEMS SOLD OUT DAILY
+                </Typography>
+            </div>
+
+            <ImageList sx={{
+                width: "100%",
+                overflow: "hidden",
+            }}
+                cols={3}
+                rowHeight={164}
+            >
+                {/*                 
+                {itemData.map((item) => (
+                    <ImageListItem key={item.img}>
+                        <img
+                            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                            alt={item.title}
+                            loading="lazy"
+                        />
+                    </ImageListItem>
+                ))}
+                 */}
+                <ImageListItem>
+                    <img
+                        src="/aboutpage_1.jpg"
+                        alt="aboutpage_1.jpg"
                     />
-                </Grid>
-                <Grid item xs={4}>
-                    <CardMedia
-                        component="img"
-                        image="/aboutpage_2.jpg"
-                        alt="bazaar2"
-                    //height="194"
+                </ImageListItem>
+                <ImageListItem>
+                    <img
+                        src="/aboutpage_2.jpg"
+                        alt="aboutpage_2.jpg"
                     />
-                </Grid>
-                <Grid item xs={4}>
-                    <CardMedia
-                        component="img"
-                        image="/aboutpage_3.jpg"
-                        alt="bazaar3s"
-                    //height="194"
+                </ImageListItem>
+                <ImageListItem>
+                    <img
+                        src="/aboutpage_3.jpg"
+                        alt="aboutpage_3.jpg"
                     />
-                </Grid>
-            </Grid>
+                </ImageListItem>
+            </ImageList>
+
         </Container>
     )
 }
@@ -85,23 +109,23 @@ export const AboutFoot: FC = () => {
             sx={{
                 mt: 5,
                 mb: 5,
-                justifyContent: "center",
-                alignContent: "center",
-                alignItems: "center",
             }}
         >
-            <Typography fontSize={"70%"}>
+            <Typography fontSize={"70%"} sx={{ display: "flex", justifyContent: "center" }}>
                 LAS PIÑAS, METRO MANILA
             </Typography>
-            <Typography fontSize={"70%"}>
+            <Typography fontSize={"70%"} sx={{ display: "flex", justifyContent: "center" }}>
                 MOBILE/VIBER 0945 211 2668
             </Typography>
-            <Link href="https://www.facebook.com/" target="_blank">
-                <Facebook fontSize="large" />
-            </Link>
-            <Link href="https://www.instagram.com/" target="_blank">
-                <Instagram fontSize="large" />
-            </Link>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <Link href="https://www.facebook.com/gcakesbygina" target="_blank" >
+                    <Facebook fontSize="large" />
+                </Link>
+                <Link href="https://www.instagram.com/gcakesbygina/" target="_blank" >
+                    <Instagram fontSize="large" />
+                </Link>
+            </div>
+
         </Container>
     )
 }
