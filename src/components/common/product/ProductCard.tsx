@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import { COLOR_PALLETE } from '../../page/ThemeProvider';
+import { COLOR_PALLETE } from '../ThemeProvider';
 import { Product } from '@/types/product';
 
 
@@ -33,7 +33,7 @@ export const ProductCard: FC<ProductCardProps> = ({
         textAlign: "center",
         mx: 2,
         p: 4,
-        borderRadius: 5
+        borderRadius: 5,
       }}
       elevation={0}
     >
@@ -48,19 +48,27 @@ export const ProductCard: FC<ProductCardProps> = ({
         ></CakeOutlined>
       )} */}
       <CardContent>
-
-        <Typography variant="h5" sx={{
-        fontFamily: "sans-serif"
-      }}>{product.name}</Typography>
-
-
-        <Box sx={{
-          height: "400px"
-        }}>
-          <img style={{
-            maxWidth: "100%"
-          }} src={product.image?.url ?? ""}></img>
+        <Box
+          sx={{
+            height: "400px",
+          }}
+        >
+          <img
+            style={{
+              maxWidth: "100%",
+            }}
+            src={product.image?.url ?? ""}
+          ></img>
         </Box>
+
+        <Typography
+          variant="h5"
+          sx={{
+            fontFamily: "sans-serif",
+          }}
+        >
+          {product.name}
+        </Typography>
 
         <Typography variant="body1" fontWeight={700} color={COLOR_PALLETE[1]}>
           Php {product.price}

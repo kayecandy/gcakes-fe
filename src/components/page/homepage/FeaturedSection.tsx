@@ -8,7 +8,7 @@ import {
 import { ProductTypes } from "@/types/product";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
-import { COLOR_PALLETE } from "../ThemeProvider";
+import { COLOR_PALLETE } from "../../common/ThemeProvider";
 import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
 import IconCard from "./IconCard";
 
