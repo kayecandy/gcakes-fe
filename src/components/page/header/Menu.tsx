@@ -11,7 +11,7 @@ const Menu: FC = () => {
       <MenuItem href="/cakes">Cakes</MenuItem>
       <MenuItem href="/cupcakes">Cupcakes</MenuItem>
       <MenuItem href="/decorated-cookies">Decorated Cookies</MenuItem>
-      <MenuItem href="#">About</MenuItem>
+      <MenuItem href="/about">About</MenuItem>
       <MenuItem href="/login">Login</MenuItem>
       <MenuItem href="/test_folder/testfile">Test</MenuItem>
       <MenuItem href="/#" variant="text">
