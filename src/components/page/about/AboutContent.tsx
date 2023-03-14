@@ -26,7 +26,7 @@ export const AboutHead: FC = () => {
                 </Grid>
                 <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
                     <Typography variant="subtitle1">
-                        I'm Gina, creator of G-cakes, started as a home business in 2007 in Jeddah, Saudi Arabia where my husband was working as an OFW. Time has come to go back home for good. And so here I am to share my passion in art of decorating baked goodies.
+                        I&apos;m Gina, creator of G-cakes, started as a home business in 2007 in Jeddah, Saudi Arabia where my husband was working as an OFW. Time has come to go back home for good. And so here I am to share my passion in art of decorating baked goodies.
                         <br /><br />
                         G-cakes is a legitimate cake business with sales receipts and official receipts.
                     </Typography>
