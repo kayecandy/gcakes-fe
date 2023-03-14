@@ -3,7 +3,7 @@ import * as React from "react";
 
 import Link from "next/link";
 
-import { SX_MASKS } from "@/components/common/masks";
+import { SX_MASKS } from "@/components/common/util/masks";
 import { Box, Container } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 
@@ -29,7 +29,7 @@ export default function Header(props: HeaderProps) {
         background: COLOR_PALLETE[1],
         // background: "white",
         position: "relative",
-        zIndex: 10000,
+        zIndex: 1200,
         ...SX_MASKS[0]("bottom"),
       }}
     >
