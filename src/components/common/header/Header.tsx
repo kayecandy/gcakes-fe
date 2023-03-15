@@ -10,18 +10,9 @@ import Toolbar from "@mui/material/Toolbar";
 import { COLOR_PALLETE } from "../ThemeProvider";
 import Menu from "./Menu";
 
-type HeaderSections = {
-  title: string;
-  url: string;
-};
 
-type HeaderProps = {
-  sections: ReadonlyArray<HeaderSections>;
-  title: string;
-};
 
-export default function Header(props: HeaderProps) {
-  const { sections, title } = props;
+export default function Header() {
 
   return (
     <Box

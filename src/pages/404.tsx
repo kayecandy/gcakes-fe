@@ -8,6 +8,7 @@ export default function Page404() {
       sx={{
         pt: 10,
         textAlign: "center",
+        mb: 15
       }}
     >
       <div>

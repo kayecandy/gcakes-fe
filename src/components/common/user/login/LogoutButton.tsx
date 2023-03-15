@@ -1,9 +1,14 @@
-import { Button, ButtonProps } from "@mui/material";
-import { FC, useEffect } from "react";
-import { useSession, useSetSession } from "../../hooks/useSession";
+import { FC } from 'react';
 
-import { deleteCookie } from "cookies-next";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
+
+import {
+  Button,
+  ButtonProps,
+} from '@mui/material';
+
+import { useSetSession } from '../../hooks/useSession';
+import { deleteSessionCookie } from '../../util/session-cookie';
 
 export const LogoutButton: FC<ButtonProps> = ({
   onClick,
@@ -18,7 +23,7 @@ export const LogoutButton: FC<ButtonProps> = ({
   const handleLogout = () => {
     router.push('/');
     setSession(undefined);
-    deleteCookie("accessToken")
+    deleteSessionCookie();
     
   }
 
