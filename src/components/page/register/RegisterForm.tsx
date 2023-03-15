@@ -19,7 +19,7 @@ const RegisterForm: FC = () => {
         e.preventDefault();
         if (password == confirmPassword) {
             console.log("Registering...");
-            // send to backend
+
             fetch(`${REGISTER_URL}`, {
                 method: "POST",
                 headers: {
@@ -33,7 +33,7 @@ const RegisterForm: FC = () => {
                     "lastName": lastName,
                     "email": email,
                     //"address": address,
-                    //"birthday": birthday,
+                    "birthday": birthday,
                     "admin": false,
                 })
             })
@@ -55,10 +55,6 @@ const RegisterForm: FC = () => {
             console.log("Passwords do not match!");
         }
     }
-
-    /** NOTICE:
-     *  Ignore error messages on the TextFields
-     */
 
     return (
         <Box    // Background
