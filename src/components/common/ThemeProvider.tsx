@@ -46,6 +46,54 @@ const theme = experimental_extendTheme({
       fontSize: "smaller",
     },
   },
+  components: {
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          borderRadius: "10rem !important",
+        },
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+            borderColor: COLOR_PALLETE[3],
+            borderWidth: "2px",
+            
+          },
+        root: {
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: COLOR_PALLETE[3]
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: COLOR_PALLETE[1]
+          }
+        }
+      }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          // fontWeight: 700,
+          textTransform: "uppercase",
+          color: COLOR_PALLETE[3],
+          letterSpacing: "5px",
+          background: "white"
+
+        }
+      }
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none !important",
+          borderRadius: "10rem !important",
+          fontWeight: "700 !important",
+          letterSpacing: "5px !important"
+        }
+      }
+    }
+  }
 });
 
 const ThemeProvider: FC<{ children: ReactNode }> = (props) => {

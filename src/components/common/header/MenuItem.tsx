@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import Link from "next/link";
 
-import { Button, ButtonTypeMap, Typography } from "@mui/material";
+import { Button, ButtonProps, Typography } from "@mui/material";
 
 import { COLOR_PALLETE } from "../ThemeProvider";
 import style from "./MenuItem.module.css";
@@ -12,7 +12,7 @@ export type MenuItemProps = {
   href: string;
 };
 
-const MenuItem: FC<ButtonTypeMap["props"] & MenuItemProps> = ({
+const MenuItem: FC<ButtonProps & MenuItemProps> = ({
   children,
   href,
   // variant = "contained",

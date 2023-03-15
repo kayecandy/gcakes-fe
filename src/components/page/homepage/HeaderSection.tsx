@@ -1,9 +1,9 @@
 import { FC } from "react";
 
-import { SX_MASKS } from "@/components/common/masks";
+import { SX_MASKS } from "@/components/common/util/masks";
 import { Box, Container, Typography } from "@mui/material";
 
-import { COLOR_PALLETE } from "../ThemeProvider";
+import { COLOR_PALLETE } from "../../common/ThemeProvider";
 
 const HeaderSection: FC = ({}) => {
   return (

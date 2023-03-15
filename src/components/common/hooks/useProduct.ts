@@ -1,7 +1,7 @@
 import { ApiResponse } from "@/types/api-response"
 import { Product, ProductTypes } from "@/types/product"
 import { useEffect, useState } from "react"
-import { GET_PRODUCT_URL } from "../urls";
+import { GET_PRODUCT_URL } from "../util/urls";
 
 
 type ProductState = ApiResponse<Product[]>;
