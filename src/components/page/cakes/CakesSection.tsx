@@ -8,12 +8,13 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import CakesComponent from "./CakesComponent";
+import { ItemCard, ItemCardSkeleton } from "./CakesComponent";
 
 import { useCakes } from './hooks/useCakes';
 
 import style from './CakesSection.module.css';
 import { grey } from '@mui/material/colors';
+import { ProductCardError, ProductCardSkeleton } from '@/components/common/ProductCard';
 
 
 /**
@@ -24,26 +25,41 @@ export const CakesSection: FC = () => {
 
   return (
     <Container maxWidth="lg">
-      <Typography variant="h1">This is cakes section</Typography>
+      {/* <Typography variant="h1">This is cakes section</Typography> */}
 
       {/* Add cakes component here */}
 
       {cakes.loading ? (
-        <>Add cakes loading view here</>
-
-
-
+        <Grid container>
+          <Grid item xs={4}>
+            <ProductCardSkeleton></ProductCardSkeleton>
+          </Grid>
+          <Grid item xs={4}>
+            <ProductCardSkeleton></ProductCardSkeleton>
+          </Grid>
+          <Grid item xs={4}>
+            <ProductCardSkeleton></ProductCardSkeleton>
+          </Grid>
+        </Grid>
       ) : cakes.value ? (
         <Grid container spacing={2} columns={{ md: 12 }} sx={{
-          bgcolor: '#f9e4e4',
+          bgcolor: '#f9e4e4'
         }}>
           {cakes.value.map((item) => (
-            <CakesComponent key={item.sys.id} cakeName={item.name} imageUrl={item.image?.url} />
+            <ItemCard key={item.sys.id} itemName={item.name} imageUrl={item.image?.url} />
           ))}
         </Grid>
       ) : (
         <Grid container>
-          <Typography variant="subtitle1">error</Typography>
+          <Grid item xs={4}>
+            <ProductCardError></ProductCardError>
+          </Grid>
+          <Grid item xs={4}>
+            <ProductCardError></ProductCardError>
+          </Grid>
+          <Grid item xs={4}>
+            <ProductCardError></ProductCardError>
+          </Grid>
         </Grid>
       )}
 
