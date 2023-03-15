@@ -1,6 +1,5 @@
 import {
   useSession,
-  useSetSession,
 } from "@/components/common/hooks/useSession";
 import { SX_MASKS } from "@/components/common/util/masks";
 import { LOGIN_URL } from "@/components/common/util/urls";
@@ -11,17 +10,15 @@ import {
   Button,
   CircularProgress,
   Container,
-  createTheme,
   Grid,
-  LinearProgress,
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { FC, useEffect, useState } from "react";
 import { COLOR_PALLETE } from "../../ThemeProvider";
 
-import { setCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { deleteSessionCookie, setSessionCookie } from "../../util/session-cookie";
 
 type LoginFormProps = {
   onRegisterClick?: () => void;
@@ -66,10 +63,12 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
 						currentUser: result.user,
 						expiration: new Date(result.exp * 1000)
 					};
-
-					setCookie("accessToken", _session.accessToken, {
-						expires: _session.expiration,
-					});
+          
+          setSessionCookie({
+            accessToken: _session.accessToken,
+            userId: _session.currentUser.userid,
+            expires: _session.expiration
+          })
 
           router.push(`/${_session.currentUser.userid}/profile`);
 
@@ -78,7 +77,7 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
       .catch((error) => {
 				console.log("error occured ", error);
 
-				deleteCookie("accessToken");
+        deleteSessionCookie();
 
         if (error.message === "Unauthorized!") {
           setError("Incorrect login credentials");

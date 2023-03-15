@@ -1,13 +1,16 @@
-import { useSession } from "@/components/common/hooks/useSession";
-import { withVerifyAccessToken } from "@/components/common/util/access-token";
-import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
-import { Box, Container, Skeleton, Typography } from "@mui/material";
-import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
-import { LogoutButton } from "@/components/common/user/login/LogoutButton";
+import { useSession } from '@/components/common/hooks/useSession';
+import { COLOR_PALLETE } from '@/components/common/ThemeProvider';
+import { LogoutButton } from '@/components/common/user/login/LogoutButton';
+import {
+  withSessionPage,
+} from '@/components/common/user/session/withSessionPage';
+import {
+  Container,
+  Skeleton,
+  Typography,
+} from '@mui/material';
 
-export default function ProfilePage() {
-  const router = useRouter();
+export default withSessionPage(function ProfilePage() {
   const session = useSession();
 
   return (
@@ -59,6 +62,5 @@ export default function ProfilePage() {
       </div>
     </Container>
   );
-}
+})
 
-export const getServerSideProps = withVerifyAccessToken();

@@ -5,6 +5,14 @@ import { getCookie } from "cookies-next";
 
 import { jwtVerify } from "jose";
 
+
+
+/**
+ * Vercel currently have problems with serverSideRendering
+ * 
+ * These functions are unable to be used
+ */
+
 export const verifyAccessToken: GetServerSideProps<{}> = async (context) => {
   try {
     const { req, res, query } = context;
