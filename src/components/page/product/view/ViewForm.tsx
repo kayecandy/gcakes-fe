@@ -1,7 +1,7 @@
 import { SX_MASKS } from "@/components/common/masks";
 import { Box, Button, Container, Grid, Rating, TextField, Typography } from "@mui/material";
 import { FC } from "react";
-import { COLOR_PALLETE } from "../ThemeProvider";
+import { COLOR_PALLETE } from "../../ThemeProvider";
 
 type ViewProps = {
     productType: string | any,
@@ -25,7 +25,8 @@ const ViewForm = ({ productType }: ViewProps) => {
             //display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            padding: "25%",
+            padding: "5%",
+            mb: "5%",
             //height: "120vh",
             zIndex: 0,
             }}
@@ -73,6 +74,8 @@ const ViewForm = ({ productType }: ViewProps) => {
                             <Button
                                 variant="contained"
                                 type="submit"
+                                color="success"
+                                fullWidth
                             >
                                 Add to Cart
                             </Button>
@@ -80,7 +83,7 @@ const ViewForm = ({ productType }: ViewProps) => {
                     </Grid>
                     
                     <Typography variant="h6">
-                        Leave a Review
+                        Reviews for { productType }
                     </Typography>
                     <Grid container
                         sx={{
@@ -93,9 +96,14 @@ const ViewForm = ({ productType }: ViewProps) => {
                             }}
                         >
                             <TextField
-                                label="Comments textbox"
+                                label="readOnly"
+                                defaultValue="Comments textbox"
                                 multiline
                                 rows={4}
+                                fullWidth
+                                InputProps={{
+                                    readOnly: true,
+                                }}
                             />
                         </Grid>
                         <Grid item xs={3}
@@ -105,6 +113,8 @@ const ViewForm = ({ productType }: ViewProps) => {
                         >
                             <Rating
                                 name="simple-controlled"
+                                value={3}
+                                readOnly
                             />
                         </Grid>
                     </Grid>
