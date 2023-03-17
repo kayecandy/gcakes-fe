@@ -25,10 +25,20 @@ export const useCakes = () => {
         return res.json().then((result) => {
           console.log(result);
 
-          setCakes({
-            loading: false,
-            value: result,
-          });
+          if (result.length > 0) {
+
+            setCakes({
+              loading: false,
+              value: result,
+            });
+          }
+          else {
+            setCakes({
+              loading: false,
+            });
+
+          }
+
         });
       })
       .catch((error) => {
