@@ -43,8 +43,16 @@ const HeaderSection: FC = ({}) => {
           }}
           maxWidth="sm"
         >
+          <Typography sx={{
+            fontFamily: "Silverstar, cursive",
+            fontSize: "5rem",
+            lineHeight: "150%",
+            marginBottom: "-14%",
+            position: "relative",
+            zIndex: 1
+          }}>welcome to</Typography>
           <Typography
-            sx={{ mt: 3, fontWeight: "700" }}
+            sx={{ mt: 3, fontWeight: "700", fontSize: "3rem" }}
             variant="h1"
             color={COLOR_PALLETE[1]}
           >

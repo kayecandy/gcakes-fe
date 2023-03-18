@@ -18,6 +18,17 @@ export const cursiveFont: TypographyStyleOptions = {
   fontFamily: "Dancing Script, cursive",
 };
 
+export const sansSerifFont: TypographyStyleOptions = {
+  fontFamily: "Oswald, sans-serif"
+}
+
+export const headerFont: TypographyStyleOptions = {
+  ...sansSerifFont,
+  textTransform: "uppercase !important",
+  fontWeight: "700 !important",
+  letterSpacing: "10px",
+}
+
 const theme = experimental_extendTheme({
   colorSchemes: {
     light: {
@@ -35,15 +46,17 @@ const theme = experimental_extendTheme({
     },
   },
   typography: {
-    h1: cursiveFont,
-    h2: cursiveFont,
-    h3: cursiveFont,
-    h4: cursiveFont,
-    h5: cursiveFont,
-    h6: cursiveFont,
+    h1: {
+      ...headerFont,
+    },
+    h2: headerFont,
+    h3: headerFont,
+    h4: headerFont,
+    h5: headerFont,
+    h6: headerFont,
     button: {
+      ...sansSerifFont,
       letterSpacing: "2px",
-      fontSize: "smaller",
     },
   },
 });

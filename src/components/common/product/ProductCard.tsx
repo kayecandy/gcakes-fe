@@ -33,7 +33,11 @@ export const ProductCard: FC<ProductCardProps> = ({
         textAlign: "center",
         mx: 2,
         p: 4,
-        borderRadius: 5
+        borderRadius: 5,
+        // background: COLOR_PALLETE[3]
+        borderWidth: "2px",
+        borderColor: COLOR_PALLETE[4],
+        borderStyle: "solid"
       }}
       elevation={0}
     >
@@ -49,9 +53,8 @@ export const ProductCard: FC<ProductCardProps> = ({
       )} */}
       <CardContent>
 
-        <Typography variant="h5" sx={{
-        fontFamily: "sans-serif"
-      }}>{product.name}</Typography>
+        {/* <Typography variant="h5" sx={{
+      }}>{product.name}</Typography> */}
 
 
         <Box sx={{
