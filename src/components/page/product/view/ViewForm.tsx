@@ -1,4 +1,5 @@
 import { SX_MASKS } from "@/components/common/masks";
+import { GET_REVIEWS_URL } from "@/components/common/urls";
 import { Box, Button, Container, Grid, Rating, TextField, Typography } from "@mui/material";
 import { FC } from "react";
 import { COLOR_PALLETE } from "../../ThemeProvider";
@@ -8,6 +9,12 @@ type ViewProps = {
 };
 
 const ViewForm = ({ productType }: ViewProps) => {
+
+    fetch(GET_REVIEWS_URL)
+        .then(async (res) => {
+            throw await res.json();
+    })
+    
 
     console.log("props: ", productType);
 
