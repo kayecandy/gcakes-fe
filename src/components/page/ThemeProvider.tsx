@@ -24,7 +24,7 @@ export const sansSerifFont: TypographyStyleOptions = {
 
 export const headerFont: TypographyStyleOptions = {
   ...sansSerifFont,
-  textTransform: "uppercase !important",
+  textTransform: "uppercase",
   fontWeight: "700 !important",
   letterSpacing: "10px",
 }
