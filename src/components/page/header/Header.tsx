@@ -53,7 +53,7 @@ export default function Header(props: HeaderProps) {
             <Typography sx={{
               fontFamily: "Silverstar",
               fontSize: "8rem",
-              color: "white",
+              // color: "white",
               textDecoration: "none",
               lineHeight: "120%",
                 mb: 2,
