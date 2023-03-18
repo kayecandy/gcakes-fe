@@ -5,10 +5,10 @@ import { FC } from "react";
 import { COLOR_PALLETE } from "../../ThemeProvider";
 
 type ViewProps = {
-    productType: string | any,
+    productId: string | any,
 };
 
-const ViewForm = ({ productType }: ViewProps) => {
+const ViewForm = ({ productId }: ViewProps) => {
 
     fetch(GET_REVIEWS_URL)
         .then(async (res) => {
@@ -16,7 +16,7 @@ const ViewForm = ({ productType }: ViewProps) => {
     })
     
 
-    console.log("props: ", productType);
+    console.log("props: ", productId);
 
     return (
         <Box
@@ -39,7 +39,7 @@ const ViewForm = ({ productType }: ViewProps) => {
             }}
         >
             <Typography variant="h6">
-                Item: {productType}
+                Item: {productId}
             </Typography>
 
             <div    // Contents
@@ -90,7 +90,7 @@ const ViewForm = ({ productType }: ViewProps) => {
                     </Grid>
                     
                     <Typography variant="h6">
-                        Reviews for { productType }
+                        Reviews for { productId }
                     </Typography>
                     <Grid container
                         sx={{
