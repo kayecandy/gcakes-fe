@@ -8,6 +8,10 @@ import { Container } from '@mui/system';
 import Grid from '@mui/material/Grid';
 
 
+
+import Grid from '@mui/material/Grid';
+
+
 import { useCakes } from './hooks/useCakes';
 import { ProductCard } from '@/components/common/product/ProductCard';
 
@@ -56,14 +60,23 @@ export const CakesSection: FC = () => {
   ];
 
   return (
-    <Container maxWidth="xl">
-      <Typography variant="h1">This is cakes section</Typography>
     <Container maxWidth="lg">
       {/* <Typography variant="h1">This is cakes section</Typography> */}
 
       {/* Add cakes component here */}
 
       {cakes.loading ? (
+        <Grid container>
+          <Grid item xs={4}>
+            <ProductCardSkeleton></ProductCardSkeleton>
+          </Grid>
+          <Grid item xs={4}>
+            <ProductCardSkeleton></ProductCardSkeleton>
+          </Grid>
+          <Grid item xs={4}>
+            <ProductCardSkeleton></ProductCardSkeleton>
+          </Grid>
+        </Grid>
         <Grid container>
           <Grid item xs={4}>
             <ProductCardSkeleton></ProductCardSkeleton>
@@ -96,10 +109,6 @@ export const CakesSection: FC = () => {
           </Grid>
         </Grid>
       )}
-
-    
-
-
 
     </Container>
   );
