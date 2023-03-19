@@ -10,7 +10,7 @@ const Menu: FC = () => {
     <Box>
       <MenuItem href="/cakes">Cakes</MenuItem>
       <MenuItem href="/cupcakes">Cupcakes</MenuItem>
-      <MenuItem href="/#">Decorated Cookies</MenuItem>
+      <MenuItem href="/decoratedCookies">Decorated Cookies</MenuItem>
       <MenuItem href="#">About</MenuItem>
       <MenuItem href="/test_folder/testfile">Test</MenuItem>
       <MenuItem href="/#" variant="text">

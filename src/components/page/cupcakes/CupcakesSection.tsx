@@ -3,29 +3,20 @@ import { FC } from 'react';
 import { Typography } from '@mui/material';
 import { Container } from '@mui/system';
 
-
 import Grid from '@mui/material/Grid';
 
-
-import { useCakes } from './hooks/useCakes';
+import { useCupcakes } from './hooks/useCupcakes';
 
 import { ItemCard, ItemCardSkeleton } from "@/components/common/ProductComponent";
 import { ProductCardError, ProductCardSkeleton } from '@/components/common/ProductCard';
 
 
-/**
- * Use FeaturedSection as basis
- */
-export const CakesSection: FC = () => {
-  const cakes = useCakes();
+export const CupcakesSection: FC = () => {
+  const cupcakes = useCupcakes();
 
   return (
     <Container maxWidth="lg">
-      {/* <Typography variant="h1">This is cakes section</Typography> */}
-
-      {/* Add cakes component here */}
-
-      {cakes.loading ? (
+      {cupcakes.loading ? (
         <Grid container>
           <Grid item xs={4}>
             <ProductCardSkeleton></ProductCardSkeleton>
@@ -37,11 +28,11 @@ export const CakesSection: FC = () => {
             <ProductCardSkeleton></ProductCardSkeleton>
           </Grid>
         </Grid>
-      ) : cakes.value ? (
+      ) : cupcakes.value ? (
         <Grid container spacing={2} columns={{ md: 12 }} sx={{
           bgcolor: '#f9e4e4'
         }}>
-          {cakes.value.map((item) => (
+          {cupcakes.value.map((item) => (
             <ItemCard key={item.sys.id} itemName={item.name} imageUrl={item.image?.url} />
           ))}
         </Grid>
