@@ -7,8 +7,9 @@ import Grid from '@mui/material/Grid';
 
 import { useDecoratedCookies } from './hooks/useDecoratedCookies';
 
+
 import { ItemCard, ItemCardSkeleton } from "@/components/common/ProductComponent";
-import { ProductCardError, ProductCardSkeleton } from '@/components/common/ProductCard';
+import { ProductCardError, ProductCardSkeleton } from '@/components/common/product/ProductCard';
 
 
 export const DecoratedCookiesSection: FC = () => {

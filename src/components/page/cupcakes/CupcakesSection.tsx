@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import { useCupcakes } from './hooks/useCupcakes';
 
 import { ItemCard, ItemCardSkeleton } from "@/components/common/ProductComponent";
-import { ProductCardError, ProductCardSkeleton } from '@/components/common/ProductCard';
+import { ProductCardError, ProductCardSkeleton } from '@/components/common/product/ProductCard';
 
 
 export const CupcakesSection: FC = () => {

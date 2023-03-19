@@ -10,7 +10,7 @@ export default function CupcakesPage() {
         Cupcakes page!
       </Typography>
 
-      <ProductGrid productType="cupcakes"></ProductGrid>
+      {/* <ProductGrid productType="cupcakes"></ProductGrid> */}
       <CupcakesSection />
 
       <LoremIpsum></LoremIpsum>
