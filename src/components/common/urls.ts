@@ -12,5 +12,10 @@ export const GET_PRODUCT_URL = (productType: ProductTypes) => `${BACKEND_URL}/pr
 
 export const GET_CAKES_URL = `${BACKEND_URL}/products/cakes`;
 
+export const GET_CUPCAKES_URL = `${BACKEND_URL}/products/cupcakes`;
+
+export const GET_DECORATED_COOKES_URL = `${BACKEND_URL}/products/decorated_cookies`;
+
+
 export const REGISTER_URL = `${BACKEND_URL}/users/register/user`;
 export const LOGIN_URL = `${BACKEND_URL}/users/login`;

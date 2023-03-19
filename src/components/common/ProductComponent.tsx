@@ -1,14 +1,10 @@
 import { FC } from "react";
 import { Grid, Button } from '@mui/material';
 
-import style from './CakesSection.module.css';
+import style from '@/components/common/ProductComponent.module.css';
 import { Box } from "@mui/system";
-import { grey } from '@mui/material/colors';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-;
 
 type ItemCardProps = {
     itemName: string;
@@ -26,6 +22,7 @@ export const ItemCard: FC<ItemCardProps> = ({ itemName, imageUrl }) => {
                     <img className={style.itemImg} src={imageUrl} alt={itemName} />
                     <Button style={{
                         width: '100%',
+                        height: '50px',
                         justifyContent: 'space-between',
                         backgroundColor: '#FFB1B1',
                         color: '#000000',
