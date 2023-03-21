@@ -31,10 +31,10 @@ const ViewForm = ({ productId }: ViewProps) => {
     useEffect(() => {
         console.log("Viewing product", viewedProduct);
         
-        //setActiveProduct({
-        //    loading: false,
-        //    value: viewedProduct, 
-        //});
+        // setActiveProduct({
+        //     loading: false,
+        //     value: viewedProduct, 
+        // });
 
     }, [viewedProduct]);
 
@@ -75,10 +75,10 @@ const ViewForm = ({ productId }: ViewProps) => {
                     <div>
                         <div style={{ display: "inline-flex" }}>
                             <Typography variant="h6" sx={{ mr: "15px", }}>
-                                Item: {viewedProduct.value[0]?.sys.id}
+                                Item: {viewedProduct.value.sys.id}
                             </Typography>
                             <Stack direction="row" spacing={1}>
-                                <Chip label={String(viewedProduct.value[0]?.productType).toUpperCase()} onClick={handleTagClick} color="primary" />
+                                <Chip label={String(viewedProduct.value.productType).toUpperCase()} onClick={handleTagClick} color="primary" />
                                 <Chip label="Tag 2" onClick={handleTagClick} />
                                 <Chip label="Tag 3" onClick={handleTagClick} />
                             </Stack>
@@ -86,7 +86,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                         
                         <div    // Contents
                             style={{
-                                flexGrow: 1,
+                                flexGrow: 1, 
                                 backgroundColor: `white`,
                                 padding: "3vw",
                                 borderRadius: "2rem",
@@ -99,9 +99,6 @@ const ViewForm = ({ productId }: ViewProps) => {
                                 sx={{
                                     pb: 10,
                                     display: "flex",
-                                    // justifyContent: "center",
-                                    // alignItems: "center",
-                                    //backgroundColor: `pink`,
                                 }}
                                 maxWidth="lg"
                             >
@@ -111,15 +108,15 @@ const ViewForm = ({ productId }: ViewProps) => {
                                             <CardActionArea>
                                                 <CardMedia sx={{ maxHeight: 650, maxWidth: 450 }}
                                                 component="img"
-                                                image={viewedProduct.value[0]?.image.url}
+                                                image={viewedProduct.value.image?.url}
                                                 alt="product"
                                                 />
                                                 <CardContent sx={{ maxWidth: 450 }}>
                                                 <Typography gutterBottom variant="h5" component="div">
-                                                    {viewedProduct.value[0]?.name}
+                                                    {viewedProduct.value.name}
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {viewedProduct.value[0]?.description}
+                                                    {viewedProduct.value.description}
                                                 </Typography>
                                                 </CardContent>
                                             </CardActionArea>
@@ -138,7 +135,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                                     <Grid item xs={6}>
                                         <Container>
                                             <Typography variant="h5">
-                                                Reviews for {viewedProduct.value[0]?.name}
+                                                Reviews for {viewedProduct.value.name}
                                             </Typography>
                                             {/** Review Components **/}
                                             <div style={{ overflowY: "visible", maxHeight: 650 }}>
