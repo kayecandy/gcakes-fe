@@ -17,11 +17,11 @@ export const useViewedProduct = (productId: string) => {
                 throw await res.json();
             }
             return res.json().then((result) => {
-                console.log(result);
+                console.log(result[0]);
     
                 setViewedProduct({
                     loading: false,
-                    value: result,
+                    value: result[0],
                 });
                 
                 //return result;
