@@ -6,6 +6,6 @@ export default function ViewPage() {
     const router = useRouter();
 
     return (
-        <ViewForm productType={router.query.productType} />
+        <ViewForm productId={router.query.productId} />
     )
 }
