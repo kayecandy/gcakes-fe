@@ -31,10 +31,10 @@ const ViewForm = ({ productId }: ViewProps) => {
     useEffect(() => {
         console.log("Viewing product", viewedProduct);
         
-        setActiveProduct({
-            loading: false,
-            value: viewedProduct, 
-        });
+        //setActiveProduct({
+        //    loading: false,
+        //    value: viewedProduct, 
+        //});
 
     }, [viewedProduct]);
 
