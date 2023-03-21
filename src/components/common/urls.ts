@@ -18,7 +18,7 @@ export const GET_DECORATED_COOKES_URL = `${BACKEND_URL}/products/type/decorated_
 
 
 // test
-export const GET_REVIEWS_URL = `${BACKEND_URL}/products/getReviews`;
+export const GET_VIEW_PRODUCT_URL = (productId: string) => `${BACKEND_URL}/products/view/${productId}`;
 
 export const REGISTER_URL = `${BACKEND_URL}/users/register/user`;
 export const LOGIN_URL = `${BACKEND_URL}/users/login`;
