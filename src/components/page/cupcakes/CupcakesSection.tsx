@@ -33,7 +33,7 @@ export const CupcakesSection: FC = () => {
           bgcolor: '#f9e4e4'
         }}>
           {cupcakes.value.map((item) => (
-            <ItemCard key={item.sys.id} itemName={item.name} imageUrl={item.image?.url} />
+            <ItemCard key={item.sys.id} product={item} />
           ))}
         </Grid>
       ) : (

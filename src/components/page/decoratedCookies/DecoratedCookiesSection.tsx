@@ -34,7 +34,7 @@ export const DecoratedCookiesSection: FC = () => {
           bgcolor: '#f9e4e4'
         }}>
           {decoratedCookies.value.map((item) => (
-            <ItemCard key={item.sys.id} itemName={item.name} imageUrl={item.image?.url} />
+            <ItemCard key={item.sys.id} product={item} />
           ))}
         </Grid>
       ) : (

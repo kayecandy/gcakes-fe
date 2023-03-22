@@ -4,14 +4,15 @@ import { Grid, Button } from '@mui/material';
 import style from '@/components/common/ProductComponent.module.css';
 import { Box } from "@mui/system";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Product } from "@/types/product";
+import Link from "next/link";
 
 
 type ItemCardProps = {
-    itemName: string;
-    imageUrl?: string;
+    product: Product
 }
 
-export const ItemCard: FC<ItemCardProps> = ({ itemName, imageUrl }) => {
+export const ItemCard: FC<ItemCardProps> = ({ product }) => {
 
     return (
         <>
@@ -19,7 +20,9 @@ export const ItemCard: FC<ItemCardProps> = ({ itemName, imageUrl }) => {
                 <Box sx={{
                     bgcolor: '#d8cdcd',
                 }}>
-                    <img className={style.itemImg} src={imageUrl} alt={itemName} />
+                    <Link href="#">
+                    <img className={style.itemImg} src={product.image?.url} alt={product.name} />
+                    </Link>
                     <Button style={{
                         width: '100%',
                         height: '50px',
@@ -27,7 +30,7 @@ export const ItemCard: FC<ItemCardProps> = ({ itemName, imageUrl }) => {
                         backgroundColor: '#FFB1B1',
                         color: '#000000',
                         textTransform: 'none'
-                    }} variant="contained" size="medium" endIcon={<AddShoppingCartIcon />}>{itemName}</Button>
+                    }} variant="contained" size="medium" endIcon={<AddShoppingCartIcon />}>{product.name}</Button>
                 </Box>
             </Grid>
         </>
