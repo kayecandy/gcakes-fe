@@ -20,7 +20,7 @@ export default function Header() {
         background: COLOR_PALLETE[1],
         // background: "white",
         position: "relative",
-        zIndex: 1200,
+        zIndex: 500,
         ...SX_MASKS[0]("bottom"),
       }}
     >

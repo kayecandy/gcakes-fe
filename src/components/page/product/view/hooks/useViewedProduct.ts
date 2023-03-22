@@ -11,6 +11,10 @@ export const useViewedProduct = (productId: string) => {
             loading: true
         });
 
+        /* Gets the Product to be viewed using its CMS sys.id.
+        *  If successful, the object is stored in
+        *  a list form in result[0].
+        **/
         fetch(GET_VIEW_PRODUCT_URL(String(productId)))
         .then(async (res) => {
             if (!res.ok) {
@@ -23,8 +27,6 @@ export const useViewedProduct = (productId: string) => {
                     loading: false,
                     value: result[0],
                 });
-                
-                //return result;
             });
         })
         .catch((error) => {
