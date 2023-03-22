@@ -1,13 +1,14 @@
 import { Box, Container, Typography, Grid, TextField, Rating } from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { FC } from "react";
-import { Product } from "@/types/product";
+import { Review } from "@/types/review";
 
 type ReviewProps = {
-    review: string | any;
+    key: string;
+    review: Review;
 }
 
-const ProductReview: FC<ReviewProps> = ({ review }) => {
+const ProductReview: FC<ReviewProps> = ({ key, review }) => {
     return (
         <Box>
             <Grid container
@@ -24,8 +25,8 @@ const ProductReview: FC<ReviewProps> = ({ review }) => {
 
                 <Grid item xs={11}>
                     <TextField
-                        label="username"
-                        defaultValue="Comments textbox"
+                        label={String('user/' + review.user?.userid)}
+                        defaultValue={review.comment}
                         multiline
                         rows={4}
                         fullWidth
@@ -37,13 +38,13 @@ const ProductReview: FC<ReviewProps> = ({ review }) => {
                 <Grid item xs={12}>
                     <Rating
                         name="simple-controlled"
-                        value={3} 
+                        value={review.rating} 
                         readOnly
                         sx={{ float: "right" }}
                     />
                 </Grid>
             </Grid>  
-        </Box>
+        </Box> 
     );
 }
 
