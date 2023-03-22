@@ -1,7 +1,6 @@
 import { useSession } from "@/components/common/hooks/useSession";
 import { Person } from "@mui/icons-material";
-import { Box, Dialog, Typography } from "@mui/material";
-import { useRouter } from "next/router";
+import { Dialog } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import LoginForm from "../user/login/LoginForm";
 import RegisterForm from "../user/register/RegisterForm";
@@ -47,6 +46,11 @@ export const AccountDialogMenuItem: FC<AccountDialogMenuItemProps> = ({
       <Dialog
         open={open}
         onClose={handleClose}
+        onTransitionEnd={() => {
+          if (!open) {
+            setActiveDialog(defaultActiveDialog)
+          }
+        }}
         PaperProps={{
           sx: {
             background: "transparent",
