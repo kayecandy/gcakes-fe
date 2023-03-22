@@ -1,5 +1,13 @@
 import { SX_MASKS } from "@/components/common/masks";
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Container, Grid, IconButton, Modal, Rating, Stack, TextField, Typography } from "@mui/material";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Box, Button, Card, CardActionArea,
+    CardActions, CardContent, CardMedia,
+    Chip, CircularProgress, Container, Grid,
+    IconButton, Modal, Stack, Typography
+} from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useEffect, useState } from "react";
@@ -8,6 +16,8 @@ import { useViewedProduct } from "./hooks/useViewedProduct";
 import ProductReview from "./ProductReview";
 import { Product } from "@/types/product";
 import { ApiResponse } from "@/types/api-response";
+import { Review } from "@/types/review";
+import { useViewedReviews } from "./hooks/useViewedReviews";
 
 const modalStyle = {
     position: 'absolute',
@@ -27,34 +37,35 @@ type ViewProps = {
 
 const ViewForm = ({ productId }: ViewProps) => {
     const viewedProduct = useViewedProduct(productId);
+    const viewedReviews = useViewedReviews(productId);
     const [activeProduct, setActiveProduct] = useState<ApiResponse<Product>>({ loading: true });
     const [open, setOpen] = useState(false);
-    //const [activeReviews, setActiveReviews] = useState();
-
-
-    //const viewedReviews = useViewedReviews();
-
+    const [activeReviews, setActiveReviews] = useState<ApiResponse<Review[]>>({ loading: true });
+    
     useEffect(() => {
-        (
-          window as typeof window & {
-            setActiveProduct: typeof setActiveProduct;
-          }
-        ).setActiveProduct = setActiveProduct;
-      }, [setActiveProduct]);
-
-    useEffect(() => {
-        console.log("Viewing product", viewedProduct);
-        
-        // setActiveProduct({
-        //     loading: false,
-        //     value: viewedProduct, 
-        // });
-
+        //console.log("Viewing product", viewedProduct);
+        setActiveProduct({
+            loading: false,
+            value: viewedProduct.value,
+        });
     }, [viewedProduct]);
 
     useEffect(() => {
+        console.log("Viewed reviews", viewedReviews);
+        setActiveReviews({
+            loading: false, 
+            value: viewedReviews.value,
+        })
+    }, [viewedReviews]);
+
+    useEffect(() => {
         console.log("Active product", activeProduct);
-    }, [activeProduct]);
+        
+    }, [activeProduct]); 
+
+    useEffect(() => {
+        console.log("Active reviews", activeReviews);
+    }, [activeReviews]);
 
     // When user clicks a tag
     const handleTagClick = () => {
@@ -71,7 +82,6 @@ const ViewForm = ({ productId }: ViewProps) => {
         console.info('Modal closed.');
         setOpen(false);
     }
-    
     
     return (
         <Box // outer background
@@ -94,8 +104,11 @@ const ViewForm = ({ productId }: ViewProps) => {
             }}
         >
             { viewedProduct.loading ? (
-                <div>
-                    Loading...
+                <div style={{ position: 'relative', top: '50%', left: '50%'}}>
+                    <CircularProgress />
+                    <Typography>
+                        Loading...
+                    </Typography>
                 </div>
             ):
                 viewedProduct.value ? (
@@ -116,9 +129,9 @@ const ViewForm = ({ productId }: ViewProps) => {
                             </Box>
                         </Modal>
 
-                        <div style={{ display: "inline-flex" }}>
+                        <div style={{ display: "inline-flex", }}>
                             <Typography variant="h6" sx={{ mr: "15px", }}>
-                                Item: {viewedProduct.value.sys.id}
+                                Tags:
                             </Typography>
                             <Stack direction="row" spacing={1}>
                                 <Chip label={String(viewedProduct.value.productType).toUpperCase()} onClick={handleTagClick} color="primary" />
@@ -146,7 +159,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                                 }}
                                 maxWidth="xl"
                             >
-                                <Grid container spacing={5}
+                                <Grid container spacing={0}
                                     sx={{
                                         maxWidth: "100%",
                                         //backgroundColor: 'orange', //
@@ -181,7 +194,8 @@ const ViewForm = ({ productId }: ViewProps) => {
                                                     size="large"
                                                     color="success"
                                                     fullWidth
-                                                >
+                                                    onClick={handleOpen}
+                                                > 
                                                     <ShoppingCartIcon fontSize="medium" /> &nbsp; Add to Cart
                                                 </Button>
                                             </CardActions>
@@ -196,17 +210,28 @@ const ViewForm = ({ productId }: ViewProps) => {
                                             </Typography>
                                             {/** Review Components **/}
                                             <div style={{
-                                                //maxHeight: "100%",
                                                 maxWidth: "100%",
-                                                backgroundColor: `white`, //
                                             }}>
-                                                <ProductReview review={"null"} />
-                                                <ProductReview review={"null"} />
-                                                <ProductReview review={"null"} />
-                                                <ProductReview review={"null"} />
-                                                <ProductReview review={"null"} />
-                                                <ProductReview review={"null"} />
-                                                <ProductReview review={"null"} />
+                                                
+                                                <Stack>
+                                                    {viewedReviews.loading ? (
+                                                        <div style={{ position: 'relative', }}>
+                                                            <CircularProgress />
+                                                            <Typography>
+                                                                Loading...
+                                                            </Typography>
+                                                        </div>
+                                                    ) : 
+                                                        viewedReviews.value ? (
+                                                            <>
+                                                                {viewedReviews.value.map((review) => (
+                                                                        <ProductReview key={review.sys.id} review={review} />
+                                                                ))}
+                                                            </> 
+                                                        ) : (
+                                                            <>Errored...</>   
+                                                    )}
+                                                </Stack>
                                             </div>
                                         </Container>
                                     </Grid>
@@ -216,7 +241,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                     </div>
             ) : ( // errored
                 <div>
-                       Error...     
+                    Error...        
                 </div>
             )}
         </Box>
