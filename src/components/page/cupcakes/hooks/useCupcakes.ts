@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-
-import { GET_CUPCAKES_URL } from "@/components/common/urls";
+import { GET_CUPCAKES_URL } from "@/components/common/util/urls";
 import { ApiResponse } from "@/types/api-response";
 import { Product } from "@/types/product";
+
 
 export const useCupcakes = () => {
   const [cupcakes, setCupcakes] = useState<ApiResponse<Product[]>
