@@ -1,12 +1,25 @@
 import { SX_MASKS } from "@/components/common/masks";
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Container, Grid, Rating, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Container, Grid, IconButton, Modal, Rating, Stack, TextField, Typography } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useEffect, useState } from "react";
 import { COLOR_PALLETE } from "../../ThemeProvider";
 import { useViewedProduct } from "./hooks/useViewedProduct";
 import ProductReview from "./ProductReview";
 import { Product } from "@/types/product";
 import { ApiResponse } from "@/types/api-response";
+
+const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'background.paper',
+    borderRadius: '2rem',
+    boxShadow: 20,
+    width: 1000,
+    height: 550,
+}
 
 type ViewProps = {
     productId: string | any,
@@ -15,6 +28,7 @@ type ViewProps = {
 const ViewForm = ({ productId }: ViewProps) => {
     const viewedProduct = useViewedProduct(productId);
     const [activeProduct, setActiveProduct] = useState<ApiResponse<Product>>({ loading: true });
+    const [open, setOpen] = useState(false);
     //const [activeReviews, setActiveReviews] = useState();
 
 
@@ -42,12 +56,25 @@ const ViewForm = ({ productId }: ViewProps) => {
         console.log("Active product", activeProduct);
     }, [activeProduct]);
 
+    // When user clicks a tag
     const handleTagClick = () => {
         console.info('Tag clicked.');
     }
+
+    // When user clicks the product photo
+    const handleOpen = () => {
+        console.info('Modal opened.');
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        console.info('Modal closed.');
+        setOpen(false);
+    }
+    
     
     return (
-        <Box
+        <Box // outer background
             sx={{
                 ...SX_MASKS[1]("bottom"),
                 position: "relative",
@@ -73,6 +100,22 @@ const ViewForm = ({ productId }: ViewProps) => {
             ):
                 viewedProduct.value ? (
                     <div>
+                        <Modal
+                            open={open}
+                            onClose={handleClose}
+                        >
+                            <Box sx={modalStyle} zIndex={1000}>
+                                <IconButton onClick={handleClose} sx={{display: 'block', position: 'relative', left: '95%', top: '1%'}}>
+                                    <CloseOutlinedIcon />
+                                </IconButton>
+                                
+                                <div style={{position: 'relative', top: '25%', left: '50%', transform: 'translate(-5%, 0%)'}}>
+                                    <Typography variant="h5">Modal Text</Typography>
+                                </div>
+                                 
+                            </Box>
+                        </Modal>
+
                         <div style={{ display: "inline-flex" }}>
                             <Typography variant="h6" sx={{ mr: "15px", }}>
                                 Item: {viewedProduct.value.sys.id}
@@ -84,7 +127,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                             </Stack>
                         </div>
                         
-                        <div    // Contents
+                        <div    // Contents | White Container
                             style={{
                                 flexGrow: 1, 
                                 backgroundColor: `white`,
@@ -97,19 +140,31 @@ const ViewForm = ({ productId }: ViewProps) => {
                         >
                             <Container
                                 sx={{
-                                    pb: 10,
                                     display: "flex",
+                                    //backgroundColor: `gray`, //
+                                    maxHeight: 750,
                                 }}
-                                maxWidth="lg"
+                                maxWidth="xl"
                             >
-                                <Grid container spacing={5}>
+                                <Grid container spacing={5}
+                                    sx={{
+                                        maxWidth: "100%",
+                                        //backgroundColor: 'orange', //
+                                        overflowY: "auto",
+                                        //maxHeight: 650,
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    {/** Product Details Section **/}
                                     <Grid item>
-                                        <Card>
+                                        <Card sx={{position: "sticky", top: 0, }}>
                                             <CardActionArea>
-                                                <CardMedia sx={{ maxHeight: 650, maxWidth: 450 }}
-                                                component="img"
-                                                image={viewedProduct.value.image?.url}
-                                                alt="product"
+                                                <CardMedia sx={{ maxHeight: 450, maxWidth: 550 }}
+                                                    component="img"
+                                                    image={viewedProduct.value.image?.url}
+                                                    alt="product"
+                                                    onClick={handleOpen}
                                                 />
                                                 <CardContent sx={{ maxWidth: 450 }}>
                                                 <Typography gutterBottom variant="h5" component="div">
@@ -132,13 +187,22 @@ const ViewForm = ({ productId }: ViewProps) => {
                                             </CardActions>
                                         </Card>
                                     </Grid>
-                                    <Grid item xs={6}>
+
+                                    {/** Review Section **/}
+                                    <Grid item xs={6}> 
                                         <Container>
-                                            <Typography variant="h5">
-                                                Reviews for {viewedProduct.value.name}
+                                            <Typography variant="h4" sx={{ mt: 2, }}>
+                                                Reviews
                                             </Typography>
                                             {/** Review Components **/}
-                                            <div style={{ overflowY: "visible", maxHeight: 650 }}>
+                                            <div style={{
+                                                //maxHeight: "100%",
+                                                maxWidth: "100%",
+                                                backgroundColor: `white`, //
+                                            }}>
+                                                <ProductReview review={"null"} />
+                                                <ProductReview review={"null"} />
+                                                <ProductReview review={"null"} />
                                                 <ProductReview review={"null"} />
                                                 <ProductReview review={"null"} />
                                                 <ProductReview review={"null"} />

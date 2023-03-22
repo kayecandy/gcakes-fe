@@ -12,16 +12,19 @@ const ProductReview: FC<ReviewProps> = ({ review }) => {
         <Box>
             <Grid container
                 sx={{
-                    mt: "5%"
+                    mt: "5%",
+                    width: 600,
+                    display: "flex",
+                    justifyItems: "right"
                 }}
             >
                 <Grid item xs={1}>
                     <AccountCircleIcon fontSize="large" />
                 </Grid>
 
-                <Grid item xs={8}>
+                <Grid item xs={11}>
                     <TextField
-                        label="readOnly"
+                        label="username"
                         defaultValue="Comments textbox"
                         multiline
                         rows={4}
@@ -31,11 +34,12 @@ const ProductReview: FC<ReviewProps> = ({ review }) => {
                         }}
                     />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={12}>
                     <Rating
                         name="simple-controlled"
-                        value={3}
+                        value={3} 
                         readOnly
+                        sx={{ float: "right" }}
                     />
                 </Grid>
             </Grid>  
