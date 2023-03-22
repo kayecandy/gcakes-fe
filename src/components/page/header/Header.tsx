@@ -29,7 +29,7 @@ export default function Header(props: HeaderProps) {
         background: COLOR_PALLETE[1],
         // background: "white",
         position: "relative",
-        zIndex: 10000,
+        zIndex: 500,
         ...SX_MASKS[0]("bottom"),
       }}
     >
