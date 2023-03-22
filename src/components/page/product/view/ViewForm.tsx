@@ -32,7 +32,7 @@ const modalStyle = {
 }
 
 type ViewProps = {
-    productId: string | any,
+    productId: string,
 };
 
 const ViewForm = ({ productId }: ViewProps) => {

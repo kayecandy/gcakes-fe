@@ -20,8 +20,8 @@ export const ItemCard: FC<ItemCardProps> = ({ product }) => {
                 <Box sx={{
                     bgcolor: '#d8cdcd',
                 }}>
-                    <Link href="#">
-                    <img className={style.itemImg} src={product.image?.url} alt={product.name} />
+                    <Link href={`/product/view/${product.sys.id}`}>
+                        <img className={style.itemImg} src={product.image?.url} alt={product.name} />
                     </Link>
                     <Button style={{
                         width: '100%',
