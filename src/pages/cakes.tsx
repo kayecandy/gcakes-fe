@@ -5,8 +5,13 @@ import { Container, Typography } from "@mui/material";
 
 export default function CakePage() {
   return (
-    <Container maxWidth="lg" sx={{ pt: 10, pb: 10 }}>
-      <ProductGrid productType="cakes"></ProductGrid>
+    <Container maxWidth="md" sx={{ pt: 10, pb: 10 }}>
+    <Typography sx={{ mb: 3 }} variant="h2">
+      Cakes page!
+    </Typography>
+
+      {/* <ProductGrid productType="cakes"></ProductGrid> */}
+      <CakesSection />
     </Container>
   );
 }

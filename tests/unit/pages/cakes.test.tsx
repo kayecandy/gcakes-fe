@@ -1,35 +1,35 @@
 import { ProductGrid } from '@/components/common/product/ProductGrid';
+import { CakesSection } from '@/components/page/cakes/CakesSection';
 import CakePage from '@/pages/cakes';
 import {
   render,
   screen,
 } from '@testing-library/react';
 
-jest.mock('@/components/common/product/ProductGrid', () => {
-  const ProductGridMock: typeof ProductGrid = ({productType}) => {
-    return <div data-testid="cakes-product-grid" data-product-type={productType}></div>
+jest.mock('@/components/page/cakes/CakesSection', () => {
+  const CakesSectionMock: typeof CakesSection = () => {
+    return <div data-testid="cakes-section"></div>
   }
   
   return {
-    ProductGrid: ProductGridMock
+    CakesSection: CakesSectionMock
   }
 });
 
-
 describe("Cakes Page", () => {
-  let cakesProductGrid: HTMLElement;
-  beforeAll(() => {
+  let cakesSection: HTMLElement;
+  let cakesTypography: HTMLElement;
+  beforeEach(() => {
     render(<CakePage />);
-
-    cakesProductGrid = screen.getByTestId("cakes-product-grid");
-
+    cakesSection = screen.getByTestId("cakes-section");
+    cakesTypography = screen.getByText("Cakes page!");
   });
 
-  test("Renders ProductGrid component", () => {
-    expect(cakesProductGrid).toBeInTheDocument();
+  test("Renders CakesSection component", () => {
+    expect(cakesSection).toBeInTheDocument();
   });
 
-  test("ProductGrid component has correct productType", () => {
-    expect(cakesProductGrid.getAttribute('data-product-type')).toBe("cakes")
-  })
+  test("Renders CakesSection typography header", () => {
+    expect(cakesTypography).toBeInTheDocument();
+  });
 });

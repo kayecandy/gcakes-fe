@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
 
-import { GET_CAKES_URL } from "@/components/common/urls";
+import { GET_DECORATED_COOKES_URL } from "@/components/common/urls";
 import { ApiResponse } from "@/types/api-response";
 import { Product } from "@/types/product";
 
-/**
- * Use useFeaturedProducts as sample
- *
- *
- */
-export const useCakes = () => {
-  const [cakes, setCakes] = useState<ApiResponse<Product[]>
+export const useDecoratedCookies = () => {
+  const [decoratedCookies, setDecoratedCookies] = useState<ApiResponse<Product[]>
   >({
     loading: true,
   });
 
   useEffect(() => {
-    const t = fetch(GET_CAKES_URL)
+    const t = fetch(GET_DECORATED_COOKES_URL)
       .then(async (res) => {
         if (!res.ok) {
           throw await res.json();
@@ -27,13 +22,13 @@ export const useCakes = () => {
 
           if (result.length > 0) {
 
-            setCakes({
+            setDecoratedCookies({
               loading: false,
               value: result,
             });
           }
           else {
-            setCakes({
+            setDecoratedCookies({
               loading: false,
             });
 
@@ -44,12 +39,12 @@ export const useCakes = () => {
       .catch((error) => {
         console.log("errored", error);
 
-        setCakes({
+        setDecoratedCookies({
           loading: false,
           error,
         });
       });
   }, []);
 
-  return cakes;
+  return decoratedCookies;
 };
