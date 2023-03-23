@@ -3,25 +3,16 @@ import * as React from "react";
 
 import Link from "next/link";
 
-import { SX_MASKS } from "@/components/common/masks";
+import { SX_MASKS } from "@/components/common/util/masks";
 import { Box, Container } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 
 import { COLOR_PALLETE } from "../ThemeProvider";
 import Menu from "./Menu";
 
-type HeaderSections = {
-  title: string;
-  url: string;
-};
 
-type HeaderProps = {
-  sections: ReadonlyArray<HeaderSections>;
-  title: string;
-};
 
-export default function Header(props: HeaderProps) {
-  const { sections, title } = props;
+export default function Header() {
 
   return (
     <Box
@@ -29,7 +20,7 @@ export default function Header(props: HeaderProps) {
         background: COLOR_PALLETE[1],
         // background: "white",
         position: "relative",
-        zIndex: 10000,
+        zIndex: 1200,
         ...SX_MASKS[0]("bottom"),
       }}
     >

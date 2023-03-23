@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-import { GET_DECORATED_COOKES_URL } from "@/components/common/urls";
+import { GET_DECORATED_COOKES_URL } from "@/components/common/util/urls";
 import { ApiResponse } from "@/types/api-response";
 import { Product } from "@/types/product";
 

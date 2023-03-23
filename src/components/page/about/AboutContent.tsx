@@ -2,7 +2,6 @@ import { Facebook, Instagram } from "@mui/icons-material";
 import { CardMedia, Grid, ImageList, ImageListItem, Link, Typography } from "@mui/material";
 import { Container } from "@mui/system"
 import { FC } from "react";
-import { COLOR_PALLETE } from "../ThemeProvider";
 
 export const AboutHead: FC = () => {
     return (

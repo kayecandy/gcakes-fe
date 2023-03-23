@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { GET_CAKES_URL } from "@/components/common/urls";
+import { GET_CAKES_URL } from "@/components/common/util/urls";
 import { ApiResponse } from "@/types/api-response";
 import { Product } from "@/types/product";
 

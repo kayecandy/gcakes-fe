@@ -1,5 +1,5 @@
 import { AboutBody, AboutFoot, AboutHead } from "@/components/page/about/AboutContent";
-import { COLOR_PALLETE } from "@/components/page/ThemeProvider";
+import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { Box, Container, Typography } from "@mui/material";
 
 export default function AboutPage() {

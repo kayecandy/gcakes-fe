@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { SX_MASKS } from "@/components/common/masks";
+import { SX_MASKS } from "@/components/common/util/masks";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
