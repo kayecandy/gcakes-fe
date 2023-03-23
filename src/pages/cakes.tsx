@@ -9,6 +9,7 @@ export default function CakePage() {
     <Typography sx={{ mb: 3 }} variant="h2">
       Cakes page!
       </Typography>
+      
       {/* <ProductGrid productType="cakes"></ProductGrid> */}
       <CakesSection />
     </Container>
