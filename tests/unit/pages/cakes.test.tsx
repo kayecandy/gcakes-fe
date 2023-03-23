@@ -1,4 +1,3 @@
-import { ProductGrid } from '@/components/common/product/ProductGrid';
 import { CakesSection } from '@/components/page/cakes/CakesSection';
 import CakePage from '@/pages/cakes';
 import {
