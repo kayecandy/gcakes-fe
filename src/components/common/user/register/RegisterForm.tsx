@@ -5,14 +5,13 @@ import {
   Button,
   Container,
   Grid,
-  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
 import { FC, useState } from "react";
 import { COLOR_PALLETE } from "../../ThemeProvider";
-import { useFormik } from "formik" // email validation
-import { basicSchema } from "../../../../schemas/validation";
+import { useFormik } from "formik"
+import { validationSchema } from "../../../../schemas/validation";
 
 type RegisterFormProps = {
 	onLoginClick?: ()=>void
@@ -21,61 +20,55 @@ type RegisterFormProps = {
 const RegisterForm: FC<RegisterFormProps> = ({
 	onLoginClick
 }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  //const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [userid, setUserId] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  
-  // function handleSubmit(e: any) {
-  //   e.preventDefault();
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
 
-  //   if (password == confirmPassword) {
-  //     console.log("Registering...");
-  //     // send to backend
-  //     fetch(`${REGISTER_URL}`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         userid: userid,
-  //         password: password,
-  //         firstName: firstName,
-  //         lastName: lastName,
-  //         //email: email,
-  //         //"address": address,
-  //         birthday: birthday,
-  //         admin: false,
-  //       }),
-  //     })
-  //       .then(async (res) => {
-  //         if (!res.ok) {
-  //           throw await res.json();
-  //         }
+  const onSubmit = async (values: any, actions: any) => {
+    fetch(`${REGISTER_URL}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            userid: values.userid,
+            password: values.password,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            //address: values.address,
+            birthday: values.birthday,
+            admin: false,
+          }),
+        })
+          .then(async (res) => {
+            if (!res.ok) {
+              setSuccess(false);
+              throw await res.json();
+            }
 
-  //         return res.json().then((result) => {
-  //           console.log("Register success!")
-  //           console.log(result);
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.log("error occured ", error);
-  //       });
-  //   } else {
-  //     console.log("Passwords do not match!");
-  //   }
-  // }
-
-  // new form submission function
-  const onSubmit = () => {
-    console.log("Submitted");
+            return res.json().then((result) => {
+              console.log("Register success!")
+              console.log(result);
+              setSuccess(true);
+              setFail(false);
+              actions.resetForm();
+            });
+          })
+          .catch((error) => {
+            console.log("error occured ", error);
+            setSuccess(false);
+            setFail(true);
+          });
   }
   
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+  /**
+   * values - contains form input fields/values based on the validationSchema
+   * errors - returned by the validationSchema
+   * touched - A user has 'used' a form
+   * isSubmitting - A user has pressed the Register button and is processing form contents
+   */
+  const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
@@ -85,7 +78,7 @@ const RegisterForm: FC<RegisterFormProps> = ({
       password: "",
       confirmPassword: "",
     },
-    validationSchema: basicSchema,
+    validationSchema: validationSchema,
     onSubmit,
   });
 
@@ -235,9 +228,12 @@ const RegisterForm: FC<RegisterFormProps> = ({
             <Grid item xs={12}>
 							<Button sx={{
 								width: "100%",
-							}} variant="contained" type="submit" size="large">
+              }} variant="contained" type="submit" size="large" disabled={isSubmitting}
+              >
                 Register!
               </Button>
+              {success ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Registeration success!</p> : <p></p>}
+              {fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Server error occured!</p> : <p></p>}
             </Grid>
           </Grid>
 				</form>

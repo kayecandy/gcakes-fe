@@ -3,7 +3,7 @@ import * as yup from "yup";
 /* Minimum of 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit */
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
-export const basicSchema = yup.object().shape({
+export const validationSchema = yup.object().shape({
     firstName: yup
         .string()
         .required("Required!"),
@@ -12,7 +12,7 @@ export const basicSchema = yup.object().shape({
         .required("Required!"),
     email: yup
         .string()
-        .email("Invalid email detected!")
+        .email("Invalid email detected! Please re-enter your email")
         .required("Required!"),
     birthday: yup
         .string()
