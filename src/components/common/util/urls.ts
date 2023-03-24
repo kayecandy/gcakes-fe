@@ -16,6 +16,9 @@ export const GET_CUPCAKES_URL = `${BACKEND_URL}/products/type/cupcakes`;
 
 export const GET_DECORATED_COOKES_URL = `${BACKEND_URL}/products/type/decorated_cookies`;
 
+export const GET_VIEW_PRODUCT_URL = (productId: string) => `${BACKEND_URL}/products/${productId}/index`;
+export const GET_ALLREVIEWS_URL = `${BACKEND_URL}/products/getReviews`;
+export const GET_REVIEWS_URL = (productId: string) => `${BACKEND_URL}/products/${productId}/reviews`;
 
 export const REGISTER_URL = `${BACKEND_URL}/users/register/user`;
 export const LOGIN_URL = `${BACKEND_URL}/users/login`;
