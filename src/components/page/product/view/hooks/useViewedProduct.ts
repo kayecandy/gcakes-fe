@@ -1,4 +1,4 @@
-import { GET_VIEW_PRODUCT_URL } from "@/components/common/urls";
+import { GET_VIEW_PRODUCT_URL } from "@/components/common/util/urls";
 import { ApiResponse } from "@/types/api-response";
 import { Product } from "@/types/product";
 import { useState, useEffect } from "react";
