@@ -173,7 +173,11 @@ const ViewForm = ({ productId }: ViewProps) => {
                                     <Grid item>
                                         <Card sx={{position: "sticky", top: 0, }}>
                                             <CardActionArea>
-                                                <CardMedia sx={{ maxHeight: 450, maxWidth: 550 }}
+                                                <CardMedia sx={{
+                                                    maxHeight: 450,
+                                                    maxWidth: 550,
+                                                    objectFit: "contain",
+                                                    }}
                                                     component="img"
                                                     image={viewedProduct.value.image?.url}
                                                     alt="product"
