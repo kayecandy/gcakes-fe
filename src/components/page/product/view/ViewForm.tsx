@@ -117,7 +117,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                             open={open}
                             onClose={handleClose}
                         >
-                            <Box sx={modalStyle} zIndex={1000}>
+                            <Box sx={modalStyle} zIndex={1500}>
                                 <IconButton onClick={handleClose} sx={{display: 'block', position: 'relative', left: '95%', top: '1%'}}>
                                     <CloseOutlinedIcon />
                                 </IconButton>
