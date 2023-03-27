@@ -5,12 +5,13 @@ import {
   Button,
   Container,
   Grid,
-  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
 import { FC, useState } from "react";
 import { COLOR_PALLETE } from "../../ThemeProvider";
+import { useFormik } from "formik"
+import { validationSchema } from "../../../../schemas/validation";
 
 type RegisterFormProps = {
 	onLoginClick?: ()=>void
@@ -19,63 +20,75 @@ type RegisterFormProps = {
 const RegisterForm: FC<RegisterFormProps> = ({
 	onLoginClick
 }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [userid, setUserId] = useState("");
-  const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
 
-  function handleSubmit(e: any) {
-    e.preventDefault();
-    if (password == confirmPassword) {
-      console.log("Registering...");
-      // send to backend
-      fetch(`${REGISTER_URL}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          userid: userid,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          //"address": address,
-          //"birthday": birthday,
-          admin: false,
-        }),
-      })
-        .then(async (res) => {
-          if (!res.ok) {
-            throw await res.json();
-          }
-
-          return res.json().then((result) => {
-            console.log(result);
-          });
+  const onSubmit = async (values: any, actions: any) => {
+    fetch(`${REGISTER_URL}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            userid: values.userid,
+            password: values.password,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            //address: values.address,
+            birthday: values.birthday,
+            admin: false,
+          }),
         })
-        .catch((error) => {
-          console.log("error occured ", error);
-        });
-    } else {
-      console.log("Passwords do not match!");
-    }
-  }
+          .then(async (res) => {
+            if (!res.ok) {
+              setSuccess(false);
+              throw await res.json();
+            }
 
-  /** NOTICE:
-   *  Ignore error messages on the TextFields
+            return res.json().then((result) => {
+              console.log("Register success!")
+              console.log(result);
+              setSuccess(true);
+              setFail(false);
+              actions.resetForm();
+            });
+          })
+          .catch((error) => {
+            console.log("error occured ", error);
+            setSuccess(false);
+            setFail(true);
+          });
+  }
+  
+  /**
+   * values - contains form input fields/values based on the validationSchema
+   * errors - returned by the validationSchema
+   * touched - A user has 'used' a form
+   * isSubmitting - A user has pressed the Register button and is processing form contents
    */
+  const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      birthday: "",
+      userid: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit,
+  });
+
+  console.log(errors);
 
   return (
     <div // Form Contents
       style={{
         flexGrow: 1,
         backgroundColor: `white`,
-        // paddingBottom: "3vw",
         borderRadius: "2rem",
         borderWidth: "5px",
         borderColor: COLOR_PALLETE[4],
@@ -126,64 +139,101 @@ const RegisterForm: FC<RegisterFormProps> = ({
               <TextField
                 required
                 label="First Name"
-                onChange={(e) => setFirstName(e.target.value)}
+                id="firstName"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.firstName}
+                className={errors.firstName && touched.firstName ? "input-error" : ""}
               />
+              {errors.firstName && touched.firstName && <p style={{ fontSize: "50%", color: `red`, height: 0 }}>{ errors.firstName }</p>}
             </Grid>
             <Grid item xs={6}>
               <TextField
                 required
                 label="Last Name"
-                onChange={(e) => setLastName(e.target.value)}
+                id="lastName"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.lastName}
+                className={errors.lastName && touched.lastName ? "input-error" : ""}
               />
+              {errors.lastName && touched.lastName && <p style={{ fontSize: "50%", color: `red`, height: 0 }}>{ errors.lastName }</p>}
 						</Grid>
 						<Grid item xs={12}>
               <TextField
+                required
                 type="date"
                 label="Birthday"
-                onChange={(e) => setBirthday(e.target.value)}
+                id="birthday"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.birthday}
+                className={errors.birthday && touched.birthday ? "input-error" : ""}
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
+              {errors.birthday && touched.birthday && <p style={{ fontSize: "50%", color: `red`, height: 0 }}>{ errors.birthday }</p>}
             </Grid>
 						<Grid item xs={6}>
               <TextField
                 required
                 label="Username"
-                onChange={(e) => setUserId(e.target.value)}
+                id="userid"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.userid}
+                className={errors.userid && touched.userid ? "input-error" : ""}
               />
+              {errors.userid && touched.userid && <p style={{ fontSize: "50%", color: `red`, height: 0 }}>{ errors.userid }</p>}
             </Grid>
             <Grid item xs={6}>
               <TextField
                 required
                 label="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                id="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                className={errors.email && touched.email ? "input-error" : ""}
               />
+              {errors.email && touched.email && <p style={{ fontSize: "50%", color: `red`, height: 0 }}>{ errors.email }</p>}
             </Grid>
-            
-            
             <Grid item xs={6}>
               <TextField
                 required
                 label="Password"
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                id="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                className={errors.password && touched.password ? "input-error" : ""}
               />
+              {errors.password && touched.password && <p style={{ fontSize: "50%", color: `red`, height: 0 }}>{ errors.password }</p>}
             </Grid>
             <Grid item xs={6}>
               <TextField
                 required
                 label="Confirm Password"
                 type="password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                id="confirmPassword"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.confirmPassword}
+                className={errors.confirmPassword && touched.confirmPassword ? "input-error" : ""}
               />
+              {errors.confirmPassword && touched.confirmPassword && <p style={{ fontSize: "50%", color: `red`, height: 0 }}>{ errors.confirmPassword }</p>}
             </Grid>
             <Grid item xs={12}>
 							<Button sx={{
 								width: "100%",
-							}} variant="contained" type="submit" size="large">
+              }} variant="contained" type="submit" size="large" disabled={isSubmitting}
+              >
                 Register!
               </Button>
+              {success ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Registeration success!</p> : <p></p>}
+              {fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Server error occured!</p> : <p></p>}
             </Grid>
           </Grid>
 				</form>
