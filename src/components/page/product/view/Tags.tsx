@@ -25,11 +25,9 @@ export const Tags: FC<TagsProps> = ({product}) => {
           onClick={handleTagClick}
           color="primary"
         />
-        <div data-testid="tags-section">
-          <Chip className="tag" label={"Birthday".toUpperCase()} onClick={handleTagClick} />
-          <Chip className="tag" label={"Wedding".toUpperCase()} onClick={handleTagClick} />
-          <Chip className="tag" label={"Anniversary".toUpperCase()} onClick={handleTagClick} />
-        </div>
+        <Chip className="tag" label={"Birthday".toUpperCase()} onClick={handleTagClick} />
+        <Chip className="tag" label={"Wedding".toUpperCase()} onClick={handleTagClick} />
+        <Chip className="tag" label={"Anniversary".toUpperCase()} onClick={handleTagClick} />
       </Stack>
     </>
   );
