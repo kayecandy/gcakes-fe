@@ -25,9 +25,9 @@ export const Tags: FC<TagsProps> = ({product}) => {
           onClick={handleTagClick}
           color="primary"
         />
-        <Chip label="Birthday" onClick={handleTagClick} />
-        <Chip label="Wedding" onClick={handleTagClick} />
-        <Chip label="Anniversary" onClick={handleTagClick} />
+        <Chip className="tag" label="Birthday" onClick={handleTagClick} />
+        <Chip className="tag" label="Wedding" onClick={handleTagClick} />
+        <Chip className="tag" label="Anniversary" onClick={handleTagClick} />
       </Stack>
     </>
   );
