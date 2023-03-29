@@ -1,8 +1,6 @@
-import { SX_MASKS } from "@/components/common/masks";
+import { SX_MASKS } from "@/components/common/util/masks";
+
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
     Box, Button, Card, CardActionArea,
     CardActions, CardContent, CardMedia,
     Chip, CircularProgress, Container, Grid,
@@ -11,7 +9,7 @@ import {
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useEffect, useState } from "react";
-import { COLOR_PALLETE } from "../../ThemeProvider";
+import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { useViewedProduct } from "./hooks/useViewedProduct";
 import ProductReview from "./ProductReview";
 import { Product } from "@/types/product";

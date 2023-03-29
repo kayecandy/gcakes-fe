@@ -1,4 +1,4 @@
-import { GET_ALLREVIEWS_URL, GET_REVIEWS_URL } from "@/components/common/urls";
+import { GET_ALLREVIEWS_URL, GET_REVIEWS_URL } from "@/components/common/util/urls";
 import { ApiResponse } from "@/types/api-response";
 import { Review } from "@/types/review";
 import { useEffect, useState } from "react";
