@@ -2,42 +2,43 @@
  * Add unit test code here
  */
 import { Tags } from "@/components/page/product/view/Tags";
-import { Product } from "@/types/product";
-import { render } from "@testing-library/react";
+import { productMock } from "../../../mocks/product.mock";
+import { render, RenderResult } from "@testing-library/react";
 
 describe("Tags Page", () => {
+  let rendered: RenderResult;
+
   beforeEach(() => {
-    const productMock: Product = {
-      sys: {
-        id: "idMock",
-      },
-      name: "nameMock",
-      price: 1,
-      description: "descriptionMock",
-      image: {
-        url: "urlMock",
-      },
-      productType: "cakes",
-      tags: [
-        {
-          id: "01",
-          name: "birthday",
-        },
-        {
-          id: "02",
-          name: "wedding",
-        },
-        {
-          id: "03",
-          name: "anniversary",
-        },
-      ],
-    };
-    render(<Tags product={productMock} />);
+    
+    rendered = render(<Tags product={productMock} />);
   });
 
-  test("Tags", () => {
-    console.log("Tags");
+  test("Tags has correct class name", () => {
+    const tagEls = rendered.container.querySelectorAll(".tag");
+    
+    expect(tagEls.length).toBe(3);
+  })
+
+  test("Tags has correct labels", () => {
+
+    const tagEls = rendered.container.querySelectorAll(".tag");
+    const tagLabels: string[] = [];
+
+    tagEls.forEach((tagEl) => {
+      const attribute = tagEl.getAttribute("label");
+      if (attribute) {
+        tagLabels.push(attribute)
+      }
+    })
+
+    console.log("Tags", tagLabels);
+
+    for (const mockTag of productMock.tags) {
+      expect(tagLabels.find((label)=>mockTag.name===label)).toBeDefined()
+    }
+
+
+    
   });
   
 });
