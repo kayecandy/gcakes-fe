@@ -3,13 +3,16 @@
  */
 import { Tags } from "@/components/page/product/view/Tags";
 import { productMock } from "../../../mocks/product.mock";
-import { render, RenderResult } from "@testing-library/react";
+import { render, RenderResult, screen } from "@testing-library/react";
 import Chip, { ChipProps } from "@mui/material/Chip";
 
-jest.mock('@mui/material/Chip', ({ className, label } : ChipProps) => {
-  
-  return <div className={className} data-label={label}></div>
-  
+
+jest.mock('@mui/material/Chip', () => {
+  const ChipMock: typeof Chip = ({ className, label } : ChipProps) => {
+    return <div className={className} data-label={label}></div>
+  }
+
+  return ChipMock
 });
 
 describe("Tags Page", () => {
@@ -27,25 +30,23 @@ describe("Tags Page", () => {
   })
 
   test("Tags has correct labels", () => {
-
     const tagEls = rendered.container.querySelectorAll(".tag");
     const tagLabels: string[] = [];
 
     tagEls.forEach((tagEl) => {
-      const attribute = tagEl.getAttribute("label");
+      const attribute = tagEl.getAttribute("data-label");
+      
       if (attribute) {
         tagLabels.push(attribute)
       }
     })
 
-    console.log("Tags", tagLabels);
+    // console.log("TagsConsole ", tagLabels);
 
     for (const mockTag of productMock.tags) {
+      // console.log("mockTagConsole ", mockTag.name);
       expect(tagLabels.find((label)=>mockTag.name===label)).toBeDefined()
     }
 
-
-    
   });
-  
 });

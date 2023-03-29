@@ -14,15 +14,15 @@ export const productMock: Product = {
   tags: [
     {
       id: "01",
-      name: "birthday",
+      name: "BIRTHDAY",
     },
     {
       id: "02",
-      name: "wedding",
+      name: "WEDDING",
     },
     {
       id: "03",
-      name: "anniversary",
+      name: "ANNIVERSARY",
     },
   ],
 };
