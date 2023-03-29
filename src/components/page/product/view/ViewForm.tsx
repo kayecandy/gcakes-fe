@@ -15,6 +15,7 @@ import { Review } from "@/types/review";
 import { useViewedReviews } from "./hooks/useViewedReviews";
 import { SX_MASKS } from "@/components/common/util/masks";
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
+import { Tags } from "./Tags";
 
 const modalStyle = {
     position: 'absolute',
@@ -64,10 +65,7 @@ const ViewForm = ({ productId }: ViewProps) => {
         console.log("Active reviews", activeReviews);
     }, [activeReviews]);
 
-    // When user clicks a tag
-    const handleTagClick = () => {
-        console.info('Tag clicked.');
-    }
+
 
     // When user clicks the product photo
     const handleOpen = () => {
@@ -127,14 +125,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                         </Modal>
 
                         <div style={{ display: "inline-flex", }}>
-                            <Typography variant="h6" sx={{ mr: "15px", }}>
-                                Tags:
-                            </Typography>
-                            <Stack direction="row" spacing={1}>
-                                <Chip label={String(viewedProduct.value.productType).toUpperCase()} onClick={handleTagClick} color="primary" />
-                                <Chip label="Tag 2" onClick={handleTagClick} />
-                                <Chip label="Tag 3" onClick={handleTagClick} />
-                            </Stack>
+                            <Tags product={viewedProduct.value}></Tags>
                         </div>
                         
                         <div    // Contents | White Container
