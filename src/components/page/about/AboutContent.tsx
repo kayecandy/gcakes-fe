@@ -20,7 +20,6 @@ export const AboutHead: FC = () => {
                         component="img"
                         image="/aboutGina.jpg"
                         alt="about Gina"
-                    //height="194"
                     />
                 </Grid>
                 <Grid item xs={6} sx={{ display: "flex", alignItems: "center" }}>
@@ -42,14 +41,10 @@ export const AboutBody: FC = () => {
             sx={{
                 mt: 5,
                 mb: 5,
-                //display: "flex",
             }}
         >
             <div
                 style={{
-                    //display: "flex",
-                    //alignContent: "center",
-                    //alignItems: "center",
                     textAlign: "center"
                 }}
             >
@@ -65,18 +60,6 @@ export const AboutBody: FC = () => {
                 cols={3}
                 rowHeight={164}
             >
-                {/*                 
-                {itemData.map((item) => (
-                    <ImageListItem key={item.img}>
-                        <img
-                            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                            alt={item.title}
-                            loading="lazy"
-                        />
-                    </ImageListItem>
-                ))}
-                 */}
                 <ImageListItem>
                     <img
                         src="/aboutpage_1.jpg"
@@ -96,7 +79,6 @@ export const AboutBody: FC = () => {
                     />
                 </ImageListItem>
             </ImageList>
-
         </Container>
     )
 }
