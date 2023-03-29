@@ -20,14 +20,14 @@ export const Tags: FC<TagsProps> = ({product}) => {
         Tags:
       </Typography>
       <Stack direction="row" spacing={1}>
-        <Chip
+        {/* <Chip
           label={String(product.productType).toUpperCase()}
           onClick={handleTagClick}
           color="primary"
-        />
-        <Chip className="tag" label={"Birthday".toUpperCase()} onClick={handleTagClick} />
-        <Chip className="tag" label={"Wedding".toUpperCase()} onClick={handleTagClick} />
-        <Chip className="tag" label={"Anniversary".toUpperCase()} onClick={handleTagClick} />
+        /> */}
+        {product.tags && product.tags.map((tag) => (
+          <Chip className="tag" id={tag.id} label={String(tag.name).toUpperCase()} onClick={handleTagClick} />
+        ))}
       </Stack>
     </>
   );

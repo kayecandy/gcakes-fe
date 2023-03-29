@@ -8,8 +8,8 @@ import Chip, { ChipProps } from "@mui/material/Chip";
 
 
 jest.mock('@mui/material/Chip', () => {
-  const ChipMock: typeof Chip = ({ className, label } : ChipProps) => {
-    return <div className={className} data-label={label}></div>
+  const ChipMock: typeof Chip = ({ className, id , label } : ChipProps) => {
+    return <div className={className} data-tag-id={id} data-label={label}></div>
   }
 
   return ChipMock
@@ -26,7 +26,7 @@ describe("Tags Page", () => {
   test("Tags has correct class name", () => {
     const tagEls = rendered.container.querySelectorAll(".tag");
     
-    expect(tagEls.length).toBe(3);
+    expect(tagEls.length).toBe(productMock.tags.length);
   })
 
   test("Tags has correct labels", () => {
@@ -41,10 +41,10 @@ describe("Tags Page", () => {
       }
     })
 
-    // console.log("TagsConsole ", tagLabels);
+    console.log("TagsConsole ", tagLabels);
 
     for (const mockTag of productMock.tags) {
-      // console.log("mockTagConsole ", mockTag.name);
+      console.log("mockTagConsole ", mockTag.name);
       expect(tagLabels.find((label)=>mockTag.name===label)).toBeDefined()
     }
 
