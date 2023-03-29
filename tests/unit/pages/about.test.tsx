@@ -25,6 +25,12 @@ jest.mock('@/components/page/about/AboutContent', () => {
     }
 });
 
+// jest.mock('@/components/common/ThemeProvider', () => {
+//     return function ThemeProvider() {
+//         return <div data-testid="about-theme-provider"></div>
+//     }
+// });
+
 describe("About Page", () => {
     let aboutTypography: HTMLElement;
     let aboutHead: HTMLElement;
