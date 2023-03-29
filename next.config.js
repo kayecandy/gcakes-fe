@@ -84,7 +84,8 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   publicRuntimeConfig: {
-    BACKEND_URL: process.env.BACKEND_URL
+    BACKEND_URL: process.env.BACKEND_URL,
+    SENDPULSE_SUBSCRIPTION_FORM_ID: process.env.SENDPULSE_SUBSCRIPTION_FORM_ID
   },
   // Default headers
   async headers() {
