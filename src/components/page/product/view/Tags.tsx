@@ -26,7 +26,7 @@ export const Tags: FC<TagsProps> = ({product}) => {
           color="primary"
         /> */}
         {product.tags && product.tags.map((tag) => (
-          <Chip className="tag" id={tag.id} label={String(tag.name).toUpperCase()} onClick={handleTagClick} />
+          <Chip key={tag.id} className="tag" id={`tag-${tag.id}`} label={String(tag.name).toUpperCase()} onClick={handleTagClick} />
         ))}
       </Stack>
     </>

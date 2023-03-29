@@ -9,7 +9,7 @@ import Chip, { ChipProps } from "@mui/material/Chip";
 
 jest.mock('@mui/material/Chip', () => {
   const ChipMock: typeof Chip = ({ className, id , label } : ChipProps) => {
-    return <div className={className} data-tag-id={id} data-label={label}></div>
+    return <div className={className} id={id} data-label={label}></div>
   }
 
   return ChipMock
@@ -48,5 +48,15 @@ describe("Tags Page", () => {
       expect(tagLabels.find((label)=>mockTag.name===label)).toBeDefined()
     }
 
+  }); 
+
+  test("Tags have correct id", () => {
+    for (const mockTag of productMock.tags) {
+      console.log("idTag", mockTag.id)
+      const idMock = rendered.container.querySelector(`#tag-${mockTag.id}`)
+      
+      expect(idMock).toBeInTheDocument()
+    }
   });
+
 });
