@@ -4,11 +4,10 @@ import { FC } from "react";
 import { Review } from "@/types/review";
 
 type ReviewProps = {
-    key: string;
     review: Review;
 }
 
-const ProductReview: FC<ReviewProps> = ({ key, review }) => {
+const ProductReview: FC<ReviewProps> = ({ review }) => {
     return (
         <Box>
             <Grid container
