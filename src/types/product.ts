@@ -8,7 +8,12 @@ export type Product = {
   image: {
     url: string;
   } | null;
-  productType: string;
+  productType: ProductTypes;
+  tags: Tag[]
 };
 
 export type ProductTypes = "cakes" | "cupcakes" | "decorated_cookies";
+export type Tag = {
+  id: string;
+  name: string;
+}
