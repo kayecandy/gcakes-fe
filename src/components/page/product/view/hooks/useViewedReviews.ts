@@ -1,9 +1,10 @@
 import { GET_REVIEWS_URL } from "@/components/common/util/urls";
 import { ApiResponse } from "@/types/api-response";
 import { Review } from "@/types/review";
+import { UseState } from "@/types/use-state";
 import { useEffect, useState } from "react";
 
-export const useViewedReviews = (productId: string) => {
+export const useViewedReviews = (productId: string): UseState<ApiResponse<Review[]>> => {
     /** TODO */
     /** Returns a list of Reviews given a productId associated with the review */
     const [viewedReviews, setViewedReviews] = useState<
@@ -42,5 +43,5 @@ export const useViewedReviews = (productId: string) => {
             });
     }, []);
 
-    return viewedReviews;
+    return [viewedReviews, setViewedReviews];
 }

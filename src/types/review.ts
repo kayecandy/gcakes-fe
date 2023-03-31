@@ -1,5 +1,6 @@
-import { Product } from "./product";
 import { User } from "./user";
+
+export type ReviewUser = Pick<User, "sys" | "userid" | "email">;
 
 export type Review = {
     sys: {
@@ -8,6 +9,5 @@ export type Review = {
     title: string,
     rating: number,
     comment: string,
-    product: Product,
-    user: User,
+    user: ReviewUser,
 };
