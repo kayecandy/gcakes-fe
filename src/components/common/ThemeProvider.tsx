@@ -50,7 +50,7 @@ const theme = experimental_extendTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          borderRadius: "10rem !important",
+          borderRadius: "2rem !important",
         },
       }
     },

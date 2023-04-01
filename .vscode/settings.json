@@ -2,5 +2,6 @@
     "editor.formatOnPaste": false,
     "editor.formatOnSave": false,
     "editor.formatOnType": true,
-    "tsImportSorter.configuration.autoFormat": "off"
+    "tsImportSorter.configuration.autoFormat": "off",
+    "editor.tabSize": 2
 }
