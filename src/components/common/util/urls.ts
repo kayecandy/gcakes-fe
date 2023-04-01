@@ -20,6 +20,8 @@ export const GET_VIEW_PRODUCT_URL = (productId: string) => `${BACKEND_URL}/produ
 export const GET_ALLREVIEWS_URL = `${BACKEND_URL}/products/reviews`;
 export const GET_REVIEWS_URL = (productId: string) => `${BACKEND_URL}/products/${productId}/reviews`;
 export const ADD_REVIEW_URL = (productId: string) => `${BACKEND_URL}/products/${productId}/review`
+export const ADD_ORDER_URL = `${BACKEND_URL}/orders/add`;
+export const GET_ORDERS_URL = `${BACKEND_URL}/orders/getOrders`
 
 export const REGISTER_URL = `${BACKEND_URL}/users/register/user`;
 export const LOGIN_URL = `${BACKEND_URL}/users/login`;

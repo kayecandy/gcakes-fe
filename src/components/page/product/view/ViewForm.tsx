@@ -1,9 +1,7 @@
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { Quantity } from "@/components/common/quantity/Quantity";
-import { SX_MASKS } from "@/components/common/util/masks";
 import {
   FavoriteBorder,
-  RateReview,
   RateReviewOutlined,
 } from "@mui/icons-material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -17,19 +15,18 @@ import {
   Grid,
   IconButton,
   Modal,
-  Pagination,
   Typography,
   emphasize,
 } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
 import { AddReviewForm, AddReviewFormProps } from "../reviews/AddReviewForm";
-import ProductReview from "./ProductReview";
 import { Tags } from "./Tags";
 import { useViewedProduct } from "./hooks/useViewedProduct";
 import { useViewedReviews } from "./hooks/useViewedReviews";
 import { ProductReviews } from "./ProductReviews";
 import { useSession } from "@/components/common/hooks/useSession";
+import AddToCart from "./AddToCart";
 
 const modalStyle = {
   position: "absolute",
@@ -123,7 +120,8 @@ const ViewForm = ({ productId }: ViewProps) => {
                   left: "50%",
                   transform: "translate(-5%, 0%)",
                 }}
-              >
+                >
+                  <AddToCart productId={productId}></AddToCart>
                 <Typography variant="h5">Modal Text</Typography>
               </div>
             </Box>
