@@ -19,18 +19,6 @@ import { Tags } from "./Tags";
 import { AddReviewForm, AddReviewFormProps } from "../reviews/AddReviewForm";
 import AddToCart from "./AddToCart";
 
-// const modalStyle = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   bgcolor: "background.paper",
-//   borderRadius: "2rem",
-//   boxShadow: 20,
-//   width: 1000,
-//   height: 550,
-// };
-
 type ViewProps = {
     productId: string,
 };
@@ -86,7 +74,7 @@ const ViewForm = ({ productId }: ViewProps) => {
         ) : viewedProduct.value ? (
           <div>
             <Modal open={open} onClose={handleClose}>
-              <AddToCart productId={productId}></AddToCart>
+              <AddToCart productId={productId} imageUrl={viewedProduct.value.image?.url}></AddToCart>
             </Modal>
             
 
