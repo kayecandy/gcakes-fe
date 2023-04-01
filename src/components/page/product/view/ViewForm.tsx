@@ -17,18 +17,19 @@ import { SX_MASKS } from "@/components/common/util/masks";
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { Tags } from "./Tags";
 import { AddReviewForm, AddReviewFormProps } from "../reviews/AddReviewForm";
+import AddToCart from "./AddToCart";
 
-const modalStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  borderRadius: "2rem",
-  boxShadow: 20,
-  width: 1000,
-  height: 550,
-};
+// const modalStyle = {
+//   position: "absolute",
+//   top: "50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   bgcolor: "background.paper",
+//   borderRadius: "2rem",
+//   boxShadow: 20,
+//   width: 1000,
+//   height: 550,
+// };
 
 type ViewProps = {
     productId: string,
@@ -39,16 +40,14 @@ const ViewForm = ({ productId }: ViewProps) => {
     const [viewedReviews, setViewedReviews] = useViewedReviews(productId);
     const [open, setOpen] = useState(false);
     
-
-
     // When user clicks the product photo
     const handleOpen = () => {
-        console.info('Modal opened.');
+        console.info('AddToCart opened.');
         setOpen(true);
     }
 
     const handleClose = () => {
-        console.info('Modal closed.');
+        console.info('AddToCart closed.');
         setOpen(false);
     }
 
@@ -87,31 +86,9 @@ const ViewForm = ({ productId }: ViewProps) => {
         ) : viewedProduct.value ? (
           <div>
             <Modal open={open} onClose={handleClose}>
-              <Box sx={modalStyle} zIndex={1500}>
-                <IconButton
-                  onClick={handleClose}
-                  sx={{
-                    display: "block",
-                    position: "relative",
-                    left: "95%",
-                    top: "1%",
-                  }}
-                >
-                  <CloseOutlinedIcon />
-                </IconButton>
-
-                <div
-                  style={{
-                    position: "relative",
-                    top: "25%",
-                    left: "50%",
-                    transform: "translate(-5%, 0%)",
-                  }}
-                >
-                  <Typography variant="h5">Modal Text</Typography>
-                </div>
-              </Box>
+              <AddToCart productId={productId}></AddToCart>
             </Modal>
+            
 
             <div style={{ display: "inline-flex" }}>
               <Tags product={viewedProduct.value}></Tags>
