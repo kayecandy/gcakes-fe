@@ -121,7 +121,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                   transform: "translate(-5%, 0%)",
                 }}
                 >
-                  <AddToCart productId={productId}></AddToCart>
+                  <AddToCart productId={productId} imageUrl={viewedProduct.value.image?.url}></AddToCart>
                 <Typography variant="h5">Modal Text</Typography>
               </div>
             </Box>

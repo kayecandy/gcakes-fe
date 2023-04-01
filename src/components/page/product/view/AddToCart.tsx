@@ -1,11 +1,12 @@
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { SX_MASKS } from "@/components/common/util/masks";
 import { ADD_ORDER_URL } from "@/components/common/util/urls";
-import { Box, Button, Grid, IconButton, Modal, TextField, Typography } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import { Backdrop, Box, Button, CircularProgress, Container, Grid, IconButton, Modal, TextField, Typography } from "@mui/material";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { useState } from "react";
 import { useSession } from "@/components/common/hooks/useSession";
+import { Image } from "@mui/icons-material";
 
 const Style = {
   position: "absolute",
@@ -17,6 +18,8 @@ const Style = {
   boxShadow: 20,
   width: 1000,
   height: 550,
+  ...SX_MASKS[0]("bottom"),
+  WebkitMaskSize: "150%",
 };
 
 function dateNow() {
@@ -35,10 +38,11 @@ function dateNow() {
 
 type CartProps = {
   productId: string,
+  imageUrl: string | any,
 };
 
 /* This is the AddToCart Form */
-const AddToCart = ({ productId }: CartProps) => {
+const AddToCart = ({ productId, imageUrl }: CartProps) => {
   const session = useSession();
   const [quantity, setQuantity] = useState(1);
 
@@ -91,6 +95,7 @@ const AddToCart = ({ productId }: CartProps) => {
   const removeQuantity = () => { quantity > 1 ? setQuantity(quantity - 1) : setQuantity(quantity) }
 
   return (
+    //@ts-ignore
     <Box sx={Style} zIndex={1500}>
       <div
         style={{
@@ -102,43 +107,72 @@ const AddToCart = ({ productId }: CartProps) => {
           borderRadius: "2rem",
           width: 1000,
           height: 550,
+          padding: 15,
         }}
       >
-        <Typography variant="h5">Add To Cart!</Typography>
-        <form className="addToCartForm" onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <div style={{display: "inline-flex"}}>
-                <IconButton onClick={removeQuantity}><RemoveIcon /></IconButton>
-                <Typography>{quantity}</Typography>
-                <IconButton onClick={addQuantity}><AddIcon/></IconButton>
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField label="Delivery Address" defaultValue={session?.currentUser.address}/>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField label="Payment Method" disabled />
-            </Grid>
-            {/* <Grid item xs={12}>
-              <Button variant="contained" type="submit" size="large" disabled>
-                Add To Cart
-              </Button>
-            </Grid> */}
-          </Grid>
-        </form>
-        <Button variant="contained" type="submit" size="large"
-          onClick={handleSubmit}
-          disabled={isSubmitting || !session?.currentUser}
-          sx={{mt: 5}}
+        <Typography variant="h3" color={COLOR_PALLETE[2]} sx={{mt: 2}}>Add To Cart!</Typography>
+        <Container
+          sx={{
+            display: "flex",
+            maxHeight: "100%",
+          }}
         >
-          Order!
-        </Button>
-        <Typography>
-          {success ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Order success!</p> : <p></p>}
-          {fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Unknown error occured!</p> : <p></p>}
-          {!session?.currentUser ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Must be logged in to order!</p> : <p></p>}
-        </Typography>
+          <div style={{
+            maxWidth: "50%",
+            //backgroundColor: 'orange',
+          }}>
+            <img
+              src={imageUrl}
+              style={{
+                objectFit: "contain",
+                maxHeight: "100%",
+                maxWidth: "100%",
+              }}
+            />
+          </div>
+
+          <div style={{
+              //backgroundColor: 'pink',
+              width: "50%",
+              paddingTop: 25,
+            }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField label="Delivery Address"
+                  defaultValue={session?.currentUser.address}
+                  multiline
+                  rows={4}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField label="Payment Method" disabled />
+              </Grid>
+              <Grid item xs={12}>
+                <div style={{ display: "inline-flex" }}>
+                  <IconButton onClick={removeQuantity}><RemoveCircleIcon fontSize="large"/></IconButton>
+                  <Typography sx={{mt: 2}}>{quantity}</Typography>
+                  <IconButton onClick={addQuantity}><AddCircleIcon fontSize="large"/></IconButton>
+                </div>
+              </Grid>
+            </Grid>
+          
+            <Button variant="contained" type="submit" size="large"
+              onClick={handleSubmit}
+              disabled={isSubmitting || !session?.currentUser}
+              sx={{mt: 3}}
+            >
+              Order!
+            </Button>
+
+            <Typography>
+              { success ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Order success!</p>
+                  : fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Unknown error occured!</p>
+                  : <p></p> }
+              {!session?.currentUser ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Must be logged in to order!</p> : <p></p>}
+            </Typography>
+          </div>
+        </Container>
       </div>
     </Box>
   )
