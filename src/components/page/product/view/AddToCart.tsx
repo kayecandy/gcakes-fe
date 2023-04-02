@@ -1,10 +1,10 @@
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { SX_MASKS } from "@/components/common/util/masks";
 import { ADD_ORDER_URL } from "@/components/common/util/urls";
-import { Backdrop, Box, Button, CircularProgress, Container, Grid, IconButton, Modal, TextField, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, Container, Grid, IconButton, Modal, Snackbar, TextField, Typography } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useSession } from "@/components/common/hooks/useSession";
 import { Image } from "@mui/icons-material";
 
@@ -13,13 +13,11 @@ const Style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
+  bgcolor: COLOR_PALLETE[4],
   borderRadius: "2rem",
   boxShadow: 20,
   width: 1000,
   height: 550,
-  ...SX_MASKS[0]("bottom"),
-  WebkitMaskSize: "150%",
 };
 
 function dateNow() {
@@ -39,16 +37,27 @@ function dateNow() {
 type CartProps = {
   productId: string,
   imageUrl: string | any,
+  price: number,
 };
 
 /* This is the AddToCart Form */
-const AddToCart = ({ productId, imageUrl }: CartProps) => {
+const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
   const session = useSession();
   const [quantity, setQuantity] = useState(1);
+  const [deliveryAddress, setDeliveryAddress] = useState(session?.currentUser.address)
 
-  const [success, setSuccess] = useState(false);
-  const [fail, setFail] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  //const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false); //If true, error message pops up
+  const [isSubmitting, setIsSubmitting] = useState(false); //If true, disables the submit button
+  const [open, setOpen] = useState(false); //If true, opens an order confirmation popup 
+
+  const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  }
   
   const handleSubmit = () => {
     console.info('Submitting Order...');
@@ -67,11 +76,11 @@ const AddToCart = ({ productId, imageUrl }: CartProps) => {
         userId: session?.currentUser.sys.id,
         productId: [productId],
         quantity: [String(quantity)],
-        deliveryAddress: "Bikini Bottom"
+        deliveryAddress: deliveryAddress
       }),
     }).then(async (res) => {
       if (!res.ok) {
-        setSuccess(false);
+        //setSuccess(false);
         setFail(true);
         setIsSubmitting(false);
         throw await res.json();
@@ -79,13 +88,14 @@ const AddToCart = ({ productId, imageUrl }: CartProps) => {
 
       return res.json().then((result) => {
         console.log(result);
-        setSuccess(true);
+        //setSuccess(true);
         setFail(false);
         setIsSubmitting(false);
+        setOpen(true);
       });
     }).catch((error) => {
       console.log("errored", error);
-      setSuccess(false);
+      //setSuccess(false);
       setFail(true);
       setIsSubmitting(false);
     });
@@ -93,12 +103,24 @@ const AddToCart = ({ productId, imageUrl }: CartProps) => {
 
   const addQuantity = () => { setQuantity(quantity + 1) }
   const removeQuantity = () => { quantity > 1 ? setQuantity(quantity - 1) : setQuantity(quantity) }
+  
+  const action = (
+    <Fragment>
+      <Button size="small" onClick={handleClose}>
+        CLOSE
+      </Button>
+    </Fragment>
+  )
 
   return (
-    //@ts-ignore
+    
     <Box sx={Style} zIndex={1500}>
       <div
+        //@ts-ignore
         style={{
+          ...SX_MASKS[0]("top"),
+          WebkitMaskSize: "200%",
+          backgroundColor: 'white',
           position: "relative",
           textAlign: "center",
           // top: "25%",
@@ -107,10 +129,10 @@ const AddToCart = ({ productId, imageUrl }: CartProps) => {
           borderRadius: "2rem",
           width: 1000,
           height: 550,
-          padding: 15,
+          padding: 15
         }}
       >
-        <Typography variant="h3" color={COLOR_PALLETE[2]} sx={{mt: 2}}>Add To Cart!</Typography>
+        <Typography variant="h3" color={COLOR_PALLETE[2]} sx={{mt: 7}}>Add To Cart!</Typography>
         <Container
           sx={{
             display: "flex",
@@ -119,7 +141,12 @@ const AddToCart = ({ productId, imageUrl }: CartProps) => {
         >
           <div style={{
             maxWidth: "50%",
+            maxHeight: 350,
             //backgroundColor: 'orange',
+            borderRadius: '2rem',
+            marginTop: 20,
+            marginRight: 10,
+            marginBottom: 20,
           }}>
             <img
               src={imageUrl}
@@ -140,37 +167,71 @@ const AddToCart = ({ productId, imageUrl }: CartProps) => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField label="Delivery Address"
-                  defaultValue={session?.currentUser.address}
+                  defaultValue={deliveryAddress}
+                  onChange={(e) => {setDeliveryAddress(e.target.value)}}
                   multiline
                   rows={4}
+                  required
+                  fullWidth
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField label="Payment Method" disabled />
+                <TextField label="Payment Method" disabled fullWidth/>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={3}>
                 <div style={{ display: "inline-flex" }}>
                   <IconButton onClick={removeQuantity}><RemoveCircleIcon fontSize="large"/></IconButton>
                   <Typography sx={{mt: 2}}>{quantity}</Typography>
                   <IconButton onClick={addQuantity}><AddCircleIcon fontSize="large"/></IconButton>
                 </div>
               </Grid>
+              <Grid item xs={9}>
+                <div style={{ display: "inline-flex" }}>
+                  <Typography variant="h5" sx={{mt: 1}}>Total Cost:&nbsp;</Typography>
+                  <TextField value={String("Php " + price*quantity)} disabled/>
+                </div>
+              </Grid>
             </Grid>
           
             <Button variant="contained" type="submit" size="large"
               onClick={handleSubmit}
-              disabled={isSubmitting || !session?.currentUser}
+              disabled={isSubmitting || !session?.currentUser || !deliveryAddress?.length}
               sx={{mt: 3}}
             >
-              Order!
+              Order & Checkout
             </Button>
+            {isSubmitting && (
+              <CircularProgress
+              size={40}
+              sx={{
+                color: 'white',
+                position: 'absolute',
+                mt: 3,
+                right: "25%",
+              }}
+              />
+            )}
+            
 
             <Typography>
-              { success ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Order success!</p>
-                  : fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Unknown error occured!</p>
-                  : <p></p> }
-              {!session?.currentUser ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Must be logged in to order!</p> : <p></p>}
+              {!session?.currentUser ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Must be logged in to order!</p> 
+                : !deliveryAddress?.length ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Please fill out required fields!</p>
+                : fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Server error occured. Please try again later!</p>  
+                // : success ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Order success!</p>
+                : <p></p>
+              }
             </Typography>
+            <Snackbar
+              open={open}
+              autoHideDuration={10000}
+              onClose={handleClose}
+              message="Order has been made!"
+              action={action}
+              sx={{
+                position: 'absolute',
+                right: 0,
+              }}
+            />
           </div>
         </Container>
       </div>
