@@ -74,7 +74,11 @@ const ViewForm = ({ productId }: ViewProps) => {
         ) : viewedProduct.value ? (
           <div>
             <Modal open={open} onClose={handleClose}>
-              <AddToCart productId={productId} imageUrl={viewedProduct.value.image?.url}></AddToCart>
+                <AddToCart
+                  productId={productId}
+                  imageUrl={viewedProduct.value.image?.url}
+                  price={viewedProduct.value.price}
+                />
             </Modal>
             
 
