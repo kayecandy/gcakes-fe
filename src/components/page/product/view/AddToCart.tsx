@@ -1,10 +1,10 @@
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { SX_MASKS } from "@/components/common/util/masks";
 import { ADD_ORDER_URL } from "@/components/common/util/urls";
-import { Backdrop, Box, Button, CircularProgress, Container, Grid, IconButton, Modal, Snackbar, TextField, Typography } from "@mui/material";
+import { Backdrop, Box, Button, ButtonGroup, CircularProgress, Container, Grid, IconButton, Modal, Snackbar, TextField, Typography } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useSession } from "@/components/common/hooks/useSession";
 import { Image } from "@mui/icons-material";
 
@@ -48,8 +48,11 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
 
   //const [success, setSuccess] = useState(false);
   const [fail, setFail] = useState(false); //If true, error message pops up
-  const [isSubmitting, setIsSubmitting] = useState(false); //If true, disables the submit button
-  const [open, setOpen] = useState(false); //If true, opens an order confirmation popup 
+  const [isCheckout, setisCheckout] = useState(false); //If true, disables the submit button
+  const [isAddCart, setisAddCart] = useState(false);
+  const [open, setOpen] = useState(false); //If true, opens an order confirmation popup
+
+  const [items, setItems] = useState([productId]); // Testing localStorage for Add To Cart
 
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -58,11 +61,27 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
 
     setOpen(false);
   }
+
+  const handleAddCart = () => {
+    console.log("Adding to cart...");
+    setisAddCart(true);
+    
+    localStorage.setItem('items', JSON.stringify(items))
+    console.log("Testing localstorage: ", items);
+  }
+
+  useEffect(() => {
+    // @ts-ignore
+    const items = JSON.parse(localStorage.getItem('items'));
+    console.log("Testing localstorage: ", items);
+    // if (items) {
+    //   setItems(items);
+    // }
+  }, [])
   
-  const handleSubmit = () => {
-    console.info('Submitting Order...');
-    console.info('Session: ', session?.currentUser.sys.id)
-    setIsSubmitting(true);
+  const handleCheckout = () => {
+    console.info('Checking out...');
+    setisCheckout(true);
 
     fetch(`${ADD_ORDER_URL}`, {
       method: "POST",
@@ -82,7 +101,7 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
       if (!res.ok) {
         //setSuccess(false);
         setFail(true);
-        setIsSubmitting(false);
+        setisCheckout(false);
         throw await res.json();
       }
 
@@ -90,14 +109,17 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
         console.log(result);
         //setSuccess(true);
         setFail(false);
-        setIsSubmitting(false);
+        setisCheckout(false);
         setOpen(true);
+
+        localStorage.removeItem('items'); // Remove items from localStorage
+        console.log("Testing localStorage after removing items: ", localStorage.getItem('items'));
       });
     }).catch((error) => {
       console.log("errored", error);
       //setSuccess(false);
       setFail(true);
-      setIsSubmitting(false);
+      setisCheckout(false);
     });
   }
 
@@ -113,8 +135,15 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
   )
 
   return (
-    
     <Box sx={Style} zIndex={1500}>
+      {isCheckout && (
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={true}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )}
       <div
         //@ts-ignore
         style={{
@@ -191,41 +220,38 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
                   <TextField value={String("Php " + price*quantity)} disabled/>
                 </div>
               </Grid>
+              <Grid item xs={6}>
+                <Button variant="contained"
+                  onClick={handleCheckout}
+                  disabled={isCheckout || !session?.currentUser || !deliveryAddress?.length}
+                >
+                  Order & Checkout
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button variant="outlined"
+                  onClick={handleAddCart}
+                  disabled={isCheckout || !session?.currentUser || !deliveryAddress?.length}
+                >
+                  Cart & Continue
+                </Button>
+              </Grid>
             </Grid>
-          
-            <Button variant="contained" type="submit" size="large"
-              onClick={handleSubmit}
-              disabled={isSubmitting || !session?.currentUser || !deliveryAddress?.length}
-              sx={{mt: 3}}
-            >
-              Order & Checkout
-            </Button>
-            {isSubmitting && (
-              <CircularProgress
-              size={40}
-              sx={{
-                color: 'white',
-                position: 'absolute',
-                mt: 3,
-                right: "25%",
-              }}
-              />
-            )}
             
-
             <Typography>
               {!session?.currentUser ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Must be logged in to order!</p> 
                 : !deliveryAddress?.length ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Please fill out required fields!</p>
                 : fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Server error occured. Please try again later!</p>  
-                // : success ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Order success!</p>
+                : isAddCart ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Added to cart!</p>
                 : <p></p>
               }
             </Typography>
+
             <Snackbar
               open={open}
               autoHideDuration={10000}
               onClose={handleClose}
-              message="Order has been made!"
+              message={"Order has been made!"}
               action={action}
               sx={{
                 position: 'absolute',
