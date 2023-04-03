@@ -1,12 +1,12 @@
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { SX_MASKS } from "@/components/common/util/masks";
 import { ADD_ORDER_URL } from "@/components/common/util/urls";
-import { Backdrop, Box, Button, ButtonGroup, CircularProgress, Container, Grid, IconButton, Modal, Snackbar, TextField, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, Container, Grid, IconButton, Snackbar, TextField, Typography } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { Fragment, useEffect, useState } from "react";
 import { useSession } from "@/components/common/hooks/useSession";
-import { Image } from "@mui/icons-material";
+import { ShoppingCart } from "@/types/shoppingcart";
 
 const Style = {
   position: "absolute",
@@ -40,19 +40,19 @@ type CartProps = {
   price: number,
 };
 
-/* This is the AddToCart Form */
+/* AddToCart Form */
 const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
   const session = useSession();
   const [quantity, setQuantity] = useState(1);
   const [deliveryAddress, setDeliveryAddress] = useState(session?.currentUser.address)
 
-  //const [success, setSuccess] = useState(false);
   const [fail, setFail] = useState(false); //If true, error message pops up
   const [isCheckout, setisCheckout] = useState(false); //If true, disables the submit button
-  const [isAddCart, setisAddCart] = useState(false);
+  const [isAddCart, setisAddCart] = useState(false); // If user pressed Add To Cart button
   const [open, setOpen] = useState(false); //If true, opens an order confirmation popup
 
-  const [items, setItems] = useState([productId]); // Testing localStorage for Add To Cart
+  const [items, setItems] = useState(sessionStorage.getItem('items')); // sessionStorage for Add To Cart
+  const [numItems, setNumItems] = useState(sessionStorage.getItem('numItems')) // sessionStorage for Add To Cart
 
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -63,25 +63,43 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
   }
 
   const handleAddCart = () => {
+    if (isAddCart) {
+      console.log("Already added this item to cart!");
+      return;
+    }
     console.log("Adding to cart...");
     setisAddCart(true);
     
-    localStorage.setItem('items', JSON.stringify(items))
-    console.log("Testing localstorage: ", items);
+    console.log("Adding to sessionStorage: ", productId, quantity);
+
+    if (items == null && numItems == null) {
+      sessionStorage.setItem('items', JSON.stringify(productId));
+      sessionStorage.setItem('numItems', JSON.stringify(String(quantity)));
+    } else {
+      let currItems = JSON.parse(String(items));
+      let currNumItems = JSON.parse(String(numItems));
+      sessionStorage.setItem('items', JSON.stringify(currItems + '-' + productId));
+      sessionStorage.setItem('numItems', JSON.stringify(currNumItems + '-' + String(quantity)));
+    }
+    
+    console.log("After adding to cart: ", sessionStorage.getItem('items'), sessionStorage.getItem('numItems'));
   }
 
   useEffect(() => {
-    // @ts-ignore
-    const items = JSON.parse(localStorage.getItem('items'));
-    console.log("Testing localstorage: ", items);
-    // if (items) {
-    //   setItems(items);
-    // }
-  }, [])
+    console.log("Current cart: ", items, numItems);
+  }, []);
   
+  // Retrieve either sessionStorage contains
   const handleCheckout = () => {
     console.info('Checking out...');
     setisCheckout(true);
+
+    // Grab contents of sessionStorage then split text from '-'
+    // Then Store them in arrays making sure indices match.
+    let items = sessionStorage.getItem('items')?.split('-');
+    let numItems = sessionStorage.getItem('numItems')?.split('-');
+
+    console.log("Checkout: ", items, numItems);
 
     fetch(`${ADD_ORDER_URL}`, {
       method: "POST",
@@ -99,7 +117,6 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
       }),
     }).then(async (res) => {
       if (!res.ok) {
-        //setSuccess(false);
         setFail(true);
         setisCheckout(false);
         throw await res.json();
@@ -107,17 +124,17 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
 
       return res.json().then((result) => {
         console.log(result);
-        //setSuccess(true);
         setFail(false);
         setisCheckout(false);
         setOpen(true);
 
-        localStorage.removeItem('items'); // Remove items from localStorage
-        console.log("Testing localStorage after removing items: ", localStorage.getItem('items'));
+        // drop items from cart
+        sessionStorage.removeItem('items'); 
+        sessionStorage.removeItem('numItems');
+        console.log("Cart cleared: ", sessionStorage.getItem('items'), sessionStorage.getItem('numItems'));
       });
     }).catch((error) => {
       console.log("errored", error);
-      //setSuccess(false);
       setFail(true);
       setisCheckout(false);
     });
