@@ -123,6 +123,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                 >
                   <AddToCart
                     productId={productId}
+                    productName={viewedProduct.value.name}
                     imageUrl={viewedProduct.value.image?.url}
                     price={viewedProduct.value.price}
                   />

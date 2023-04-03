@@ -6,7 +6,6 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { Fragment, useEffect, useState } from "react";
 import { useSession } from "@/components/common/hooks/useSession";
-import { ShoppingCart } from "@/types/shoppingcart";
 
 const Style = {
   position: "absolute",
@@ -34,21 +33,39 @@ function dateNow() {
   return String(year+'-'+month+'-'+day+'T'+hours+':'+mins+':'+sec+'.'+milli+utc)
 }
 
+/* This function takes 2 parameters: product and cart.
+ * It returns true if the product is in the cart, false otherwise.
+ * 
+ * Parameters:
+ *  product - product id
+ *  cart - sessionStorage of 'items'
+*/
+function isInCart(product: string, cart: any) {
+  // Parse cart to list
+  var items = String(sessionStorage.getItem('items')).replace(/["]+/g, '')?.split('-');
+
+  if (items.includes(product)) {
+    return true;
+  }
+  return false;
+}
+
 type CartProps = {
   productId: string,
+  productName: string,
   imageUrl: string | any,
   price: number,
 };
 
 /* AddToCart Form */
-const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
+const AddToCart = ({ productId, productName, imageUrl, price }: CartProps) => {
   const session = useSession();
   const [quantity, setQuantity] = useState(1);
   const [deliveryAddress, setDeliveryAddress] = useState(session?.currentUser.address)
 
   const [fail, setFail] = useState(false); //If true, error message pops up
   const [isCheckout, setisCheckout] = useState(false); //If true, disables the submit button
-  const [isAddCart, setisAddCart] = useState(false); // If user pressed Add To Cart button
+  const [isAddCart, setisAddCart] = useState(isInCart(productId, sessionStorage.getItem('items'))); // If user pressed Add To Cart button
   const [open, setOpen] = useState(false); //If true, opens an order confirmation popup
 
   const [items, setItems] = useState(sessionStorage.getItem('items')); // sessionStorage for Add To Cart
@@ -58,7 +75,6 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   }
 
@@ -93,13 +109,12 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
   const handleCheckout = () => {
     console.info('Checking out...');
     setisCheckout(true);
+    setisAddCart(false);
 
-    // Grab contents of sessionStorage then split text from '-'
-    // Then Store them in arrays making sure indices match.
-    let items = sessionStorage.getItem('items')?.split('-');
-    let numItems = sessionStorage.getItem('numItems')?.split('-');
+    let items = String(sessionStorage.getItem('items')).replace(/["]+/g,'')?.split('-');
+    let numItems = String(sessionStorage.getItem('numItems')).replace(/["]+/g,'')?.split('-');
 
-    console.log("Checkout: ", items, numItems);
+    console.log("Items at Checkout: ", items, numItems);
 
     fetch(`${ADD_ORDER_URL}`, {
       method: "POST",
@@ -111,8 +126,8 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
         status: "Pending",
         date: dateNow(),
         userId: session?.currentUser.sys.id,
-        productId: [productId],
-        quantity: [String(quantity)],
+        productId: items,
+        quantity: numItems,
         deliveryAddress: deliveryAddress
       }),
     }).then(async (res) => {
@@ -146,7 +161,15 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
   const action = (
     <Fragment>
       <Button size="small" onClick={handleClose}>
-        CLOSE
+        OK
+      </Button>
+    </Fragment>
+  )
+
+  const cartAction = (
+    <Fragment>
+      <Button size="small" /*onClick={viewCart}*/>
+        View Cart
       </Button>
     </Fragment>
   )
@@ -178,7 +201,7 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
           padding: 15
         }}
       >
-        <Typography variant="h3" color={COLOR_PALLETE[2]} sx={{mt: 7}}>Add To Cart!</Typography>
+        <Typography variant="h3" color={COLOR_PALLETE[2]} sx={{ mt: 7 }}>{productName}</Typography>
         <Container
           sx={{
             display: "flex",
@@ -238,19 +261,21 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
                 </div>
               </Grid>
               <Grid item xs={6}>
-                <Button variant="contained"
-                  onClick={handleCheckout}
-                  disabled={isCheckout || !session?.currentUser || !deliveryAddress?.length}
+                <Button variant="outlined"
+                  onClick={handleAddCart}
+                  disabled={isCheckout || isAddCart || !session?.currentUser || !deliveryAddress?.length}
+                  fullWidth
                 >
-                  Order & Checkout
+                  Add to Cart
                 </Button>
               </Grid>
               <Grid item xs={6}>
-                <Button variant="outlined"
-                  onClick={handleAddCart}
+                <Button variant="contained"
+                  onClick={handleCheckout}
                   disabled={isCheckout || !session?.currentUser || !deliveryAddress?.length}
+                  fullWidth
                 >
-                  Cart & Continue
+                  Checkout
                 </Button>
               </Grid>
             </Grid>
@@ -258,8 +283,7 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
             <Typography>
               {!session?.currentUser ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Must be logged in to order!</p> 
                 : !deliveryAddress?.length ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Please fill out required fields!</p>
-                : fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Server error occured. Please try again later!</p>  
-                : isAddCart ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Added to cart!</p>
+                : fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Server error occured. Please try again later!</p>
                 : <p></p>
               }
             </Typography>
@@ -270,6 +294,17 @@ const AddToCart = ({ productId, imageUrl, price }: CartProps) => {
               onClose={handleClose}
               message={"Order has been made!"}
               action={action}
+              sx={{
+                position: 'absolute',
+                right: 0,
+              }}
+            />
+            <Snackbar
+              open={isAddCart}
+              autoHideDuration={10000}
+              onClose={handleClose}
+              message={"Added to cart!"}
+              action={cartAction}
               sx={{
                 position: 'absolute',
                 right: 0,
