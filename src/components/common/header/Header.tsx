@@ -44,7 +44,6 @@ export default function Header() {
             <Typography sx={{
               fontFamily: "Silverstar",
               fontSize: "8rem",
-              color: "white",
               textDecoration: "none",
               lineHeight: "120%",
                 mb: 2,

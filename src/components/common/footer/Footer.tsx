@@ -79,9 +79,7 @@ export default function Footer() {
             flexGrow: 1,
           }} alignItems="stretch">
             <TextField
-              fullWidth
-              
-              // variant="filled"
+              fullWidth              
               variant="filled"
               placeholder="Enter your email or contact number here"
               InputProps={{

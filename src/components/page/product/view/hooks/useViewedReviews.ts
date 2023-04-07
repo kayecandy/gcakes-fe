@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { GET_REVIEWS_URL } from "@/components/common/util/urls";
 import { ApiResponse } from "@/types/api-response";
 import { Review } from "@/types/review";

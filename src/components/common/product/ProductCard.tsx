@@ -1,15 +1,13 @@
+/* eslint-disable @next/next/no-img-element */
 import { FC } from 'react';
 
 import {
-  CakeOutlined,
   CloseSharp,
 } from '@mui/icons-material';
-//@ts-ignore
 import {
   Box,
   Card,
   CardContent,
-  CardMedia,
   Skeleton,
   Typography,
 } from '@mui/material';
@@ -29,40 +27,23 @@ export const ProductCard: FC<ProductCardProps> = ({
   return (
     <Card
       sx={{
-        // maxWidth: 400,
         textAlign: "center",
         mx: 2,
         p: 4,
         borderRadius: 5,
-        // background: COLOR_PALLETE[3]
         borderWidth: "2px",
         borderColor: COLOR_PALLETE[4],
         borderStyle: "solid"
       }}
       elevation={0}
     >
-      {/* {imageSrc ? (
-        <CardMedia height={250} component="img" image={imageSrc}></CardMedia>
-      ) : (
-        <CakeOutlined
-          sx={{
-            fontSize: 250,
-            color: COLOR_PALLETE[4],
-          }}
-        ></CakeOutlined>
-      )} */}
       <CardContent>
-
-        {/* <Typography variant="h5" sx={{
-      }}>{product.name}</Typography> */}
-
-
         <Box sx={{
           height: "400px"
         }}>
           <img style={{
             maxWidth: "100%"
-          }} src={product.image?.url ?? ""}></img>
+          }} src={product.image?.url ?? ""} alt={product.name}></img>
         </Box>
 
         <Typography

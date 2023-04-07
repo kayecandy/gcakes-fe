@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Facebook, Instagram } from "@mui/icons-material";
 import { CardMedia, Grid, ImageList, ImageListItem, Link, Typography } from "@mui/material";
 import { Container } from "@mui/system"
