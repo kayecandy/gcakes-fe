@@ -34,6 +34,10 @@ export const ProductCard: FC<ProductCardProps> = ({
         mx: 2,
         p: 4,
         borderRadius: 5,
+        // background: COLOR_PALLETE[3]
+        borderWidth: "2px",
+        borderColor: COLOR_PALLETE[4],
+        borderStyle: "solid"
       }}
       elevation={0}
     >
@@ -48,17 +52,17 @@ export const ProductCard: FC<ProductCardProps> = ({
         ></CakeOutlined>
       )} */}
       <CardContent>
-        <Box
-          sx={{
-            height: "400px",
-          }}
-        >
-          <img
-            style={{
-              maxWidth: "100%",
-            }}
-            src={product.image?.url ?? ""}
-          ></img>
+
+        {/* <Typography variant="h5" sx={{
+      }}>{product.name}</Typography> */}
+
+
+        <Box sx={{
+          height: "400px"
+        }}>
+          <img style={{
+            maxWidth: "100%"
+          }} src={product.image?.url ?? ""}></img>
         </Box>
 
         <Typography

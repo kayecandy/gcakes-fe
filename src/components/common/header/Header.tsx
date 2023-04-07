@@ -3,8 +3,8 @@ import * as React from "react";
 
 import Link from "next/link";
 
-import { SX_MASKS } from "@/components/common/util/masks";
-import { Box, Container } from "@mui/material";
+import { SX_MASKS } from "../util/masks";
+import { Box, Container, Typography } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 
 import { COLOR_PALLETE } from "../ThemeProvider";
@@ -35,9 +35,27 @@ export default function Header() {
             justifyContent: "space-between",
           }}
         >
+
+          <Box sx={{
+            mr: 9
+          }}>
+
           <Link href="/">
-            <img src="/logo.png" alt="GCakes"></img>
+            <Typography sx={{
+              fontFamily: "Silverstar",
+              fontSize: "8rem",
+              color: "white",
+              textDecoration: "none",
+              lineHeight: "120%",
+                mb: 2,
+              color: COLOR_PALLETE[2]
+            }}
+            >
+              Gcakes
+            </Typography>
+            {/* <img src="/logo.png" alt="GCakes"></img> */}
           </Link>
+          </Box>
 
           <Menu></Menu>
         </Toolbar>

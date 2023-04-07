@@ -66,10 +66,14 @@ const FeaturedSection: FC = () => {
         </Box>
         <Box>
           <Typography
-            variant="h3"
+            // variant="h3"
             align="center"
-            fontWeight={700}
-            color={COLOR_PALLETE[1]}
+            color={COLOR_PALLETE[2]}
+            fontFamily="Silverstar"
+            fontSize="6rem"
+            sx={{
+              marginBottom: "-3rem"
+            }}
           >
             Featured cakes
           </Typography>

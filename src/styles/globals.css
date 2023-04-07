@@ -1,2 +1,17 @@
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: "Silverstar";
+  src: url("/fonts/silverstar/silverstar.otf");
+}
+
+
+body{
+  font-family: 'Oswald', sans-serif;
+}
+
+a{
+  color: inherit;
+  text-decoration: none;
+}
