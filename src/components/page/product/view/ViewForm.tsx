@@ -305,7 +305,6 @@ const ViewForm = ({ productId }: ViewProps) => {
 
             {/** Review Section **/}
             <ProductReviews
-                productId={viewedProduct.value.sys.id}
                 reviews={viewedReviews}
             ></ProductReviews>
 

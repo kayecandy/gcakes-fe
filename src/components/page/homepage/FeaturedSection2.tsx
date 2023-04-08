@@ -1,28 +1,20 @@
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FC, useEffect, useRef, useState } from "react";
 
-import {
-  ProductCard,
-  ProductCardError,
-  ProductCardSkeleton,
-} from "@/components/common/product/ProductCard";
-import { Product, ProductTypes } from "@/types/product";
+import { Product } from "@/types/product";
 import {
   Box,
   Button,
-  Container,
-  darken,
-  emphasize,
   Grid,
-  lighten,
   Typography,
+  emphasize,
+  lighten
 } from "@mui/material";
 
-import { COLOR_PALLETE } from "../../common/ThemeProvider";
-import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
-import IconCard from "./IconCard";
-import Image from "next/image";
 import { useProduct } from "@/components/common/hooks/useProduct";
+import Image from "next/image";
 import Link from "next/link";
+import { COLOR_PALLETE } from "../../common/ThemeProvider";
 
 const FeaturedSection: FC = () => {
   const [activeProduct, setActiveProduct] = useState<Product>();

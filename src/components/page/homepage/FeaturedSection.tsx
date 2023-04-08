@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useCallback, useEffect, useState } from "react";
 
 import {
@@ -6,11 +7,10 @@ import {
   ProductCardSkeleton,
 } from "@/components/common/product/ProductCard";
 import { ProductTypes } from "@/types/product";
-import { Box, Button, Container, darken, emphasize, Grid, lighten, Typography } from "@mui/material";
+import { Box, Button, Container, emphasize, Grid, Typography } from "@mui/material";
 
 import { COLOR_PALLETE } from "../../common/ThemeProvider";
 import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
-import IconCard from "./IconCard";
 
 const FeaturedSection: FC = () => {
   const [activeProductType, setActiveProductType] =
