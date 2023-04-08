@@ -4,7 +4,7 @@ const ContentSecurityPolicy = [
   "style-src 'unsafe-inline' 'self' http: https: http://localhost:3000",
   "script-src https: 'unsafe-inline' 'self' http: blob: http://localhost:3000/* 'unsafe-eval' web.webformscr.com",
   "connect-src http://localhost:3030 https: data: blob: 'self' ws: wss:",
-  "img-src https: data: 'self' web.webformscr.com",
+  "img-src https: data: 'self' web.webformscr.com images.ctfassets.net",
 ];
 
 const PermissionsPolicy = [
@@ -86,6 +86,9 @@ const nextConfig = {
   publicRuntimeConfig: {
     BACKEND_URL: process.env.BACKEND_URL,
     SENDPULSE_SUBSCRIPTION_FORM_ID: process.env.SENDPULSE_SUBSCRIPTION_FORM_ID
+  },
+  images: {
+    domains: ["images.ctfassets.net"]
   },
   // Default headers
   async headers() {

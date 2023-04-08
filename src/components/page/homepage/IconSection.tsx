@@ -9,6 +9,7 @@ import { Box, Grid } from "@mui/material";
 import { Container } from "@mui/system";
 
 import IconCard from "./IconCard";
+import { SX_MASKS } from "@/components/common/util/masks";
 
 const IconSection: FC = () => {
   return (
@@ -16,6 +17,8 @@ const IconSection: FC = () => {
       sx={{
         pt: 13,
         backgroundColor: "white",
+        ...SX_MASKS[1]("bottom"),
+        pb: 13
       }}
     >
       <Container

@@ -6,7 +6,7 @@ import {
   ProductCardSkeleton,
 } from "@/components/common/product/ProductCard";
 import { ProductTypes } from "@/types/product";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, darken, emphasize, Grid, lighten, Typography } from "@mui/material";
 
 import { COLOR_PALLETE } from "../../common/ThemeProvider";
 import { useFeaturedProducts } from "./hooks/useFeaturedProducts";
@@ -28,10 +28,12 @@ const FeaturedSection: FC = () => {
 
   const getSelectedProductType = useCallback(
     (key: ProductTypes) => {
-      if (activeProductType === key) {
-        return "contained";
-      }
-      return "outlined";
+      // if (activeProductType === key) {
+      //   return "contained";
+      // }
+      // return "outlined";
+
+      return "text"
     },
     [activeProductType]
   );
@@ -47,32 +49,32 @@ const FeaturedSection: FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "white",
+        // backgroundColor: lighten(COLOR_PALLETE[3], 0.8),
+        // backgroundImage: `url("/gray-concrete-wall.jpeg")`,
+        backgroundSize: "cover",
+        // backgroundBlendMode: "darken"
+        backgroundColor: "whitesmoke"
       }}
     >
       <Container
         sx={{
-          // pt: 13,
-          pb: 13,
+          pt: 15,
+          mb: 20
         }}
-        maxWidth="lg"
+        maxWidth="xl"
       >
-        <Box
-          sx={{
-            mb: 13,
-          }}
-          textAlign="center"
-        >
-        </Box>
         <Box>
           <Typography
             // variant="h3"
             align="center"
-            color={COLOR_PALLETE[2]}
+            color={COLOR_PALLETE[3]}
             fontFamily="Silverstar"
             fontSize="6rem"
             sx={{
-              marginBottom: "-3rem"
+              marginBottom: "-5rem",
+              // lineHeight: "110%"
+              // position: "relative",
+              // zIndex: 1
             }}
           >
             Featured cakes
@@ -81,14 +83,17 @@ const FeaturedSection: FC = () => {
           <Box
             sx={{
               mt: 2,
-              mb: 10,
+              mb: 5,
+              ".MuiButton-root": {
+                fontSize: "2rem",
+                color: emphasize(COLOR_PALLETE[3], 0.4)
+              }
             }}
             textAlign="center"
           >
             <Button
               sx={{
                 mx: 1,
-                // backgroundColor: COLOR_PALLETE[3],
               }}
               variant={getSelectedProductType("cakes")}
               disableElevation
@@ -96,7 +101,6 @@ const FeaturedSection: FC = () => {
               onClick={() => {
                 setActiveProductType("cakes");
               }}
-            // color={}
             >
               Cakes
             </Button>
@@ -104,7 +108,6 @@ const FeaturedSection: FC = () => {
             <Button
               sx={{
                 mx: 1,
-                // backgroundColor: COLOR_PALLETE[3],
               }}
               variant={getSelectedProductType("cupcakes")}
               disableElevation
@@ -118,7 +121,6 @@ const FeaturedSection: FC = () => {
             <Button
               sx={{
                 mx: 1,
-                // backgroundColor: COLOR_PALLETE[3],
               }}
               variant={getSelectedProductType("decorated_cookies")}
               disableElevation

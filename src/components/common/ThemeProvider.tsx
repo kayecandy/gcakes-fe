@@ -19,13 +19,19 @@ export const cursiveFont: TypographyStyleOptions = {
 };
 
 export const sansSerifFont: TypographyStyleOptions = {
-  fontFamily: "Oswald, sans-serif"
+  fontFamily: "Oswald, sans-serif",
+  fontWeight: 300,
+  letterSpacing: "1px"
+}
+
+export const sansSerifFont2: TypographyStyleOptions = {
+  fontFamily: "Open Sans, sans-serif"
 }
 
 export const headerFont: TypographyStyleOptions = {
   ...sansSerifFont,
-  fontWeight: "700 !important",
-  letterSpacing: "10px",
+  fontWeight: "500",
+  letterSpacing: "4px",
 }
 
 const theme = experimental_extendTheme({
@@ -58,6 +64,9 @@ const theme = experimental_extendTheme({
       ...sansSerifFont,
       letterSpacing: "2px",
     },
+    body1: sansSerifFont2,
+    body2: sansSerifFont2
+
   },
   components: {
     MuiInputBase: {

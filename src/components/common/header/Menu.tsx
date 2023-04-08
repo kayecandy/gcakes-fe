@@ -13,7 +13,6 @@ const Menu: FC = () => {
       <MenuItem href="/cupcakes">Cupcakes</MenuItem>
       <MenuItem href="/decorated-cookies">Decorated Cookies</MenuItem>
       <MenuItem href="/about">About</MenuItem>
-      <MenuItem href="/test_folder/testfile">Test</MenuItem>
       <AccountDialogMenuItem></AccountDialogMenuItem>
       <MenuItem sx={{
         mx: 0,

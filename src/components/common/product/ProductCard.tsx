@@ -10,10 +10,13 @@ import {
   CardContent,
   Skeleton,
   Typography,
+  emphasize,
+  lighten,
 } from '@mui/material';
 
-import { COLOR_PALLETE } from '../ThemeProvider';
+import { COLOR_PALLETE, cursiveFont } from '../ThemeProvider';
 import { Product } from '@/types/product';
+import Image from 'next/image';
 
 
 type ProductCardProps = {
@@ -28,35 +31,71 @@ export const ProductCard: FC<ProductCardProps> = ({
     <Card
       sx={{
         textAlign: "center",
-        mx: 2,
-        p: 4,
-        borderRadius: 5,
-        borderWidth: "2px",
-        borderColor: COLOR_PALLETE[4],
-        borderStyle: "solid"
+        // p: 2,
+        fontFamily: "Oswald, sans-serif",
+        backgroundColor: "transparent",
+          // backgroundColor: lighten(COLOR_PALLETE[3], 0.6),
+          // backgroundColor: "white",
+        borderRadius: "4rem",
+        // mx: 3,
+          pb: 2
+
+
       }}
       elevation={0}
     >
       <CardContent>
+        {/* <Image src={product.image?.url ?? ""} alt={product.name} width={400} height={400}></Image> */}
         <Box sx={{
-          height: "400px"
+          height: "450px",
+          backgroundImage: `url(${product.image?.url ?? ""})`,
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          // backgroundColor: lighten(COLOR_PALLETE[3], 0.4),
+          mb: 3,
+          borderRadius: "4rem"
         }}>
-          <img style={{
+          {/* <img style={{
             maxWidth: "100%"
-          }} src={product.image?.url ?? ""} alt={product.name}></img>
+          }} src={product.image?.url ?? ""} alt={product.name}></img> */}
         </Box>
 
         <Typography
           variant="h5"
           sx={{
-            fontFamily: "sans-serif",
+            letterSpacing: "2px",
+            fontWeight: "700 !important",
+            textTransform: "uppercase",
+            fontSize: 20,
+            color: emphasize(COLOR_PALLETE[3], 0.6),
+            // mb: 1
+            // fontFamily: cursiveFont.fontFamily
           }}
         >
-          {product.name}
+          {product.name.toLowerCase()}
         </Typography>
 
-        <Typography variant="body1" fontWeight={700} color={COLOR_PALLETE[1]}>
-          Php {product.price}
+        <Typography sx={{
+          textTransform: "capitalize",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          fontSize: 14,
+          mb: 2,
+          // fontStyle: 'italic',
+          color: emphasize(COLOR_PALLETE[3], 0.6)
+
+        }}>
+          {product.description.toLowerCase()}
+        </Typography>
+
+        <Typography sx={{
+          letterSpacing: "1px",
+          fontSize: 30,
+          color: emphasize(COLOR_PALLETE[3], 0.1)
+        }} variant="h5" fontWeight={700}>
+          &#8369;{product.price}
         </Typography>
       </CardContent>
     </Card>
