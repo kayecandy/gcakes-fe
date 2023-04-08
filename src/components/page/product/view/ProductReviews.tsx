@@ -23,7 +23,7 @@ export const ProductReviews: FC<ProductReviewsProp> = ({ reviews }) => {
 
   const [page, setPage] = useState<number>(1);
 
-  if (reviews.value === undefined) {
+  if (reviews.value === undefined || !reviews.value.length) {
     return <></>;
   }
 
