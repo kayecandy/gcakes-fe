@@ -48,7 +48,7 @@ const HeaderSection: FC = ({}) => {
             fontFamily: "Silverstar, cursive",
             fontSize: "5rem",
             lineHeight: "150%",
-            marginBottom: "-14%",
+            marginBottom: "-5rem",
             position: "relative",
             zIndex: 1
           }}>welcome to</Typography>
