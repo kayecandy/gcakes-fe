@@ -1,4 +1,4 @@
-import { IconButton, TextField, TextFieldProps } from "@mui/material";
+import { Box, IconButton, TextField, TextFieldProps } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
 import { FC, useState } from "react";
 
@@ -11,6 +11,11 @@ export const Quantity: FC<TextFieldProps> = ({
 
   return (
     <>
+      <Box sx={{
+        display: "inline-flex",
+        alignItems: "center"
+      }}>
+
       <IconButton onClick={() => {
         if (quantity - 1 > 0) {
           setQuantity(quantity - 1)
@@ -56,6 +61,7 @@ export const Quantity: FC<TextFieldProps> = ({
       <IconButton onClick={()=>setQuantity(quantity + 1)}>
         <Add></Add>
       </IconButton>
+      </Box>
     </>
   );
 };

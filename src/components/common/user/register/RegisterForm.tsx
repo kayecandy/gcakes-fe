@@ -108,8 +108,16 @@ const RegisterForm: FC<RegisterFormProps> = ({
         }}
       >
         <Typography
-          sx={{ fontWeight: "700" }}
-          variant="h2"
+          sx={{
+            fontWeight: "400",
+            fontFamily: "Silverstar",
+            letterSpacing: 0,
+            lineHeight: "100%",
+            // mb: -6,
+            position: "relative",
+            zIndex: 1,
+          }}
+          variant="h1"
           color={COLOR_PALLETE[2]}
         >
           Registration

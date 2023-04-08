@@ -114,12 +114,20 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
           WebkitMaskSize: "240%",
         }}
       >
-        <Typography
-          sx={{ fontWeight: "700" }}
-          variant="h2"
+         <Typography
+          sx={{
+            fontWeight: "400",
+            fontFamily: "Silverstar",
+            letterSpacing: 0,
+            lineHeight: "100%",
+            // mb: -6,
+            position: "relative",
+            zIndex: 1,
+          }}
+          variant="h1"
           color={COLOR_PALLETE[2]}
         >
-          Login!
+          login
         </Typography>
       </Box>
       <Container

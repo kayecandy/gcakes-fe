@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 
 import {
   ProductCard,
@@ -26,6 +26,7 @@ import Link from "next/link";
 
 const FeaturedSection: FC = () => {
   const [activeProduct, setActiveProduct] = useState<Product>();
+  const timeout = useRef<NodeJS.Timeout>();
 
   const featuredProducts = useProduct("cakes");
 
@@ -34,6 +35,26 @@ const FeaturedSection: FC = () => {
       setActiveProduct(featuredProducts.value[0]);
     }
   }, [featuredProducts, activeProduct]);
+
+  useEffect(() => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+
+    timeout.current = setTimeout(() => {
+      if (activeProduct && featuredProducts.value?.length) {
+        const i =
+          featuredProducts.value?.findIndex(
+            (p) => p.sys.id === activeProduct.sys.id
+          ) ?? -1;
+        const nextIndex = (i + 1) % featuredProducts.value.length;
+
+        if (i > -1) {
+          setActiveProduct(featuredProducts.value[nextIndex]!);
+        }
+      }
+    }, 2500);
+  }, [activeProduct]);
 
   if (!featuredProducts.value?.length || !activeProduct) {
     return <></>;
@@ -57,58 +78,73 @@ const FeaturedSection: FC = () => {
           margin: "0 auto",
         }}
         maxWidth="xl"
+        columnSpacing={9}
       >
         <Grid
           item
-          xs={5}
+          xs="auto"
           sx={{
-            // backgroundImage: `url(${activeProduct?.image?.url ?? ""})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            borderRadius: "3rem",
             my: 15,
-            backgroundColor: lighten(COLOR_PALLETE[3], 0.8),
-
-            backgroundImage: `url("/gray-concrete-wall.jpeg")`,
-            overflow: "hidden"
           }}
         >
           <Link href={`/product/view/${activeProduct.sys.id}`}>
-          
-          <Box
-            sx={{
-              height: "100%",
-              widt: "100%",
-              backgroundImage: `url(${activeProduct.image?.url ?? ""})`,
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              position: "relative",
-            }}
-          >
-            <Typography
+            <Box
               sx={{
-                p: 2,
-                background: COLOR_PALLETE[1],
-                position: "absolute",
-                top: "5%",
-                textTransform: "uppercase",
-                color: "white"
+                backgroundColor: lighten(COLOR_PALLETE[3], 0.8),
+
+                backgroundImage: `url("/gray-concrete-wall.jpeg")`,
+                overflow: "hidden",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "3rem",
               }}
-              variant="h5"
             >
-              {activeProduct.name}
-              </Typography>
-              
-              <Button variant="text" sx={{
-                position: "absolute",
-                bottom: "3%",
-                right: "3%",
-                color: emphasize(COLOR_PALLETE[0], 0.4)
-              }}>View Product</Button>
-          </Box>
+              <Box
+                sx={{
+                  height: "100%",
+                  width: "100%",
+                  position: "relative",
+                }}
+              >
+                <Image
+                  src={activeProduct.image?.url ?? ""}
+                  alt={activeProduct.name}
+                  width={550}
+                  height={550}
+                ></Image>
+                <Typography
+                  sx={{
+                    p: 2,
+                    background: COLOR_PALLETE[1],
+                    position: "absolute",
+                    top: "5%",
+                    textTransform: "uppercase",
+                    color: "white",
+                  }}
+                  variant="h5"
+                >
+                  {activeProduct.name}
+                </Typography>
+
+                <Typography
+                  variant="h5"
+                  sx={{
+                    position: "absolute",
+                    bottom: "3%",
+                    right: "3%",
+                    color: emphasize(COLOR_PALLETE[0], 0.4),
+                  }}
+                >
+                  &#8369;{activeProduct.price}
+                </Typography>
+              </Box>
+            </Box>
+            <Typography fontStyle={"italic"} textAlign={"center"}>
+              Click me!
+            </Typography>
           </Link>
         </Grid>
-        <Grid item xs={7} sx={{ px: 7, my: 15 }}>
+        <Grid item sx={{ px: 7, my: 15, flexGrow: 1 }}>
           <Typography
             // variant="h3"
             align="center"

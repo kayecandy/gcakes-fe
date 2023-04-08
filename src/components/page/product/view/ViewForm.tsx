@@ -1,36 +1,35 @@
+import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
+import { Quantity } from "@/components/common/quantity/Quantity";
+import { SX_MASKS } from "@/components/common/util/masks";
+import {
+  FavoriteBorder,
+  RateReview,
+  RateReviewOutlined,
+} from "@mui/icons-material";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   Box,
   Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Chip,
   CircularProgress,
   Container,
+  Dialog,
   Grid,
   IconButton,
   Modal,
-  Stack,
+  Pagination,
   Typography,
+  emphasize,
 } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { useEffect, useState } from "react";
-import { useViewedProduct } from "./hooks/useViewedProduct";
-import ProductReview from "./ProductReview";
-import { Product } from "@/types/product";
-import { ApiResponse } from "@/types/api-response";
-import { Review } from "@/types/review";
-import { useViewedReviews } from "./hooks/useViewedReviews";
-import { SX_MASKS } from "@/components/common/util/masks";
-import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
-import { Tags } from "./Tags";
-import { AddReviewForm, AddReviewFormProps } from "../reviews/AddReviewForm";
 import Image from "next/image";
-import { Quantity } from "@/components/common/quantity/Quantity";
-import { FavoriteBorder } from "@mui/icons-material";
+import { useState } from "react";
+import { AddReviewForm, AddReviewFormProps } from "../reviews/AddReviewForm";
+import ProductReview from "./ProductReview";
+import { Tags } from "./Tags";
+import { useViewedProduct } from "./hooks/useViewedProduct";
+import { useViewedReviews } from "./hooks/useViewedReviews";
+import { ProductReviews } from "./ProductReviews";
+import { useSession } from "@/components/common/hooks/useSession";
 
 const modalStyle = {
   position: "absolute",
@@ -52,6 +51,9 @@ const ViewForm = ({ productId }: ViewProps) => {
   const viewedProduct = useViewedProduct(productId);
   const [viewedReviews, setViewedReviews] = useViewedReviews(productId);
   const [open, setOpen] = useState(false);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+
+  const session = useSession();
 
   // When user clicks the product photo
   const handleOpen = () => {
@@ -64,7 +66,7 @@ const ViewForm = ({ productId }: ViewProps) => {
     setOpen(false);
   };
 
-  const handleReviewAdded: AddReviewFormProps["onReviewAdded"] = (review) => {
+    const handleReviewAdded: AddReviewFormProps["onReviewAdded"] = (review) => {
     setViewedReviews({
       loading: false,
       value: [review, ...(viewedReviews.value ?? [])],
@@ -74,10 +76,11 @@ const ViewForm = ({ productId }: ViewProps) => {
   return (
     <Box // outer background
       sx={{
-        ...SX_MASKS[1]("bottom"),
+        // ...SX_MASKS[1]("bottom"),
         position: "relative",
         overflow: "hidden",
-        backgroundColor: `${COLOR_PALLETE[0]}C0`,
+        backgroundColor: "white",
+        // backgroundColor: `${COLOR_PALLETE[0]}C0`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPositionX: "right",
@@ -85,8 +88,9 @@ const ViewForm = ({ productId }: ViewProps) => {
         //display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "5%",
-        mb: "5%",
+        pt: 8,
+        pb: 20,
+        // mb: "5%",
         //height: "120vh",
         zIndex: 0,
       }}
@@ -125,47 +129,56 @@ const ViewForm = ({ productId }: ViewProps) => {
             </Box>
           </Modal>
 
-
           <div // Contents | White Container
             style={{
               flexGrow: 1,
               // backgroundColor: `white`,
-              padding: "3vw",
-              borderRadius: "2rem",
-              borderWidth: "5px",
-              borderColor: COLOR_PALLETE[0],
-              borderStyle: "solid",
+              // padding: "3vw",
+              // borderRadius: "2rem",
+              // borderWidth: "5px",
+              // borderColor: COLOR_PALLETE[0],
+              // borderStyle: "solid",
             }}
           >
             <Container
               sx={{
                 display: "flex",
                 //backgroundColor: `gray`, //
-                maxHeight: 750,
               }}
-              maxWidth="xl"
+              maxWidth="lg"
             >
               <Grid
                 container
                 spacing={0}
                 sx={{
-                  maxWidth: "100%",
-                  //backgroundColor: 'orange', //
-                  overflowY: "auto",
-                  //maxHeight: 650,
-                  display: "flex",
-                  justifyContent: "center",
+                  flexWrap: "nowrap",
+                  alignItems: "center",
                 }}
                 columnSpacing={4}
               >
-                {/** Product Details Section **/}
-                <Grid item>
+                {/** Product Image Section **/}
+                <Grid item xs={5}>
                   <Box
                     sx={{
-                      // backgroundColor: "white",
+                      width: "100%",
+                      height: "100%",
+                      // backgroundImage: `url(${
+                      //   viewedProduct.value.image?.url ?? ""
+                      // })`,
+                      backgroundImage: "url(/white-concrete-wall.jpeg)",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundColor: "white",
+                      borderRadius: "2rem",
+                      textAlign: "center",
                     }}
                   >
                     <Image
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                      }}
                       src={viewedProduct.value.image?.url ?? ""}
                       alt={viewedProduct.value.name}
                       width={500}
@@ -174,8 +187,8 @@ const ViewForm = ({ productId }: ViewProps) => {
                   </Box>
                 </Grid>
 
-                {/** Review Section **/}
-                <Grid item xs={6}>
+                {/* Product Description Section */}
+                <Grid item sx={{ flexGrow: 1 }}>
                   <Box
                     sx={{
                       // background: "white",
@@ -183,30 +196,68 @@ const ViewForm = ({ productId }: ViewProps) => {
                     }}
                   >
                     <Typography
+                      sx={{
+                        fontFamily: "Silverstar",
+                        fontSize: "8rem",
+                        lineHeight: "100%",
+                        marginBottom: "-3.3rem",
+                        color: COLOR_PALLETE[3],
+                        position: "relative",
+                        zIndex: 1,
+                        textTransform:
+                          viewedProduct.value.productType ===
+                          "decorated_cookies"
+                            ? "lowercase"
+                            : "capitalize",
+                      }}
+                    >
+                      {viewedProduct.value.productType.replace("_", " ")}
+                    </Typography>
+                    <Typography
                       variant="h3"
                       sx={{
                         textTransform: "uppercase",
                         fontWeight: "500 !important",
+                        wordBreak: "break-all",
+                        mb: 1,
                       }}
                     >
                       {viewedProduct.value.name}
                     </Typography>
-                    <Typography variant="h6">
+                    <Tags product={viewedProduct.value}></Tags>
+
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        my: 3,
+                        color: emphasize(COLOR_PALLETE[3], 0.7),
+                      }}
+                      fontWeight={700}
+                    >
                       &#8369;{viewedProduct.value.price}
                     </Typography>
-                      <Typography variant="body1" sx={{
-                      mb: 5
-                    }}>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        mb: 6,
+                      }}
+                    >
                       {viewedProduct.value.description}
                     </Typography>
 
-                    <Grid container columnSpacing={4}>
-                        <Grid item>
-                          <Quantity></Quantity>
+                    <Grid
+                      sx={{
+                        mb: 3,
+                      }}
+                      container
+                      columnSpacing={4}
+                    >
+                      <Grid item>
+                        <Quantity></Quantity>
                       </Grid>
                       <Grid item>
                         <Button
-                          variant="contained"
+                          variant="outlined"
                           sx={{
                             py: 1.5,
                             px: 3,
@@ -214,59 +265,67 @@ const ViewForm = ({ productId }: ViewProps) => {
                           startIcon={<ShoppingCartIcon></ShoppingCartIcon>}
                         >
                           Add to cart
-                          </Button>
-                          
-                          
+                        </Button>
                       </Grid>
-                      </Grid>
-                      
-                      <Button sx={{
-                        mt: 4,
-                        mb: 5
-                      }} variant="text" startIcon={<FavoriteBorder></FavoriteBorder>}>
-                            Add to favorites
-                      </Button>
-                      
-            <Tags product={viewedProduct.value}></Tags>
+                    </Grid>
 
+                    <Button
+                      sx={{
+                        mt: 4,
+                        mb: 5,
+                        color: COLOR_PALLETE[2],
+                      }}
+                      variant="text"
+                      startIcon={<FavoriteBorder></FavoriteBorder>}
+                    >
+                      Add to favorites
+                    </Button>
+
+                    <Button
+                      sx={{
+                        mt: 4,
+                        mb: 5,
+                        ml: 3,
+                        color: COLOR_PALLETE[2],
+                      }}
+                      onClick={() => {
+                        if (session) {
+                          setReviewModalOpen(true);
+                        }
+                      }}
+                      variant="text"
+                      startIcon={<RateReviewOutlined></RateReviewOutlined>}
+                    >
+                      {session ? "Add a review" : "Login to add a review"}
+                    </Button>
                   </Box>
                 </Grid>
               </Grid>
             </Container>
 
-            <Container>
-              <Typography variant="h4" sx={{ mt: 2 }}>
-                Reviews
-              </Typography>
-              {/** Review Components **/}
-              <div
-                style={{
-                  maxWidth: "100%",
-                }}
-              >
-                <Stack>
-                  {viewedReviews.loading ? (
-                    <div style={{ position: "relative" }}>
-                      <CircularProgress />
-                      <Typography>Loading...</Typography>
-                    </div>
-                  ) : viewedReviews.value ? (
-                    <>
-                      {viewedReviews.value.map((review) => (
-                        <ProductReview key={review.sys.id} review={review} />
-                      ))}
-                    </>
-                  ) : (
-                    <>Errored...</>
-                  )}
-                </Stack>
-              </div>
+            {/** Review Section **/}
+            <ProductReviews
+                productId={viewedProduct.value.sys.id}
+                reviews={viewedReviews}
+            ></ProductReviews>
 
+            {/* Review Modal */}
+            <Dialog
+              open={reviewModalOpen}
+              onClose={() => setReviewModalOpen(false)}
+              PaperProps={{
+                sx: {
+                  background: "transparent",
+                  boxShadow: "none",
+                },
+              }}
+              scroll="body"
+            >
               <AddReviewForm
-                onReviewAdded={handleReviewAdded}
-                productId={productId}
+                  productId={viewedProduct.value.sys.id}
+                  onReviewAdded={handleReviewAdded}
               ></AddReviewForm>
-            </Container>
+            </Dialog>
           </div>
         </div>
       ) : (
