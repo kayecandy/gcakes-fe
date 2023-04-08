@@ -16,7 +16,9 @@ export const DecoratedCookiesSection: FC = () => {
   const decoratedCookies = useDecoratedCookies();
 
   return (
-    <Container maxWidth="lg">
+    <Container sx={{
+      maxWidth: "lg"
+    }}>
       {decoratedCookies.loading ? (
         <Grid container>
           <Grid item xs={4}>

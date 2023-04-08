@@ -7,8 +7,8 @@ import { FC } from "react";
 export const AboutHead: FC = () => {
     return (
         <Container
-            maxWidth="lg"
-            sx={{
+        sx={{
+                maxWidth: "lg",
                 mt: 5,
                 mb: 5,
             }}
@@ -38,8 +38,8 @@ export const AboutHead: FC = () => {
 export const AboutBody: FC = () => {
     return (
         <Container
-            maxWidth="lg"
-            sx={{
+        sx={{
+                maxWidth: "lg",
                 mt: 5,
                 mb: 5,
             }}
@@ -87,8 +87,8 @@ export const AboutBody: FC = () => {
 export const AboutFoot: FC = () => {
     return (
         <Container
-            maxWidth="lg"
-            sx={{
+        sx={{
+                maxWidth: "lg",
                 mt: 5,
                 mb: 5,
             }}

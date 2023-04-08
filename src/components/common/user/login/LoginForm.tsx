@@ -134,8 +134,8 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
         sx={{
           textAlign: "center",
           pb: 4,
+          maxWidth:"xs"
         }}
-        maxWidth="xs"
       >
         {error ? (
           <>

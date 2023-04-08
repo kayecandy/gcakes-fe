@@ -16,7 +16,8 @@ export default function Page({ Component, pageProps }: AppProps) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh",
+        minHeight: "-webkit-fill-available"
+        // minHeight: "100vh",
       }}
     >
       <CssBaseline />

@@ -101,8 +101,8 @@ export const AddReviewForm: FC<AddReviewFormProps> = ({
         borderColor: COLOR_PALLETE[4],
         borderStyle: "solid",
         overflow: "hidden",
+        maxWidth: "sm"
       }}
-      maxWidth="sm"
     >
       <Box
         sx={{

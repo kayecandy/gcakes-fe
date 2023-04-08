@@ -19,7 +19,9 @@ export const CakesSection: FC = () => {
   const cakes = useCakes();
 
   return (
-    <Container maxWidth="lg">
+    <Container sx={{
+      maxWidth: "lg"
+    }}>
       {/* <Typography variant="h1">This is cakes section</Typography> */}
 
       {/* Add cakes component here */}

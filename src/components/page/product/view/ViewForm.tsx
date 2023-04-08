@@ -144,8 +144,8 @@ const ViewForm = ({ productId }: ViewProps) => {
               sx={{
                 display: "flex",
                 //backgroundColor: `gray`, //
+                maxWidth: "lg"
               }}
-              maxWidth="lg"
             >
               <Grid
                 container

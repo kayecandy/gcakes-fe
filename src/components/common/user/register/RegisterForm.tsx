@@ -127,8 +127,8 @@ const RegisterForm: FC<RegisterFormProps> = ({
         sx={{
           textAlign: "center",
           pb: 5,
+          maxWidth:"sm"
         }}
-        maxWidth="sm"
       >
 
         <form className="registerForm" onSubmit={handleSubmit}>

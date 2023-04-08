@@ -13,7 +13,7 @@ export default withSessionPage(function ProfilePage() {
   }
 
   return (
-    <Container sx={{ mt: 10, mb: 15 }} maxWidth="md">
+    <Container sx={{ mt: 10, mb: 15, maxWidth: "md" }}>
       <Typography
         variant="h2"
         sx={{

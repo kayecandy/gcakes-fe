@@ -59,9 +59,9 @@ const FeaturedSection: FC = () => {
       <Container
         sx={{
           pt: 15,
-          mb: 20
+          mb: 20,
+          maxWidth:"xl"
         }}
-        maxWidth="xl"
       >
         <Box>
           <Typography

@@ -6,12 +6,12 @@ export const SX_MASKS: Array<(pos: SxMaskPositions) => SxProps> = [
   (position) => ({
     ...(position === "top"
       ? {
-          pt: "3vw",
-          mt: "-3vw",
+          pt: "4rem",
+          mt: "-4rem",
         }
       : {
-          pb: "3vw",
-          mb: "-3vw",
+          pb: "4rem",
+          mb: "-4rem",
         }),
     WebkitMaskImage: "url(/mask1.svg)",
     WebkitMaskPosition: position,
@@ -21,12 +21,12 @@ export const SX_MASKS: Array<(pos: SxMaskPositions) => SxProps> = [
   (position) => ({
     ...(position === "top"
       ? {
-          pt: "3vw",
-          mt: "-3vw",
+          pt: "3rem",
+          mt: "-3rem",
         }
       : {
-          pb: "3vw",
-          mb: "-3vw",
+          pb: "3rem",
+          mb: "-3rem",
         }),
     WebkitMaskImage: "url(/mask2.svg)",
     WebkitMaskPosition: position,

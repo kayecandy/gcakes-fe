@@ -15,8 +15,8 @@ export default function TestFilePage() {
   return (
     <>
       <Container
-        maxWidth="sm"
         sx={{
+          maxWidth: "sm",
           pt: 10,
           pb: 10,
         }}

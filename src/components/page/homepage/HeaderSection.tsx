@@ -22,6 +22,7 @@ const HeaderSection: FC = ({}) => {
         alignItems: "center",
         padding: 0,
         height: "80vh",
+        minHeight: "555px",
         zIndex: 1,
       }}
     >
@@ -40,8 +41,8 @@ const HeaderSection: FC = ({}) => {
           sx={{
             textAlign: "center",
             pb: 10,
+            maxWidth: "sm",
           }}
-          maxWidth="sm"
         >
           <Typography sx={{
             fontFamily: "Silverstar, cursive",

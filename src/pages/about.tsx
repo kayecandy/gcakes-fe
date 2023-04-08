@@ -16,8 +16,8 @@ export default function AboutPage() {
             }}
         >
             <Container // outer contents
-                maxWidth="md"
                 sx={{
+                    maxWidth: "md",
                     padding: 10,
                 }}
             >

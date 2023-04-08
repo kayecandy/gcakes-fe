@@ -38,8 +38,8 @@ export default function Footer() {
       <Container
         sx={{
           textAlign: "center",
+          maxWidth: "sm"
         }}
-        maxWidth="sm"
       >
         <Typography
           sx={{

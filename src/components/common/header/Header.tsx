@@ -25,8 +25,8 @@ export default function Header() {
       }}
     >
       <Container
-        maxWidth="lg"
         sx={{
+          maxWidth: "lg",
           pt: 3,
         }}
       >

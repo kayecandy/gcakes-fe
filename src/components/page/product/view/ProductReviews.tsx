@@ -32,6 +32,7 @@ export const ProductReviews: FC<ProductReviewsProp> = ({ reviews }) => {
       sx={{
         // maxHeight: 600,
         overflow: "hidden",
+        maxWidth: "lg"
       }}
     >
       <Typography variant="h4" sx={{ mt: 2 }}>

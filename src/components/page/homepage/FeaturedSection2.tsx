@@ -68,8 +68,8 @@ const FeaturedSection: FC = () => {
           // alignItems: "center",
           flexWrap: "nowrap",
           margin: "0 auto",
+          maxWidth:"xl"
         }}
-        maxWidth="xl"
         columnSpacing={9}
       >
         <Grid

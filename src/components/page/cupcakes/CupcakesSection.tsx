@@ -15,7 +15,9 @@ export const CupcakesSection: FC = () => {
   const cupcakes = useCupcakes();
 
   return (
-    <Container maxWidth="lg">
+    <Container sx={{
+      maxWidth: "lg"
+    }}>
       {cupcakes.loading ? (
         <Grid container>
           <Grid item xs={4}>
