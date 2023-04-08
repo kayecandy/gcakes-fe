@@ -38,6 +38,7 @@ export const AccountDialogMenuItem: FC<AccountDialogMenuItemProps> = ({
         }}
         href={session ? `/${session.currentUser.userid}/profile` : "#"}
         onClick={session ? undefined : handleOpen}
+        data-testid="menuAccount"
       >
         <Person sx={{
           color: session ? COLOR_PALLETE[3] : COLOR_PALLETE[2]

@@ -1,6 +1,4 @@
-import {
-  useSession,
-} from "@/components/common/hooks/useSession";
+import { useSession } from "@/components/common/hooks/useSession";
 import { SX_MASKS } from "@/components/common/util/masks";
 import { LOGIN_URL } from "@/components/common/util/urls";
 import { Session } from "@/types/session";
@@ -18,7 +16,10 @@ import { FC, useEffect, useState } from "react";
 import { COLOR_PALLETE } from "../../ThemeProvider";
 
 import { useRouter } from "next/router";
-import { deleteSessionCookie, setSessionCookie } from "../../util/session-cookie";
+import {
+  deleteSessionCookie,
+  setSessionCookie,
+} from "../../util/session-cookie";
 
 type LoginFormProps = {
   onRegisterClick?: () => void;
@@ -32,9 +33,8 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
   const [loading, setIsLoading] = useState(false);
 
   const session = useSession();
-	
-	const router = useRouter();
 
+  const router = useRouter();
 
   function handleLogin(e: any) {
     e.preventDefault();
@@ -57,25 +57,24 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
           throw await res.json();
         }
 
-				return res.json().then((result) => {
-					const _session: Session = {
-						accessToken: result.accessToken,
-						currentUser: result.user,
-						expiration: new Date(result.exp * 1000)
-					};
-          
+        return res.json().then((result) => {
+          const _session: Session = {
+            accessToken: result.accessToken,
+            currentUser: result.user,
+            expiration: new Date(result.exp * 1000),
+          };
+
           setSessionCookie({
             accessToken: _session.accessToken,
             userId: _session.currentUser.userid,
-            expires: _session.expiration
-          })
+            expires: _session.expiration,
+          });
 
           router.push(`/${_session.currentUser.userid}/profile`);
-
         });
       })
       .catch((error) => {
-				console.log("error occured ", error);
+        console.log("error occured ", error);
 
         deleteSessionCookie();
 
@@ -89,7 +88,6 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
         setIsLoading(false);
       });
   }
-	
 
   return (
     <div // Form Contents
@@ -114,7 +112,7 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
           WebkitMaskSize: "240%",
         }}
       >
-         <Typography
+        <Typography
           sx={{
             fontWeight: "400",
             fontFamily: "Silverstar",
@@ -134,7 +132,7 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
         sx={{
           textAlign: "center",
           pb: 4,
-          maxWidth:"xs"
+          maxWidth: "xs",
         }}
       >
         {error ? (
@@ -144,6 +142,7 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
                 my: 2,
               }}
               severity="error"
+              data-testid="alertErrorLogin"
             >
               {error}
             </Alert>
@@ -180,6 +179,9 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
                   setUserId(e.target.value);
                   setError(undefined);
                 }}
+                inputProps={{
+                  "data-testid": "inputUsername"
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -193,6 +195,9 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                   setError(undefined);
+                }}
+                inputProps={{
+                  "data-testid": "inputPassword"
                 }}
               />
             </Grid>
@@ -209,6 +214,7 @@ const LoginForm: FC<LoginFormProps> = ({ onRegisterClick }) => {
                     width: "100%",
                   }}
                   disabled={loading}
+                  data-testid="btnLogin"
                 >
                   Login
                 </Button>

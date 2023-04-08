@@ -79,7 +79,7 @@ const FeaturedSection: FC = () => {
             my: 15,
           }}
         >
-          <Link href={`/product/view/${activeProduct.sys.id}`}>
+          <Link data-testid="activeProductLink" href={`/product/view/${activeProduct.sys.id}`}>
             <Box
               sx={{
                 backgroundColor: lighten(COLOR_PALLETE[3], 0.8),
@@ -193,6 +193,7 @@ const FeaturedSection: FC = () => {
                     color: emphasize(COLOR_PALLETE[3], 0.4),
                   },
                 }}
+                data-testid={`productItem-${product.sys.id}`}
                 onClick={() => {
                   setActiveProduct(product);
                 }}
