@@ -15,11 +15,10 @@ import { Review } from "@/types/review";
 const REVIEW_PAGE_COUNT = 4;
 
 export type ProductReviewsProp = {
-  productId: string;
   reviews: ApiResponse<Review[]>;
 };
 
-export const ProductReviews: FC<ProductReviewsProp> = ({ productId, reviews }) => {
+export const ProductReviews: FC<ProductReviewsProp> = ({ reviews }) => {
   
 
   const [page, setPage] = useState<number>(1);
