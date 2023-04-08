@@ -43,6 +43,7 @@ const HeaderSection: FC = ({}) => {
             pb: 10,
             maxWidth: "sm",
           }}
+          maxWidth = "sm"
         >
           <Typography sx={{
             fontFamily: "Silverstar, cursive",

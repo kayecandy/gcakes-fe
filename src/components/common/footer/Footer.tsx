@@ -40,6 +40,7 @@ export default function Footer() {
           textAlign: "center",
           maxWidth: "sm"
         }}
+        maxWidth="sm"
       >
         <Typography
           sx={{
