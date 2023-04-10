@@ -205,7 +205,7 @@ const RegisterForm: FC<RegisterFormProps> = ({
                 value={values.email}
                 className={errors.email && touched.email ? "input-error" : ""}
               />
-              {errors.email && touched.email && <p style={{ fontSize: "50%", color: `red`, height: 0 }}>{ errors.email }</p>}
+              {errors.email && touched.email && <p data-testid = "emailErrorMessage" style={{ fontSize: "50%", color: `red`, height: 0 }}>{ errors.email }</p>}
             </Grid>
             <Grid item xs={6}>
               <TextField
