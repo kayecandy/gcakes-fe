@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 export default function ViewPage() {
     const router = useRouter();
     if (!router.isReady) {
-        return <></>
+        return <div data-testid="viewProductEmpty"></div>
     }
     return (
         <ViewForm productId={router.query.productId as string} />

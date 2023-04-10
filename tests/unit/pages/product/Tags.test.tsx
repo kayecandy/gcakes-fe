@@ -3,13 +3,19 @@
  */
 import { Tags } from "@/components/page/product/view/Tags";
 import { productMock } from "../../../mocks/product.mock";
-import { render, RenderResult, screen } from "@testing-library/react";
+import { fireEvent, render, RenderResult } from "@testing-library/react";
 import Chip, { ChipProps } from "@mui/material/Chip";
 
 
+jest.mock("@/components/common/ThemeProvider", () => {
+  return {
+    COLOR_PALLETE: ["#FFECEE", "#FFECEE", "#FFECEE", "#FFECEE", "#FFECEE"],
+  }
+});
+
 jest.mock('@mui/material/Chip', () => {
-  const ChipMock: typeof Chip = ({ className, id , label } : ChipProps) => {
-    return <div className={className} id={id} data-label={label}></div>
+  const ChipMock: typeof Chip = ({ className, id , label, onClick } : ChipProps) => {
+    return <div className={className} id={id} data-label={label} onClick={onClick} ></div>
   }
 
   return ChipMock
@@ -58,5 +64,11 @@ describe("Tags Page", () => {
       expect(idMock).toBeInTheDocument()
     }
   });
+
+  test("Click event", () => {
+    const tagEls = rendered.container.querySelectorAll(".tag");
+
+    fireEvent.click(tagEls[0])
+  })
 
 });

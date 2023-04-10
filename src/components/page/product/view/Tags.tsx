@@ -1,7 +1,7 @@
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { Product } from "@/types/product";
-import { LocalOffer, Tag } from "@mui/icons-material";
-import { Typography, Stack, Chip, lighten, darken } from "@mui/material";
+import { LocalOffer } from "@mui/icons-material";
+import { Stack, Chip, lighten, darken } from "@mui/material";
 import { FC } from "react";
 
 type TagsProps = {
@@ -16,13 +16,13 @@ export const Tags: FC<TagsProps> = ({ product }) => {
 
   return (
     <>
-      <Stack direction="row" spacing={1}>
+      <Stack data-testid="productStack" direction="row" spacing={1}>
         {/* <Chip
           label={String(product.productType).toUpperCase()}
           onClick={handleTagClick}
           color="primary"
         /> */}
-        {product.tags &&
+        {product.tags.length &&
           product.tags.map((tag) => (
             <Chip
               sx={{

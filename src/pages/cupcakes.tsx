@@ -1,5 +1,3 @@
-import LoremIpsum from "@/components/common/LoremIpsum";
-import { ProductGrid } from "@/components/common/product/ProductGrid";
 import { CupcakesSection } from "@/components/page/cupcakes/CupcakesSection";
 import { Container, Typography } from "@mui/material";
 
@@ -10,10 +8,8 @@ export default function CupcakesPage() {
         Cupcakes page!
       </Typography>
 
-      {/* <ProductGrid productType="cupcakes"></ProductGrid> */}
       <CupcakesSection />
 
-      <LoremIpsum></LoremIpsum>
       
     </Container>
   );

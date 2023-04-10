@@ -1,6 +1,7 @@
-import { ProductGrid } from '@/components/common/product/ProductGrid';
 import { DecoratedCookiesSection } from '@/components/page/decoratedCookies/DecoratedCookiesSection';
-import DecoratedCookiesPage from '@/pages/decoratedCookies';
+import DecoratedCookiesPage from '@/pages/decorated-cookies';
+
+
 import {
   render,
   screen,

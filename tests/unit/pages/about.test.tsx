@@ -5,6 +5,12 @@ import {
     screen,
 } from "@testing-library/react";
 
+jest.mock("@/components/common/ThemeProvider", () => {
+    return {
+      COLOR_PALLETE: ["#FFECEE", "#FFECEE", "#FFECEE", "#FFECEE", "#FFECEE"],
+    }
+  });
+
 jest.mock('@/components/page/about/AboutContent', () => {
     const AboutHeadMock: typeof AboutHead = () => {
         return <div data-testid="about-head"></div>
