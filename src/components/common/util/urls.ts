@@ -29,3 +29,5 @@ export const LOGIN_URL = `${BACKEND_URL}/users/login`;
 export const GET_USER_URL = (userId: string)=>`${BACKEND_URL}/users/${userId}/details`
 
 export const GET_PRODUCTS_URL = `${BACKEND_URL}/products/getProducts`;
+
+export const TOGGLE_FAVORITE_URL = (productId: string)=>`${BACKEND_URL}/products/${productId}/favorite`

@@ -3,6 +3,7 @@
 import {
   createContext,
   FC,
+  PropsWithChildren,
   useEffect,
   useRef,
   useState,
@@ -21,11 +22,13 @@ export const SessionContext = createContext<
   UseState<Session | undefined> | undefined
 >(undefined);
 
-export const SessionProvider: FC<object> = (props) => {
+export const SessionProvider: FC<PropsWithChildren> = ({children, ...props}) => {
   const sessionState = useState<Session | undefined>(undefined);
 
   const [session, setSession] = sessionState;
   const loaded = useRef(false);
+
+  const [sessionLoaded, setSessionLoaded] = useState(false);
 
   const router = useRouter();
 
@@ -90,7 +93,15 @@ export const SessionProvider: FC<object> = (props) => {
 
             loaded.current = false;
 
+          })
+        
+          .finally(() => {
+            setSessionLoaded(true);
           });
+        
+          
+      } else if (!userId || !accessToken) {
+        setSessionLoaded(true);
       }
     })();
   }, [router]);
@@ -99,6 +110,8 @@ export const SessionProvider: FC<object> = (props) => {
     <SessionContext.Provider
       value={sessionState}
       {...props}
-    ></SessionContext.Provider>
+    >
+      {sessionLoaded ? children : <></>}
+    </SessionContext.Provider>
   );
 };
