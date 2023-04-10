@@ -151,11 +151,11 @@ export const AddReviewForm: FC<AddReviewFormProps> = ({
           item
         >
           {showAlert === "error" ? (
-            <Alert sx={{ mb: 3 }} severity="error">
+            <Alert sx={{ mb: 3 }} severity="error" data-testid="alertErrorReview">
               Error in adding a review. Please check the fields and try again.
             </Alert>
           ) : showAlert === "success" ? (
-            <Alert sx={{mb:3}} severity="success">Review successfully added</Alert>
+            <Alert sx={{mb:3}} severity="success" data-testid="alertSuccessReview">Review successfully added</Alert>
           ) : (
             <></>
           )}
