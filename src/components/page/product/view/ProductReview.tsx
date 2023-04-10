@@ -22,9 +22,9 @@ const ProductReview: FC<ReviewProps> = ({ review }) => {
         sx={{
           px: 3,
           py: 3,
-                  my: 1,
-                  borderRadius: "1rem",
-          boxShadow: 0
+          my: 1,
+          borderRadius: "1rem",
+          boxShadow: 0,
         }}
       >
         <Grid
@@ -34,32 +34,31 @@ const ProductReview: FC<ReviewProps> = ({ review }) => {
             display: "flex",
             justifyItems: "right",
           }}
-                  columnSpacing={2.5}
+          columnSpacing={2.5}
         >
           <Grid item xs="auto">
             <AccountCircleIcon fontSize="large" />
           </Grid>
 
-                    <Grid item sx={{
-                    flexGrow: 1
-                }}>
-                    <Typography fontSize="smaller">{String('user/' + review.user?.userid)}</Typography>
-                    <Typography fontWeight="600">{review.title}</Typography>
-                    <Typography>
-                        {review.comment}
-                    </Typography>
-                </Grid>
-                <Grid item xs="auto">
-                    <Rating
-                        name="simple-controlled"
-                        value={review.rating} 
-                        readOnly
-                    />
-                </Grid>
-            </Grid>  
-            </Card>
-        </Box> 
-    );
-}
+          <Grid
+            item
+            sx={{
+              flexGrow: 1,
+            }}
+          >
+            <Typography data-testid="reviewUserId" fontSize="smaller">
+              {String("user/" + review.user?.userid)}
+            </Typography>
+            <Typography data-testid="reviewTitle" fontWeight="600">{review.title}</Typography>
+            <Typography data-testid="reviewComment">{review.comment}</Typography>
+          </Grid>
+          <Grid item xs="auto">
+            <Rating name="simple-controlled" data-testid="reviewRating" value={review.rating} readOnly />
+          </Grid>
+        </Grid>
+      </Card>
+    </Box>
+  );
+};
 
 export default ProductReview;
