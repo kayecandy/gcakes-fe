@@ -240,7 +240,7 @@ const RegisterForm: FC<RegisterFormProps> = ({
               >
                 Register!
               </Button>
-              {success ? <p style={{ fontSize: "75%", color: `green`, height: 0 }}>Registeration success!</p> : <p></p>}
+              {success ? <p style={{ fontSize: "75%", color: `green`, height: 0 }} data-testid="alertSuccessRegistration">Registration success!</p> : <p></p>}
               {fail ? <p style={{ fontSize: "75%", color: `red`, height: 0 }}>Server error occured!</p> : <p></p>}
             </Grid>
           </Grid>
