@@ -16,12 +16,7 @@ const Menu: FC = () => {
       <MenuItem href="/decorated-cookies">Decorated Cookies</MenuItem>
       <MenuItem href="/about">About</MenuItem>
       <AccountDialogMenuItem></AccountDialogMenuItem>
-      <Badge
-        badgeContent={sessionStorage.length ? "!" : null}
-        color="error"
-      >
-        <ShoppingCartDialogMenuItem></ShoppingCartDialogMenuItem>
-      </Badge>
+      <ShoppingCartDialogMenuItem></ShoppingCartDialogMenuItem>
     </Box>
   );
 };

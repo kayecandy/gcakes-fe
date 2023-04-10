@@ -27,3 +27,5 @@ export const REGISTER_URL = `${BACKEND_URL}/users/register/user`;
 export const LOGIN_URL = `${BACKEND_URL}/users/login`;
 
 export const GET_USER_URL = (userId: string)=>`${BACKEND_URL}/users/${userId}/details`
+
+export const GET_PRODUCTS_URL = `${BACKEND_URL}/products/getProducts`;

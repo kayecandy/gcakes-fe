@@ -1,11 +1,13 @@
 import { useSession } from "@/components/common/hooks/useSession";
-import { Backdrop, Box, Button, CircularProgress, Dialog } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, Dialog, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { COLOR_PALLETE } from "../ThemeProvider";
 import MenuItem from "./MenuItem";
 import { ShoppingCart } from "@mui/icons-material";
 import { SX_MASKS } from "../util/masks";
 import { ADD_ORDER_URL } from "../util/urls";
+import { useDisplayCart } from "./hooks/useDisplayCart";
+import { Product } from "@/types/product";
 
 function dateNow() {
   var timestamp = Date.now();
@@ -21,7 +23,42 @@ function dateNow() {
   return String(year+'-'+month+'-'+day+'T'+hours+':'+mins+':'+sec+'.'+milli+utc)
 }
 
-export const ShoppingCartDialogMenuItem: FC = ({}) => {
+/* Parses `items` and `numItems` of the session storage and returns a tuple containing:
+ *    - [items] <= array of productIds
+ *    - [numItems] <= array of quantities
+ */
+function parseCartStorage() {
+  if (typeof window !== 'undefined') {
+    const items = String(sessionStorage.getItem('items')).replace(/["]+/g,'')?.split('-');
+    const numItems = String(sessionStorage.getItem('numItems')).replace(/["]+/g, '')?.split('-');
+    return [items, numItems];
+  }
+  return [[], []];
+}
+
+function getProductsToDisplay(products: Product[] | undefined) {
+  const [items, numItems] = parseCartStorage();
+  let displayList: Product[] = [];
+  let displayNumList: number[] = [];
+  let i = 0;
+
+  products?.map((product) => {
+    if(items.includes(product.sys.id)) {
+      displayList.push(product);
+      displayNumList.push(Number(numItems[i]));
+      i++;
+    }
+  })
+
+  console.log('items to display: ', displayList);
+
+  return [displayList, displayNumList];
+}
+
+export const ShoppingCartDialogMenuItem: FC = ({ }) => {
+  const allItems = useDisplayCart();
+  let viewedCart = getProductsToDisplay(allItems.value);
+
   const [open, setOpen] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
 
@@ -29,7 +66,9 @@ export const ShoppingCartDialogMenuItem: FC = ({}) => {
   const handleClose = () => setOpen(false);
 
   const handleClear = () => {
-    sessionStorage.clear();
+    sessionStorage.removeItem('items'); 
+    sessionStorage.removeItem('numItems');
+    setOpen(false);
   }
 
   const session = useSession();
@@ -40,13 +79,18 @@ export const ShoppingCartDialogMenuItem: FC = ({}) => {
     }
   }, [session])
 
-  // Retrieve either sessionStorage contains
+  useEffect(() => {
+    const [items, numItems] = parseCartStorage();
+    console.log("Cart: ", items, numItems);
+    console.log("viewing: ", viewedCart);
+  }, [open])
+
+  // Retrieve sessionStorage contents
   const handleCheckout = () => {
     console.info('Checking out...');
     setIsCheckout(true);
 
-    let items = String(sessionStorage.getItem('items')).replace(/["]+/g,'')?.split('-');
-    let numItems = String(sessionStorage.getItem('numItems')).replace(/["]+/g,'')?.split('-');
+    const [items, numItems] = parseCartStorage();
 
     console.log("Items at Checkout: ", items, numItems);
 
@@ -142,13 +186,40 @@ export const ShoppingCartDialogMenuItem: FC = ({}) => {
               WebkitMaskSize: "240%",
             }}
           >
+            <Typography variant='h5' sx={{ mt:1, mb:1, }}>Shopping Cart</Typography>
+            <List
+              sx={{
+                bgcolor: 'white'
+              }}
+            >
+              {viewedCart.length ? (
+                viewedCart[0].map((item, num) => {
+                  console.log('item: ', item);
+                  return <ListItem sx={{ marginBottom: 1, bgcolor: 'gray' }}>
+                    <ListItemText>
+                      {item.name}
+                      &nbsp;
+                      {viewedCart[1][num]} x Php{item.price}
+                    </ListItemText>
+                  </ListItem>
+                })
+              ) : (
+                  <ListItem>
+                    <ListItemText>
+                      No Items to Display in Cart
+                    </ListItemText>
+                  </ListItem>
+              )}
+            </List>
             <Button
               onClick={handleCheckout}
               variant="contained"
               type="submit"
               size="large"
               sx={{
-                width: "100%",
+                width: "100%", 
+                mt: 1,
+                mb: 1,
               }}
             >
               Checkout
@@ -170,3 +241,4 @@ export const ShoppingCartDialogMenuItem: FC = ({}) => {
     </>
   );
 };
+

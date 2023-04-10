@@ -59,7 +59,6 @@ const ViewForm = ({ productId }: ViewProps) => {
 
   const session = useSession();
   const [quantity, setQuantity] = useState(1);
-  const [deliveryAddress, setDeliveryAddress] = useState(session?.currentUser.address)
 
   const [fail, setFail] = useState(false); //If true, error message pops up
   const [isCheckout, setisCheckout] = useState(false); //If true, disables the submit button
@@ -95,11 +94,6 @@ const ViewForm = ({ productId }: ViewProps) => {
     console.log("Current cart: ", items, numItems);
   }, []);
   
-  
-
-  // const addQuantity = () => { setQuantity(quantity + 1) }
-  // const removeQuantity = () => { quantity > 1 ? setQuantity(quantity - 1) : setQuantity(quantity) }
-
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
