@@ -1,4 +1,5 @@
 import { useSession } from "@/components/common/hooks/useSession";
+import { FavoriteProducts } from "@/components/common/product/FavoriteProducts";
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { LogoutButton } from "@/components/common/user/login/LogoutButton";
 import { withSessionPage } from "@/components/common/user/session/withSessionPage";
@@ -21,7 +22,10 @@ export default withSessionPage(function ProfilePage() {
           mb: 2
         }}
       >
-        Profile
+        Profile 
+        <LogoutButton sx={{
+          ml: 4
+        }} variant="contained"></LogoutButton>
       </Typography>
 
       <Box
@@ -91,8 +95,9 @@ export default withSessionPage(function ProfilePage() {
       )}
 
       <div>
-        <LogoutButton variant="contained"></LogoutButton>
       </div>
+
+      <FavoriteProducts></FavoriteProducts>
     </Container>
   );
 });

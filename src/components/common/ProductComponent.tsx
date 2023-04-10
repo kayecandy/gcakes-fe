@@ -19,7 +19,7 @@ export const ItemCard: FC<ItemCardProps> = ({ product }) => {
         <>
             <Grid item md={4} padding={2}>
                 <Box sx={{
-                    bgcolor: '#d8cdcd',
+                    // bgcolor: '#d8cdcd',
                 }}>
                     <Link href={`/product/view/${product.sys.id}`}>
                         <img className={style.itemImg} src={product.image?.url} alt={product.name} />
