@@ -36,13 +36,14 @@ function parseCartStorage() {
   return [[], []];
 }
 
-function getProductsToDisplay(products: Product[] | undefined) {
+function getProductsToDisplay(products: Product[] | undefined = []): [Product[], number[]] {
   const [items, numItems] = parseCartStorage();
-  let displayList: Product[] = [];
-  let displayNumList: number[] = [];
+  const displayList: Product[] = [];
+  const displayNumList: number[] = [];
   let i = 0;
 
-  products?.map((product) => {
+  products.map((product) => {
+    console.log
     if(items.includes(product.sys.id)) {
       displayList.push(product);
       displayNumList.push(Number(numItems[i]));
@@ -50,7 +51,6 @@ function getProductsToDisplay(products: Product[] | undefined) {
     }
   })
 
-  console.log('items to display: ', displayList);
 
   return [displayList, displayNumList];
 }
@@ -136,7 +136,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
           px: 0,
           borderRadius: 50,
         }}
-        href="javascript:void(0)"
+        href="#"
         onClick={handleOpen}
       >
         <ShoppingCart sx={{
@@ -195,7 +195,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
               {viewedCart.length ? (
                 viewedCart[0].map((item, num) => {
                   console.log('item: ', item);
-                  return <ListItem sx={{ marginBottom: 1, bgcolor: 'gray' }}>
+                  return <ListItem key={item.sys.id} sx={{ marginBottom: 1, bgcolor: 'gray' }}>
                     <ListItemText>
                       {item.name}
                       &nbsp;
