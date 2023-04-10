@@ -8,8 +8,8 @@ import { Box } from "@mui/system";
 export default withSessionPage(function ProfilePage() {
   const session = useSession();
 
-  if (!session?.currentUser) {
-    return <></>;
+  if (!session || !session.currentUser) {
+    return <div data-testid="profilePageEmpty"></div>;
   }
 
   return (
@@ -40,55 +40,34 @@ export default withSessionPage(function ProfilePage() {
           <Grid item xs={6}>
             <Box>
               <Typography fontWeight="700">First Name</Typography>
-              <Typography>{session.currentUser.firstName}</Typography>
+              <Typography data-testid="profileFirstName">{session.currentUser.firstName}</Typography>
             </Box>
             <Box>
               <Typography fontWeight="700">Birthdate</Typography>
-              <Typography>
+              <Typography data-testid="profileBirthday">
                 {session.currentUser.birthday?.toDateString()}
               </Typography>
             </Box>
             <Box>
               <Typography fontWeight="700">Username</Typography>
-              <Typography>{session?.currentUser.userid}</Typography>
+              <Typography data-testid="profileUserID">{session?.currentUser.userid}</Typography>
             </Box>
           </Grid>
           <Grid item xs={6}>
             <Box>
               <Typography fontWeight="700">Last Name</Typography>
-              <Typography>{session?.currentUser.lastName}</Typography>
+              <Typography data-testid="profileLastName">{session?.currentUser.lastName}</Typography>
             </Box>
             <Box>
               <Typography fontWeight="700">Email</Typography>
-              <Typography>{session?.currentUser.email}</Typography>
+              <Typography data-testid="profileEmail">{session?.currentUser.email}</Typography>
             </Box>
           </Grid>
         </Grid>
 
       </Box>
 
-      {!session && (
-        <>
-          <div
-            style={{
-              width: "400px",
-              marginBottom: "2rem",
-              marginTop: "2rem",
-            }}
-          >
-            <Skeleton width="100%"></Skeleton>
-            <Skeleton width="100%"></Skeleton>
-            <Skeleton width="100%"></Skeleton>
-            <Skeleton width="100%"></Skeleton>
-            <Skeleton width="100%"></Skeleton>
-            <Skeleton width="100%"></Skeleton>
-            <Skeleton width="100%"></Skeleton>
-            <Skeleton width="100%"></Skeleton>
-            <Skeleton width="100%"></Skeleton>
-            <Skeleton width="100%"></Skeleton>
-          </div>
-        </>
-      )}
+
 
       <div>
         <LogoutButton variant="contained"></LogoutButton>
