@@ -1,12 +1,10 @@
 import { COLOR_PALLETE } from "@/components/common/ThemeProvider";
 import { Quantity } from "@/components/common/quantity/Quantity";
-import { SX_MASKS } from "@/components/common/util/masks";
 import {
   FavoriteBorder,
-  RateReview,
   RateReviewOutlined,
 } from "@mui/icons-material";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+//import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   Box,
@@ -18,30 +16,36 @@ import {
   IconButton,
   Modal,
   Pagination,
+  Snackbar,
   Typography,
   emphasize,
 } from "@mui/material";
 import Image from "next/image";
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { AddReviewForm, AddReviewFormProps } from "../reviews/AddReviewForm";
-import ProductReview from "./ProductReview";
 import { Tags } from "./Tags";
 import { useViewedProduct } from "./hooks/useViewedProduct";
 import { useViewedReviews } from "./hooks/useViewedReviews";
 import { ProductReviews } from "./ProductReviews";
 import { useSession } from "@/components/common/hooks/useSession";
+import AddToCart from "./AddToCart";
 
-const modalStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  borderRadius: "2rem",
-  boxShadow: 20,
-  width: 1000,
-  height: 550,
-};
+/* This function takes 2 parameters: product and cart.
+ * It returns true if the product is in the cart, false otherwise.
+ * 
+ * Parameters:
+ *  product - product id
+ *  cart - sessionStorage of 'items'
+*/
+function isInCart(product: string, cart: any) {
+  // Parse cart to list
+  var items = String(sessionStorage.getItem('items')).replace(/["]+/g, '')?.split('-');
+
+  if (items.includes(product)) {
+    return true;
+  }
+  return false;
+}
 
 type ViewProps = {
   productId: string;
@@ -54,44 +58,81 @@ const ViewForm = ({ productId }: ViewProps) => {
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
 
   const session = useSession();
+  const [quantity, setQuantity] = useState(1);
 
-  // When user clicks the product photo
-  const handleOpen = () => {
-    console.info("Modal opened.");
-    setOpen(true);
-  };
+  const [fail, setFail] = useState(false); //If true, error message pops up
+  const [isCheckout, setisCheckout] = useState(false); //If true, disables the submit button
+  const [isAddCart, setisAddCart] = useState(isInCart(productId, sessionStorage.getItem('items'))); // If user pressed Add To Cart button
 
-  const handleClose = () => {
-    console.info("Modal closed.");
+  const [items, setItems] = useState(sessionStorage.getItem('items')); // sessionStorage for Add To Cart
+  const [numItems, setNumItems] = useState(sessionStorage.getItem('numItems')) // sessionStorage for Add To Cart
+
+  const handleAddCart = () => {
+    if (isAddCart) {
+      console.log("Already added this item to cart!");
+      return;
+    }
+    console.log("Adding to cart...");
+    setisAddCart(true);
+    
+    console.log("Adding to sessionStorage: ", productId, quantity);
+
+    if (items == null && numItems == null) {
+      sessionStorage.setItem('items', JSON.stringify(productId));
+      sessionStorage.setItem('numItems', JSON.stringify(String(quantity)));
+    } else {
+      let currItems = JSON.parse(String(items));
+      let currNumItems = JSON.parse(String(numItems));
+      sessionStorage.setItem('items', JSON.stringify(currItems + '-' + productId));
+      sessionStorage.setItem('numItems', JSON.stringify(currNumItems + '-' + String(quantity)));
+    }
+    
+    console.log("After adding to cart: ", sessionStorage.getItem('items'), sessionStorage.getItem('numItems'));
+  }
+
+  useEffect(() => {
+    console.log("Current cart: ", items, numItems);
+  }, []);
+  
+  const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
     setOpen(false);
-  };
+  }
 
-    const handleReviewAdded: AddReviewFormProps["onReviewAdded"] = (review) => {
+  const handleReviewAdded: AddReviewFormProps["onReviewAdded"] = (review) => {
     setViewedReviews({
       loading: false,
       value: [review, ...(viewedReviews.value ?? [])],
     });
   };
 
+  const cartAction = (
+    <Fragment>
+      <Button
+        size="small"
+        /*onClick={viewCart}*/
+      >
+        View Cart
+      </Button>
+    </Fragment>
+  )
+
   return (
     <Box // outer background
       sx={{
-        // ...SX_MASKS[1]("bottom"),
         position: "relative",
         overflow: "hidden",
         backgroundColor: "white",
-        // backgroundColor: `${COLOR_PALLETE[0]}C0`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPositionX: "right",
         backgroundPositionY: "90%",
-        //display: "flex",
         justifyContent: "center",
         alignItems: "center",
         pt: 8,
         pb: 20,
-        // mb: "5%",
-        //height: "120vh",
         zIndex: 0,
       }}
     >
@@ -102,48 +143,14 @@ const ViewForm = ({ productId }: ViewProps) => {
         </div>
       ) : viewedProduct.value ? (
         <div>
-          <Modal open={open} onClose={handleClose}>
-            <Box sx={modalStyle} zIndex={1500}>
-              <IconButton
-                onClick={handleClose}
-                sx={{
-                  display: "block",
-                  position: "relative",
-                  left: "95%",
-                  top: "1%",
-                }}
-              >
-                <CloseOutlinedIcon />
-              </IconButton>
-
-              <div
-                style={{
-                  position: "relative",
-                  top: "25%",
-                  left: "50%",
-                  transform: "translate(-5%, 0%)",
-                }}
-              >
-                <Typography variant="h5">Modal Text</Typography>
-              </div>
-            </Box>
-          </Modal>
-
           <div // Contents | White Container
             style={{
               flexGrow: 1,
-              // backgroundColor: `white`,
-              // padding: "3vw",
-              // borderRadius: "2rem",
-              // borderWidth: "5px",
-              // borderColor: COLOR_PALLETE[0],
-              // borderStyle: "solid",
             }}
           >
             <Container
               sx={{
                 display: "flex",
-                //backgroundColor: `gray`, //
                 maxWidth: "lg"
               }}
             >
@@ -253,7 +260,7 @@ const ViewForm = ({ productId }: ViewProps) => {
                       columnSpacing={4}
                     >
                       <Grid item>
-                        <Quantity></Quantity>
+                          <Quantity></Quantity>
                       </Grid>
                       <Grid item>
                         <Button
@@ -262,7 +269,9 @@ const ViewForm = ({ productId }: ViewProps) => {
                             py: 1.5,
                             px: 3,
                           }}
-                          startIcon={<ShoppingCartIcon></ShoppingCartIcon>}
+                            startIcon={<ShoppingCartIcon></ShoppingCartIcon>}
+                            onClick={handleAddCart}
+                            disabled={isAddCart || !session?.currentUser}
                         >
                           Add to cart
                         </Button>
@@ -331,6 +340,18 @@ const ViewForm = ({ productId }: ViewProps) => {
         // errored
         <div>Error...</div>
       )}
+
+      {/* Popups */}
+      <Snackbar
+        open={isAddCart}
+        autoHideDuration={10000}
+        onClose={handleClose}
+        message={"Item added to cart!"}
+        //action={cartAction}
+        sx={{
+          zIndex: 7000,
+        }}
+      />
     </Box>
   );
 };

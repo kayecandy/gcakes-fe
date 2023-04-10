@@ -24,7 +24,7 @@ export const LogoutButton: FC<ButtonProps> = ({
     router.push('/');
     setSession(undefined);
     deleteSessionCookie();
-    
+    sessionStorage.clear(); // Clearing contents of cart
   }
 
 

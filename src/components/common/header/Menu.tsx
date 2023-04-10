@@ -5,6 +5,8 @@ import { Box } from "@mui/system";
 
 import MenuItem from "./MenuItem";
 import { AccountDialogMenuItem } from "./AccountDialogMenuItem";
+import { ShoppingCartDialogMenuItem } from "./ShoppingCartMenuItem";
+import { Badge } from "@mui/material";
 
 const Menu: FC = () => {
   return (
@@ -14,13 +16,7 @@ const Menu: FC = () => {
       <MenuItem href="/decorated-cookies">Decorated Cookies</MenuItem>
       <MenuItem href="/about">About</MenuItem>
       <AccountDialogMenuItem></AccountDialogMenuItem>
-      <MenuItem sx={{
-        mx: 0,
-        px: 0,
-        borderRadius: 50
-      }} href="/#" variant="text">
-        <ShoppingCart fontSize="large"></ShoppingCart>
-      </MenuItem>
+      <ShoppingCartDialogMenuItem></ShoppingCartDialogMenuItem>
     </Box>
   );
 };

@@ -40,25 +40,26 @@ const ProductReview: FC<ReviewProps> = ({ review }) => {
             <AccountCircleIcon fontSize="large" />
           </Grid>
 
-          <Grid
-            item
-            sx={{
-              flexGrow: 1,
-            }}
-          >
-            <Typography fontSize="smaller">
-              {String("user/" + review.user?.userid)}
-            </Typography>
-            <Typography fontWeight="600">{review.title}</Typography>
-            <Typography>{review.comment}</Typography>
-          </Grid>
-          <Grid item xs="auto">
-            <Rating name="simple-controlled" value={review.rating} readOnly />
-          </Grid>
-        </Grid>
-      </Card>
-    </Box>
-  );
-};
+                    <Grid item sx={{
+                    flexGrow: 1
+                }}>
+                    <Typography fontSize="smaller">{String('user/' + review.user?.userid)}</Typography>
+                    <Typography fontWeight="600">{review.title}</Typography>
+                    <Typography>
+                        {review.comment}
+                    </Typography>
+                </Grid>
+                <Grid item xs="auto">
+                    <Rating
+                        name="simple-controlled"
+                        value={review.rating} 
+                        readOnly
+                    />
+                </Grid>
+            </Grid>  
+            </Card>
+        </Box> 
+    );
+}
 
 export default ProductReview;
