@@ -29,6 +29,7 @@ import { useViewedReviews } from "./hooks/useViewedReviews";
 import { ProductReviews } from "./ProductReviews";
 import { useSession } from "@/components/common/hooks/useSession";
 import AddToCart from "./AddToCart";
+import { FavoriteButton } from "./FavoriteButton";
 
 /* This function takes 2 parameters: product and cart.
  * It returns true if the product is in the cart, false otherwise.
@@ -276,19 +277,10 @@ const ViewForm = ({ productId }: ViewProps) => {
                           Add to cart
                         </Button>
                       </Grid>
-                    </Grid>
-
-                    <Button
-                      sx={{
-                        mt: 4,
-                        mb: 5,
-                        color: COLOR_PALLETE[2],
-                      }}
-                      variant="text"
-                      startIcon={<FavoriteBorder></FavoriteBorder>}
-                    >
-                      Add to favorites
-                    </Button>
+                      </Grid>
+                      
+                      {(() => { console.log(viewedProduct.value.isFavorite); return true })()}
+                    <FavoriteButton productId={productId} defaultIsFavorite={viewedProduct.value.isFavorite}></FavoriteButton>
 
                     <Button
                       sx={{

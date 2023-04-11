@@ -9,7 +9,8 @@ export type Product = {
     url: string;
   } | null;
   productType: ProductTypes;
-  tags: Tag[]
+  tags: Tag[];
+  isFavorite?: boolean;
 };
 
 export type ProductTypes = "cakes" | "cupcakes" | "decorated_cookies";

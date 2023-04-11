@@ -1,9 +1,11 @@
+import { useSession } from "@/components/common/hooks/useSession";
 import { GET_VIEW_PRODUCT_URL } from "@/components/common/util/urls";
 import { ApiResponse } from "@/types/api-response";
 import { Product } from "@/types/product";
 import { useState, useEffect } from "react";
 
 export const useViewedProduct = (productId: string) => {
+    const session = useSession();
     const [viewedProduct, setViewedProduct] = useState<ApiResponse<Product>>({ loading: true });
 
     useEffect(() => {
@@ -15,7 +17,13 @@ export const useViewedProduct = (productId: string) => {
         *  If successful, the object is stored in
         *  a list form in result[0].
         **/
-        fetch(GET_VIEW_PRODUCT_URL(String(productId)))
+        fetch(GET_VIEW_PRODUCT_URL(String(productId)), {
+            ...(session ? {
+                headers: {
+                    authorization: `Bearer ${session.accessToken}`
+                }
+            }: {})
+        })
         .then(async (res) => {
             if (!res.ok) {
                 throw await res.json();
@@ -37,7 +45,7 @@ export const useViewedProduct = (productId: string) => {
                 error,
             });
         });
-    }, [productId])
+    }, [productId, session])
 
     return viewedProduct;
 }
