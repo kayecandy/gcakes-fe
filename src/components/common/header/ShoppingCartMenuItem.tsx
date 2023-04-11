@@ -1,5 +1,19 @@
 import { useSession } from "@/components/common/hooks/useSession";
-import { Avatar, Backdrop, Box, Button, CircularProgress, Container, Dialog, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import {
+  Avatar,
+  Backdrop,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Dialog,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { FC, Fragment, useEffect, useState } from "react";
 import { COLOR_PALLETE } from "../ThemeProvider";
 import MenuItem from "./MenuItem";
@@ -13,14 +27,29 @@ function dateNow() {
   var timestamp = Date.now();
   var date = new Date(timestamp);
   var year = date.getFullYear();
-  var month = ('0' + (date.getMonth() + 1)).slice(-2);
-  var day = ('0' + date.getDate()).slice(-2);
-  var hours = ('0' + date.getHours()).slice(-2);
-  var mins = ('0' + date.getMinutes()).slice(-2);
-  var sec = ('0' + date.getSeconds()).slice(-2);
-  var milli = ('00' + date.getMilliseconds()).slice(-3);
-  var utc = '+08:00';
-  return String(year+'-'+month+'-'+day+'T'+hours+':'+mins+':'+sec+'.'+milli+utc)
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var day = ("0" + date.getDate()).slice(-2);
+  var hours = ("0" + date.getHours()).slice(-2);
+  var mins = ("0" + date.getMinutes()).slice(-2);
+  var sec = ("0" + date.getSeconds()).slice(-2);
+  var milli = ("00" + date.getMilliseconds()).slice(-3);
+  var utc = "+08:00";
+  return String(
+    year +
+      "-" +
+      month +
+      "-" +
+      day +
+      "T" +
+      hours +
+      ":" +
+      mins +
+      ":" +
+      sec +
+      "." +
+      milli +
+      utc
+  );
 }
 
 /* Parses `items` and `numItems` of the session storage and returns a tuple containing:
@@ -28,33 +57,43 @@ function dateNow() {
  *    - [numItems] <= array of quantities
  */
 function parseCartStorage() {
-  if (typeof window !== 'undefined') {
-    const items = String(sessionStorage.getItem('items')).replace(/["]+/g,'')?.split('-');
-    const numItems = String(sessionStorage.getItem('numItems')).replace(/["]+/g, '')?.split('-');
+  if (typeof window !== "undefined") {
+    const items = String(sessionStorage.getItem("items"))
+      .replace(/["]+/g, "")
+      ?.split("-");
+    const numItems = String(sessionStorage.getItem("numItems"))
+      .replace(/["]+/g, "")
+      ?.split("-");
     return [items, numItems];
   } else {
     return [[], []];
   }
 }
 
-function getProductsToDisplay(products: Product[] | undefined = []): [Product[], number[]] {
+function getProductsToDisplay(
+  products: Product[] | undefined = []
+): [Product[], number[]] {
   const [items, numItems] = parseCartStorage();
   const displayList: Product[] = [];
   const displayNumList: number[] = [];
   let i = 0;
-  
+
+  console.log('Products', products)
+
   items.map((item) => {
     if (products.map((product) => product.sys.id).includes(item)) {
-      displayList.push(products.find((product) => product.sys.id === item) as Product);
+      displayList.push(
+        products.find((product) => product.sys.id === item) as Product
+      );
       displayNumList.push(Number(numItems[i]));
       i++;
     }
-  })
+  });
 
   return [displayList, displayNumList];
 }
 
-export const ShoppingCartDialogMenuItem: FC = ({ }) => {
+export const ShoppingCartDialogMenuItem: FC = ({}) => {
   const allItems = useDisplayCart();
   let viewedCart = getProductsToDisplay(allItems.value);
 
@@ -66,10 +105,10 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
   const handleClose = () => setOpen(false);
 
   const handleClear = () => {
-    sessionStorage.removeItem('items'); 
-    sessionStorage.removeItem('numItems');
+    sessionStorage.removeItem("items");
+    sessionStorage.removeItem("numItems");
     setOpen(false);
-  }
+  };
 
   const session = useSession();
 
@@ -77,7 +116,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
     if (session) {
       setOpen(false);
     }
-  }, [session])
+  }, [session]);
 
   useEffect(() => {
     const [items, numItems] = parseCartStorage();
@@ -85,11 +124,11 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
     //console.log("Session storage", sessionStorage.getItem('items'), sessionStorage.getItem('numItems'));
     console.log("Cart: ", items, numItems);
     //console.log("viewing: ", viewedCart);
-  }, [open])
+  }, [open]);
 
   // Retrieve sessionStorage contents
   const handleCheckout = () => {
-    console.info('Checking out...');
+    console.info("Checking out...");
     setIsCheckout(true);
 
     const [items, numItems] = parseCartStorage();
@@ -110,26 +149,28 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
         quantity: numItems,
         deliveryAddress: session?.currentUser.address,
       }),
-    }).then(async (res) => {
-      if (!res.ok) {
-        throw await res.json();
-      }
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          throw await res.json();
+        }
 
-      return res.json().then((result) => {
-        console.log(result);
-        setSuccess(true);
+        return res.json().then((result) => {
+          console.log(result);
+          setSuccess(true);
+          setIsCheckout(false);
+
+          // drop items from cart
+          sessionStorage.removeItem("items");
+          sessionStorage.removeItem("numItems");
+          console.log("Cart cleared");
+        });
+      })
+      .catch((error) => {
+        console.log("errored", error);
         setIsCheckout(false);
-
-        // drop items from cart
-        sessionStorage.removeItem('items'); 
-        sessionStorage.removeItem('numItems');
-        console.log("Cart cleared");
       });
-    }).catch((error) => {
-      console.log("errored", error);
-      setIsCheckout(false);
-    });
-  }
+  };
 
   return (
     <>
@@ -142,11 +183,14 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
         href="#"
         onClick={handleOpen}
       >
-        <ShoppingCart sx={{
-          color: COLOR_PALLETE[2]
-        }} fontSize="large"></ShoppingCart>
+        <ShoppingCart
+          sx={{
+            color: COLOR_PALLETE[2],
+          }}
+          fontSize="large"
+        ></ShoppingCart>
       </MenuItem>
-      
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -154,11 +198,10 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
           sx: {
             background: "transparent",
             boxShadow: "none",
-            minWidth: 600
+            minWidth: 600,
           },
         }}
         scroll="body"
-        
       >
         {/* Contents */}
         <div
@@ -175,7 +218,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
         >
           {isCheckout && (
             <Backdrop
-              sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+              sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
               open={true}
             >
               <CircularProgress color="inherit" />
@@ -191,151 +234,151 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
               // width: 650,
               // maxWidth: "lg",
               // minWidth: "lg",
-              pb: 3
+              pb: 3,
             }}
             // minWidth="lg"
             // maxWidth="lg"
           >
-            <Box sx={{
-              ...SX_MASKS[0]("bottom"),
-              WebkitMaskSize: "240%",
-              backgroundColor: COLOR_PALLETE[4],
-              pt: 2,
-              pb: 7,
-              mb: 0
-
-            }}>
-
-              {/* <Typography variant='h3' sx={{ mt: 1, mb: 1, fontFamily }}>Shopping Cart</Typography> */}
-              
-              <Typography
-          sx={{
-            fontWeight: "400",
-            fontFamily: "Silverstar",
-            letterSpacing: 0,
-            lineHeight: "100%",
-            // mb: -6,
-            position: "relative",
-            zIndex: 1,
-          }}
-          variant="h1"
-          color={COLOR_PALLETE[2]}
-        >
-          shopping cart
-        </Typography>
-
-            </Box>
-            <Box>
-            <List
+            <Box
               sx={{
-                  bgcolor: 'white',
-                mb: 5
+                ...SX_MASKS[0]("bottom"),
+                WebkitMaskSize: "240%",
+                backgroundColor: COLOR_PALLETE[4],
+                pt: 2,
+                pb: 7,
+                mb: 0,
               }}
             >
-              {((viewedCart[0].length > 0) && !success) ? (
-                viewedCart[0].map((item, num) => {
-                  //console.log('item: ', item);
-                  return (
-                    <>
-                      <ListItem key={item.sys.id} sx={{ marginBottom: 1 }}>
-                        <ListItemAvatar>
-                          <img
-                            alt="product"
-                            src={item.image?.url}
-                            style={{
-                              width: 50,
-                              height: 50,
-                              objectFit: 'cover',
-                              borderRadius: 5,
-                            }}
+              {/* <Typography variant='h3' sx={{ mt: 1, mb: 1, fontFamily }}>Shopping Cart</Typography> */}
+
+              <Typography
+                sx={{
+                  fontWeight: "400",
+                  fontFamily: "Silverstar",
+                  letterSpacing: 0,
+                  lineHeight: "100%",
+                  // mb: -6,
+                  position: "relative",
+                  zIndex: 1,
+                }}
+                variant="h1"
+                color={COLOR_PALLETE[2]}
+              >
+                shopping cart
+              </Typography>
+            </Box>
+            <Box>
+              <List
+                sx={{
+                  bgcolor: "white",
+                  mb: 5,
+                }}
+              >
+                {viewedCart[0].length > 0 && !success ? (
+                  viewedCart[0].map((item, num) => {
+                    //console.log('item: ', item);
+                    return (
+                      <>
+                        <ListItem key={item.sys.id} sx={{ marginBottom: 1 }}>
+                          <ListItemAvatar>
+                            <img
+                              alt="product"
+                              src={item.image?.url}
+                              style={{
+                                width: 50,
+                                height: 50,
+                                objectFit: "cover",
+                                borderRadius: 5,
+                              }}
+                            />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={item.name}
+                            secondary={
+                              <Fragment>
+                                <Typography
+                                  variant="body1"
+                                  sx={{ fontWeight: 1 }}
+                                >
+                                  Quantity: {viewedCart[1][num]} | Price per
+                                  Item: Php {Number(item.price).toFixed(2)}
+                                </Typography>
+                                <Typography variant="body1">
+                                  Total Price: Php{" "}
+                                  {Number(
+                                    viewedCart[1][num] * item.price
+                                  ).toFixed(2)}
+                                </Typography>
+                              </Fragment>
+                            }
+                            sx={{ ml: 3 }}
                           />
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={item.name}
-                          secondary={
-                            <Fragment>
-                              <Typography
-                                variant='body1'
-                                sx={{fontWeight: 1}}
-                              >
-                                Quantity: {viewedCart[1][num]} | Price per Item: Php {Number(item.price).toFixed(2)}
-                              </Typography>
-                              <Typography
-                                variant='body1'
-                              >
-                                Total Price: Php {Number(viewedCart[1][num]*item.price).toFixed(2)}
-                              </Typography>
-                            </Fragment>
-                          }
-                          sx={{ml: 3}}
-                        />
-                      </ListItem>
-                      <Divider />
-                    </>
-                  );
-                })
-              ) : (!(viewedCart[0].length > 0) && !success) ? (
+                        </ListItem>
+                        <Divider />
+                      </>
+                    );
+                  })
+                ) : !(viewedCart[0].length > 0) && !success ? (
                   <ListItem>
-                    <ListItemText
-                      sx={{textAlign: 'center'}}
-                    >
+                    <ListItemText sx={{ textAlign: "center" }}>
                       No items to display in cart
                     </ListItemText>
                   </ListItem>
                 ) : success ? (
-                    <ListItem>
-                      <ListItemText
-                        sx={{textAlign: 'center'}}
-                      >
-                        Order placed successfully!
-                      </ListItemText>
-                    </ListItem>
-                  ) : (
-                      <>
-                      </>
-              )}
-            </List>
-
+                  <ListItem>
+                    <ListItemText sx={{ textAlign: "center" }}>
+                      Order placed successfully!
+                    </ListItemText>
+                  </ListItem>
+                ) : (
+                  <></>
+                )}
+              </List>
             </Box>
 
             {!success && (
-            <div
-              style={{
-                // display: 'inline-flex',
-              }}
-            >
-              <Button
-                onClick={handleCheckout}
-                variant="contained"
-                type="submit"
-                size="large"
-                sx={{
-                  m: 1,
-                  display: (!(viewedCart[0].length > 0) && !success) ? 'none' : 'inline-flex',
-                }}
+              <div
+                style={
+                  {
+                    // display: 'inline-flex',
+                  }
+                }
               >
-                Checkout
-              </Button>
-              <Button
-                onClick={handleClear}
-                variant="outlined"
-                type="submit"
-                size="large"
-                sx={{
-                  m: 1,
-                  display: (!(viewedCart[0].length > 0) && !success) ? 'none' : 'inline-flex',
-                }}
-              >
-                Clear Cart
-              </Button>
-            </div>
-
+                <Button
+                  onClick={handleCheckout}
+                  variant="contained"
+                  type="submit"
+                  size="large"
+                  sx={{
+                    m: 1,
+                    display:
+                      !(viewedCart[0].length > 0) && !success
+                        ? "none"
+                        : "inline-flex",
+                  }}
+                >
+                  Checkout
+                </Button>
+                <Button
+                  onClick={handleClear}
+                  variant="outlined"
+                  type="submit"
+                  size="large"
+                  sx={{
+                    m: 1,
+                    display:
+                      !(viewedCart[0].length > 0) && !success
+                        ? "none"
+                        : "inline-flex",
+                  }}
+                >
+                  Clear Cart
+                </Button>
+              </div>
             )}
-            
           </Box>
         </div>
       </Dialog>
     </>
   );
 };
-
