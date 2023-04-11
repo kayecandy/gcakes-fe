@@ -82,8 +82,9 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
   useEffect(() => {
     const [items, numItems] = parseCartStorage();
     setSuccess(false);
+    //console.log("Session storage", sessionStorage.getItem('items'), sessionStorage.getItem('numItems'));
     console.log("Cart: ", items, numItems);
-    console.log("viewing: ", viewedCart);
+    //console.log("viewing: ", viewedCart);
   }, [open])
 
   // Retrieve sessionStorage contents
@@ -122,7 +123,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
         // drop items from cart
         sessionStorage.removeItem('items'); 
         sessionStorage.removeItem('numItems');
-        console.log("Cart cleared: ", sessionStorage.getItem('items'), sessionStorage.getItem('numItems'));
+        console.log("Cart cleared");
       });
     }).catch((error) => {
       console.log("errored", error);
@@ -197,7 +198,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
             >
               {((viewedCart[0].length > 0) && !success) ? (
                 viewedCart[0].map((item, num) => {
-                  console.log('item: ', item);
+                  //console.log('item: ', item);
                   return (
                     <>
                       <ListItem key={item.sys.id} sx={{ marginBottom: 1 }}>
@@ -239,13 +240,17 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
                 })
               ) : (!(viewedCart[0].length > 0) && !success) ? (
                   <ListItem>
-                    <ListItemText>
+                    <ListItemText
+                      sx={{textAlign: 'center'}}
+                    >
                       No Items to Display in Cart
                     </ListItemText>
                   </ListItem>
                 ) : success ? (
                     <ListItem>
-                      <ListItemText>
+                      <ListItemText
+                        sx={{textAlign: 'center'}}
+                      >
                         Order Placed Successfully!
                       </ListItemText>
                     </ListItem>
@@ -267,6 +272,9 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
                 sx={{
                   m: 1,
                 }}
+                disabled={
+                  (!(viewedCart[0].length > 0) && !success)
+                }
               >
                 Checkout
               </Button>
