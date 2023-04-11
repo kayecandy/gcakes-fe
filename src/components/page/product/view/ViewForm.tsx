@@ -260,7 +260,9 @@ const ViewForm = ({ productId }: ViewProps) => {
                       columnSpacing={4}
                     >
                       <Grid item>
-                          <Quantity></Quantity>
+                          <Quantity
+                            value={quantity}
+                          />
                       </Grid>
                       <Grid item>
                         <Button

@@ -8,6 +8,12 @@ import { AccountDialogMenuItem } from "./AccountDialogMenuItem";
 import { ShoppingCartDialogMenuItem } from "./ShoppingCartMenuItem";
 import { Badge } from "@mui/material";
 
+function parseStorage() {
+  if (typeof window !== 'undefined')
+    return String(sessionStorage.getItem('items')).replace(/["]+/g, '')?.split('-').length;
+  return 0;
+}
+
 const Menu: FC = () => {
   return (
     <Box>
@@ -16,7 +22,15 @@ const Menu: FC = () => {
       <MenuItem href="/decorated-cookies">Decorated Cookies</MenuItem>
       <MenuItem href="/about">About</MenuItem>
       <AccountDialogMenuItem></AccountDialogMenuItem>
-      <ShoppingCartDialogMenuItem></ShoppingCartDialogMenuItem>
+      <Badge
+        badgeContent={
+          (typeof window !== "undefined" && sessionStorage.length) ? parseStorage()
+            : null
+        }
+        color="error"
+      >
+        <ShoppingCartDialogMenuItem></ShoppingCartDialogMenuItem>
+      </Badge>
     </Box>
   );
 };
