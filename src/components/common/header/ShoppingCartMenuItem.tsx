@@ -279,7 +279,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
                     <ListItemText
                       sx={{textAlign: 'center'}}
                     >
-                      No Items to Display in Cart
+                      No items to display in cart
                     </ListItemText>
                   </ListItem>
                 ) : success ? (
@@ -287,7 +287,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
                       <ListItemText
                         sx={{textAlign: 'center'}}
                       >
-                        Order Placed Successfully!
+                        Order placed successfully!
                       </ListItemText>
                     </ListItem>
                   ) : (
@@ -311,10 +311,8 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
                 size="large"
                 sx={{
                   m: 1,
+                  display: (!(viewedCart[0].length > 0) && !success) ? 'none' : 'inline-flex',
                 }}
-                disabled={
-                  (!(viewedCart[0].length > 0) && !success)
-                }
               >
                 Checkout
               </Button>
@@ -325,6 +323,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
                 size="large"
                 sx={{
                   m: 1,
+                  display: (!(viewedCart[0].length > 0) && !success) ? 'none' : 'inline-flex',
                 }}
               >
                 Clear Cart
