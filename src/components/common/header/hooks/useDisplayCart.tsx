@@ -4,14 +4,14 @@ import { Product } from "@/types/product";
 import { useState, useEffect } from "react";
 
 export const useDisplayCart = () => {
-    const [viewedProducts, setViewedProducts] = useState<ApiResponse<Product[]>>({ loading: true });
+    const [displayed, setDisplayed] = useState<ApiResponse<Product[]>>({ loading: true });
 
     useEffect(() => {
-        setViewedProducts({
+        setDisplayed({
             loading: true
         });
 
-        /* Gets the Product to be viewed using its CMS sys.id.
+        /* Gets the Product to be displayed using its CMS sys.id.
         *  If successful, the object is stored in
         *  a list form in result[0].
         **/
@@ -21,9 +21,9 @@ export const useDisplayCart = () => {
                 throw await res.json();
             }
             return res.json().then((result) => {
-                console.log(result);
+                //console.log(result);
     
-                setViewedProducts({
+                setDisplayed({
                     loading: false,
                     value: result,
                 });
@@ -32,12 +32,12 @@ export const useDisplayCart = () => {
         .catch((error) => {
             console.log("errored", error);
     
-            setViewedProducts({
+            setDisplayed({
                 loading: false,
                 error,
             });
         });
     }, [])
 
-    return viewedProducts;
+    return displayed;
 }
