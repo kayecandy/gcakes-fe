@@ -1,6 +1,6 @@
 import { useSession } from "@/components/common/hooks/useSession";
-import { Backdrop, Box, Button, CircularProgress, Dialog, List, ListItem, ListItemText, Typography } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { Avatar, Backdrop, Box, Button, CircularProgress, Container, Dialog, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import { FC, Fragment, useEffect, useState } from "react";
 import { COLOR_PALLETE } from "../ThemeProvider";
 import MenuItem from "./MenuItem";
 import { ShoppingCart } from "@mui/icons-material";
@@ -32,8 +32,9 @@ function parseCartStorage() {
     const items = String(sessionStorage.getItem('items')).replace(/["]+/g,'')?.split('-');
     const numItems = String(sessionStorage.getItem('numItems')).replace(/["]+/g, '')?.split('-');
     return [items, numItems];
+  } else {
+    return [[], []];
   }
-  return [[], []];
 }
 
 function getProductsToDisplay(products: Product[] | undefined = []): [Product[], number[]] {
@@ -43,14 +44,12 @@ function getProductsToDisplay(products: Product[] | undefined = []): [Product[],
   let i = 0;
 
   products.map((product) => {
-    console.log
     if(items.includes(product.sys.id)) {
       displayList.push(product);
       displayNumList.push(Number(numItems[i]));
       i++;
     }
   })
-
 
   return [displayList, displayNumList];
 }
@@ -61,6 +60,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
 
   const [open, setOpen] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -81,8 +81,10 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
 
   useEffect(() => {
     const [items, numItems] = parseCartStorage();
+    setSuccess(false);
+    //console.log("Session storage", sessionStorage.getItem('items'), sessionStorage.getItem('numItems'));
     console.log("Cart: ", items, numItems);
-    console.log("viewing: ", viewedCart);
+    //console.log("viewing: ", viewedCart);
   }, [open])
 
   // Retrieve sessionStorage contents
@@ -115,12 +117,13 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
 
       return res.json().then((result) => {
         console.log(result);
+        setSuccess(true);
         setIsCheckout(false);
 
         // drop items from cart
         sessionStorage.removeItem('items'); 
         sessionStorage.removeItem('numItems');
-        console.log("Cart cleared: ", sessionStorage.getItem('items'), sessionStorage.getItem('numItems'));
+        console.log("Cart cleared");
       });
     }).catch((error) => {
       console.log("errored", error);
@@ -151,9 +154,11 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
           sx: {
             background: "transparent",
             boxShadow: "none",
+            minWidth: 600
           },
         }}
         scroll="body"
+        
       >
         {/* Contents */}
         <div
@@ -165,6 +170,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
             borderColor: COLOR_PALLETE[4],
             borderStyle: "solid",
             overflow: "hidden",
+            // width: 650,
           }}
         >
           {isCheckout && (
@@ -177,64 +183,156 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
           )}
           <Box
             sx={{
-              backgroundColor: COLOR_PALLETE[4],
               textAlign: "center",
-              ...SX_MASKS[0]("bottom"),
-              pt: 2,
-              pb: 5,
+              // ...SX_MASKS[0]("bottom"),
+              // pt: 2,
+              // pb: 5,
               mb: "1px",
-              WebkitMaskSize: "240%",
+              // width: 650,
+              // maxWidth: "lg",
+              // minWidth: "lg",
+              pb: 3
             }}
+            // minWidth="lg"
+            // maxWidth="lg"
           >
-            <Typography variant='h5' sx={{ mt:1, mb:1, }}>Shopping Cart</Typography>
+            <Box sx={{
+              ...SX_MASKS[0]("bottom"),
+              WebkitMaskSize: "240%",
+              backgroundColor: COLOR_PALLETE[4],
+              pt: 2,
+              pb: 7,
+              mb: 0
+
+            }}>
+
+              {/* <Typography variant='h3' sx={{ mt: 1, mb: 1, fontFamily }}>Shopping Cart</Typography> */}
+              
+              <Typography
+          sx={{
+            fontWeight: "400",
+            fontFamily: "Silverstar",
+            letterSpacing: 0,
+            lineHeight: "100%",
+            // mb: -6,
+            position: "relative",
+            zIndex: 1,
+          }}
+          variant="h1"
+          color={COLOR_PALLETE[2]}
+        >
+          shopping cart
+        </Typography>
+
+            </Box>
+            <Box>
             <List
               sx={{
-                bgcolor: 'white'
+                  bgcolor: 'white',
+                mb: 5
               }}
             >
-              {viewedCart.length ? (
+              {((viewedCart[0].length > 0) && !success) ? (
                 viewedCart[0].map((item, num) => {
-                  console.log('item: ', item);
-                  return <ListItem key={item.sys.id} sx={{ marginBottom: 1, bgcolor: 'gray' }}>
-                    <ListItemText>
-                      {item.name}
-                      &nbsp;
-                      {viewedCart[1][num]} x Php{item.price}
-                    </ListItemText>
-                  </ListItem>
+                  //console.log('item: ', item);
+                  return (
+                    <>
+                      <ListItem key={item.sys.id} sx={{ marginBottom: 1 }}>
+                        <ListItemAvatar>
+                          <img
+                            alt="product"
+                            src={item.image?.url}
+                            style={{
+                              width: 50,
+                              height: 50,
+                              objectFit: 'cover',
+                              borderRadius: 5,
+                            }}
+                          />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={item.name}
+                          secondary={
+                            <Fragment>
+                              <Typography
+                                variant='body1'
+                                sx={{fontWeight: 1}}
+                              >
+                                Quantity: {viewedCart[1][num]} | Price per Item: Php {Number(item.price).toFixed(2)}
+                              </Typography>
+                              <Typography
+                                variant='body1'
+                              >
+                                Total Price: Php {Number(viewedCart[1][num]*item.price).toFixed(2)}
+                              </Typography>
+                            </Fragment>
+                          }
+                          sx={{ml: 3}}
+                        />
+                      </ListItem>
+                      <Divider />
+                    </>
+                  );
                 })
-              ) : (
+              ) : (!(viewedCart[0].length > 0) && !success) ? (
                   <ListItem>
-                    <ListItemText>
+                    <ListItemText
+                      sx={{textAlign: 'center'}}
+                    >
                       No Items to Display in Cart
                     </ListItemText>
                   </ListItem>
+                ) : success ? (
+                    <ListItem>
+                      <ListItemText
+                        sx={{textAlign: 'center'}}
+                      >
+                        Order Placed Successfully!
+                      </ListItemText>
+                    </ListItem>
+                  ) : (
+                      <>
+                      </>
               )}
             </List>
-            <Button
-              onClick={handleCheckout}
-              variant="contained"
-              type="submit"
-              size="large"
-              sx={{
-                width: "100%", 
-                mt: 1,
-                mb: 1,
+
+            </Box>
+
+            {!success && (
+            <div
+              style={{
+                // display: 'inline-flex',
               }}
             >
-              Checkout
-            </Button>
-            <Button
-              onClick={handleClear}
-              variant="outlined"
-              type="submit"
-              size="large"
-              sx={{
-                width: "100%",
-              }}
-            >
-              Clear Cart
-            </Button>
+              <Button
+                onClick={handleCheckout}
+                variant="contained"
+                type="submit"
+                size="large"
+                sx={{
+                  m: 1,
+                }}
+                disabled={
+                  (!(viewedCart[0].length > 0) && !success)
+                }
+              >
+                Checkout
+              </Button>
+              <Button
+                onClick={handleClear}
+                variant="outlined"
+                type="submit"
+                size="large"
+                sx={{
+                  m: 1,
+                }}
+              >
+                Clear Cart
+              </Button>
+            </div>
+
+            )}
+            
           </Box>
         </div>
       </Dialog>

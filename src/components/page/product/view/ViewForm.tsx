@@ -91,9 +91,9 @@ const ViewForm = ({ productId }: ViewProps) => {
     console.log("After adding to cart: ", sessionStorage.getItem('items'), sessionStorage.getItem('numItems'));
   }
 
-  useEffect(() => {
-    console.log("Current cart: ", items, numItems);
-  }, []);
+  // useEffect(() => {
+  //   console.log("Current cart: ", items, numItems);
+  // }, []);
   
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
@@ -261,7 +261,12 @@ const ViewForm = ({ productId }: ViewProps) => {
                       columnSpacing={4}
                     >
                       <Grid item>
-                          <Quantity></Quantity>
+                          <Quantity
+                            value={quantity}
+                            onChange={(e) => { 
+                              setQuantity(e);
+                            }}
+                          />
                       </Grid>
                       <Grid item>
                         <Button
