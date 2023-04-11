@@ -1,5 +1,5 @@
 import { useSession } from "@/components/common/hooks/useSession";
-import { Avatar, Backdrop, Box, Button, CircularProgress, Dialog, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import { Avatar, Backdrop, Box, Button, CircularProgress, Container, Dialog, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
 import { FC, Fragment, useEffect, useState } from "react";
 import { COLOR_PALLETE } from "../ThemeProvider";
 import MenuItem from "./MenuItem";
@@ -154,9 +154,11 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
           sx: {
             background: "transparent",
             boxShadow: "none",
+            minWidth: 600
           },
         }}
         scroll="body"
+        
       >
         {/* Contents */}
         <div
@@ -168,6 +170,7 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
             borderColor: COLOR_PALLETE[4],
             borderStyle: "solid",
             overflow: "hidden",
+            // width: 650,
           }}
         >
           {isCheckout && (
@@ -180,20 +183,53 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
           )}
           <Box
             sx={{
-              backgroundColor: COLOR_PALLETE[4],
               textAlign: "center",
-              ...SX_MASKS[0]("bottom"),
-              pt: 2,
-              pb: 5,
+              // ...SX_MASKS[0]("bottom"),
+              // pt: 2,
+              // pb: 5,
               mb: "1px",
-              WebkitMaskSize: "240%",
-              width: 650,
+              // width: 650,
+              // maxWidth: "lg",
+              // minWidth: "lg",
+              pb: 3
             }}
+            // minWidth="lg"
+            // maxWidth="lg"
           >
-            <Typography variant='h5' sx={{ mt:1, mb:1, }}>Shopping Cart</Typography>
+            <Box sx={{
+              ...SX_MASKS[0]("bottom"),
+              WebkitMaskSize: "240%",
+              backgroundColor: COLOR_PALLETE[4],
+              pt: 2,
+              pb: 7,
+              mb: 0
+
+            }}>
+
+              {/* <Typography variant='h3' sx={{ mt: 1, mb: 1, fontFamily }}>Shopping Cart</Typography> */}
+              
+              <Typography
+          sx={{
+            fontWeight: "400",
+            fontFamily: "Silverstar",
+            letterSpacing: 0,
+            lineHeight: "100%",
+            // mb: -6,
+            position: "relative",
+            zIndex: 1,
+          }}
+          variant="h1"
+          color={COLOR_PALLETE[2]}
+        >
+          shopping cart
+        </Typography>
+
+            </Box>
+            <Box>
             <List
               sx={{
-                bgcolor: 'white'
+                  bgcolor: 'white',
+                mb: 5
               }}
             >
               {((viewedCart[0].length > 0) && !success) ? (
@@ -259,9 +295,13 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
                       </>
               )}
             </List>
+
+            </Box>
+
+            {!success && (
             <div
               style={{
-                display: 'inline-flex',
+                // display: 'inline-flex',
               }}
             >
               <Button
@@ -290,6 +330,9 @@ export const ShoppingCartDialogMenuItem: FC = ({ }) => {
                 Clear Cart
               </Button>
             </div>
+
+            )}
+            
           </Box>
         </div>
       </Dialog>
