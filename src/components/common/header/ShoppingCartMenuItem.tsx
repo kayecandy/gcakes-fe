@@ -42,10 +42,10 @@ function getProductsToDisplay(products: Product[] | undefined = []): [Product[],
   const displayList: Product[] = [];
   const displayNumList: number[] = [];
   let i = 0;
-
-  products.map((product) => {
-    if(items.includes(product.sys.id)) {
-      displayList.push(product);
+  
+  items.map((item) => {
+    if (products.map((product) => product.sys.id).includes(item)) {
+      displayList.push(products.find((product) => product.sys.id === item) as Product);
       displayNumList.push(Number(numItems[i]));
       i++;
     }
